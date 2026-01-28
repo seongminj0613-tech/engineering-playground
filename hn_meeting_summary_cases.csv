@@ -1,0 +1,31 @@
+object_id,date,title,url,author,points,comments,pattern,core_ai_features,risks
+46705212,2026-01-21,Show HN: Claude Code prompts to turn voice AI exports to a personal knowledge,https://thoughts.jock.pl/p/limitless-pendant-eu-ban-what-i-did-with-voice-data,joozio,1,1,Agent,"structured_output,meeting_memory",cost_explosion
+46528245,2026-01-07,Show HN: Turn meetings into presentation-ready slides,https://notefy.pro/,jimmydin7,2,0,Generator(Prompt-only),-,-
+46493969,2026-01-05,"Show HN: Turn meetings into summaries, presentations, and an AI to ask questions",https://notefy.pro/,jimmydin7,1,0,Generator(Prompt-only),multilingual,-
+46353596,2025-12-22,Show HN: ClearNoteLab – Turn meeting notes into client-ready PDFs in 30 seconds,https://clearnotelab.com,jackbrauner,1,0,Generator(Prompt-only),-,-
+46297830,2025-12-17,Show HN: macOS local meeting recorder with Whisper transcription/ Claude notes,https://github.com/daredammy/kumbuka,damidare,1,0,Agent,speaker_labels,cost_explosion
+45929247,2025-11-14,Meeting notes between Forgejo and the Dutch government via Git commits,https://codeberg.org/forgejo/sustainability/pulls/137/files,speckx,107,45,Generator(Prompt-only),action_items,hallucination
+45348151,2025-09-23,"Show HN: Gamma API- Auto-generate decks, docs and carousels from raw input",https://developers.gamma.app/docs/getting-started#/docs/getting-started,sarafina-smith,15,3,Generator(Prompt-only),-,-
+44271745,2025-06-13,Open-source granola (meetings summary),https://www.omi.me/pages/download,kodjima33,28,6,Generator(Prompt-only),-,-
+44200037,2025-06-06,Show HN: Traction – Gong but for team meetings = Team Intelligence,https://get.traction.team/v/ai-meeting-assistant,jay_traction,2,0,Generator(Prompt-only),-,-
+44148559,2025-06-01,Show HN: Weaved – Voice recordings become tasks and notes via AI,https://weaved.app,danmc,4,0,Generator(Prompt-only),-,-
+43741559,2025-04-20,Show HN: Hyprnote – VSCode for Meeting Notes (Open-Source and Local-First),https://github.com/fastrepl/hyprnote,yujonglee,18,2,Generator(Prompt-only),-,-
+39006262,2024-01-15,An enhanced daily meeting summary across all your calendars,https://meetingdigest.com/,kentfonager,2,1,Generator(Prompt-only),-,-
+38446289,2023-11-28,Show HN: Mavis AI – Get meeting summary and transcript,https://getmavis.ai/,emaghakyan,1,0,Generator(Prompt-only),-,-
+35549526,2023-04-13,D Language Foundation March 2023 Monthly Meeting Summary,https://forum.dlang.org/post/aaebiekxqbwgxzkkynef@forum.dlang.org,mhh__,2,0,Generator(Prompt-only),-,-
+35547859,2023-04-12,Show HN: Bringing AI to Calendar Workflows,https://www.loopinhq.com/chrome-extension,parth0708,1,0,Generator(Prompt-only),action_items,-
+35439454,2023-04-04,Show HN: Inkdrop (Techstars ’22) AI assistant that reduces meeting time,https://chrome.google.com/webstore/detail/record-summarize-your-mee/mclnbcicnofcigjhhilajljjpgepbijp,AntDes,2,3,Generator(Prompt-only),-,-
+34732840,2023-02-09,Vowel launches AI-powered meeting summaries,https://www.vowel.com/features/automated-meeting-summaries,cberman,2,0,Generator(Prompt-only),-,-
+34613598,2023-02-01,Jamie: AI assistant that creates meeting summaries,https://www.meetjamie.ai/,benedikt_b,43,59,Generator(Prompt-only),"action_items,meeting_memory",hallucination
+34425801,2023-01-18,GPT3 Generated Meeting Summaries and Action Items,http://blog.karliner.net/posts/gpt3-meetings-tactiq/,mkarliner,4,0,Generator(Prompt-only),-,-
+34148357,2022-12-27,Automating Meeting Summaaries,https://news.ycombinator.com/item?id=34148357,samatdav,1,1,Generator(Prompt-only),-,-
+33719870,2022-11-23,C++ Annotated September–October 2022,https://blog.jetbrains.com/clion/2022/11/cpp-annotated-sep-oct-2022/#iso_cpp_committee_meeting_kona_summary,ibobev,1,0,Generator(Prompt-only),-,-
+31768298,2022-06-16,Meeting notes lose value the moment you finish writing them,https://blog.witful.com/fix-your-meeting-notes/,mayashaff,26,9,Generator(Prompt-only),-,hallucination
+27882350,2021-07-19,"Launch HN: Hypercontext (YC S21) – Meeting notes, actions, and OKRs in one app",https://news.ycombinator.com/item?id=27882350,brennanm,145,60,Agent,multilingual,-
+24547098,2020-09-21,How to take meeting notes,https://barehands.substack.com/p/how-to-take-meeting-notes,flreln,229,126,Generator(Prompt-only),"action_items,pii_redaction,meeting_memory","cost_explosion,privacy"
+17420399,2018-06-28,Montana VC investment per capita goes from $3 to $79 in 2 years,https://www.linkedin.com/pulse/nfc-2018-annual-meeting-summary-will-price/,mfitzerald,3,1,Generator(Prompt-only),-,cost_explosion
+13986828,2017-03-29,A Starter's Guide to Writing Effective Meeting Notes,https://meetnotes.co/writing-effective-meeting-notes/,Meetnotes,145,36,Generator(Prompt-only),"action_items,hallucination_guard,meeting_memory",hallucination
+13493311,2017-01-26,Open-RethinkDB meeting notes #4,https://docs.google.com/document/d/1cTqKt1_EBanGoVmYyahdLyDD8dhCa0SdD0CbjbP67f8,deepanchor,137,35,Generator(Prompt-only),-,-
+12983331,2016-11-18,Open-RethinkDB meeting notes,https://docs.google.com/document/d/13TsZoWckcvJpprpL1zU54xsf0Zqm8mfmLkCHZcZbTMI/edit,deepanchor,158,24,Generator(Prompt-only),structured_output,-
+8958059,2015-01-28,First C# 7 Design Meeting Notes,https://github.com/dotnet/roslyn/issues/98,Romoku,154,80,Generator(Prompt-only),meeting_memory,"latency,hallucination"
+327937,2008-10-09,A CEO's Sequoia Meeting Notes,http://blog.weatherby.net/2008/10/a-ceos-sequoia.html,lanceweatherby,123,61,Generator(Prompt-only),speaker_labels,hallucination

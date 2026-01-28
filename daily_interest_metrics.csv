@@ -1,0 +1,13 @@
+date,usecase,mentions,total_points,total_comments,interest_score,share_generator,share_hybrid_rag,share_agent,top_feature,top_risk
+2026-01-28,meeting_call_summary_post_upload,10,102,69,290,1.0,0.0,0.0,multilingual,hallucination
+2026-01-28,meeting_call_summary_post_upload,10,102,69,290,1.0,0.0,0.0,multilingual,hallucination
+2026-01-28,meeting_call_summary_post_upload,10,102,69,290,1.0,0.0,0.0,multilingual,hallucination
+2026-01-28,meeting_call_summary_post_upload,10,102,69,290,1.0,0.0,0.0,multilingual,hallucination
+2026-01-28,meeting_call_summary_post_upload,10,102,69,290,1.0,0.0,0.0,multilingual,hallucination
+2026-01-28,meeting_call_summary_post_upload,10,102,69,290,1.0,0.0,0.0,multilingual,hallucination
+2026-01-28,meeting_call_summary_post_upload,10,102,69,290,1.0,0.0,0.0,multilingual,hallucination
+2026-01-28,meeting_call_summary_post_upload,10,102,69,290,1.0,0.0,0.0,multilingual,hallucination
+2026-01-28,meeting_call_summary_post_upload,10,102,69,290,1.0,0.0,0.0,multilingual,hallucination
+2026-01-28,meeting_call_summary_post_upload,10,102,69,290,1.0,0.0,0.0,multilingual,hallucination
+2026-01-28,meeting_call_summary_post_upload,10,102,69,290,1.0,0.0,0.0,multilingual,hallucination
+2026-01-28,meeting_call_summary_post_upload,30,1359,553,2615,0.9,0.0,0.1,meeting_memory,hallucination
