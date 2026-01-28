@@ -6,3 +6,5 @@ reports/
 
 .env
 *.log
+*.csv
+reference_graph_*.png
