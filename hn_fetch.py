@@ -449,7 +449,41 @@ def generate_mvp_report(cases):
             print(f"- snapshots/reference_graph_{today}.png")
 
     print(f"📄 Report saved -> {report_path}")
-    
+
+def export_idea_payload():
+    """
+    기존 hn_fetch 파이프라인 결과를
+    IdeaCard 변환용 payload로 반환
+    """
+    results = run_pipeline()   # <- 네 기존 메인 함수명으로 교체
+
+    payload = []
+    for r in results:
+        payload.append({
+            "idea_id": r.get("id") or r.get("title"),
+            "title": r.get("title"),
+            "summary": r.get("one_liner") or r.get("title"),
+            "tags": r.get("keywords", []),
+
+            "feasibility": r.get("feasibility", 0.0),
+            "confidence": r.get("confidence", 0.0),
+
+            "drivers": flatten_reasons(r.get("decision_why", {})),
+            "mentions": r.get("mentions", 0),
+            "points": r.get("total_points", 0),
+            "comments": r.get("total_comments", 0),
+
+            "raw": r,  # 디버깅용
+        })
+    return payload
+
+
+def flatten_reasons(decision_why: dict) -> list[str]:
+    reasons = []
+    for k, v in decision_why.items():
+        for msg in v:
+            reasons.append(f"[{k}] {msg}")
+    return reasons
 
 if __name__ == "__main__":
     main()
