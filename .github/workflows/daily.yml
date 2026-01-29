@@ -3,7 +3,7 @@ name: Daily Idea Pipeline
 on:
   schedule:
     - cron: "0 0 * * *"   # 매일 00:00 UTC (KST 09:00)
-  workflow_dispatch: {}
+  workflow_dispatch:
 
 jobs:
   run:
@@ -13,49 +13,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Debug folders
+      - name: Debug workspace
         run: |
-          echo "=== workspace ==="
+          echo "=== WORKSPACE ==="
           pwd
-          ls -al
-
-          echo "=== tree (depth 3) ==="
-          find . -maxdepth 3 -type d
-
-          echo "=== requirements files ==="
-          find . -maxdepth 5 -name "requirements*.txt" -print  
-
-      - name: Sanity check
-        run: |
-          pwd
-          ls -al
-          python -c "import sys; print(sys.version)"
-
-      - name: Where am I
-        run: |
-          echo "PWD=$(pwd)"
           ls -al
 
       - name: Install dependencies
         run: |
           cd "$GITHUB_WORKSPACE"
-          echo "📦 Installing from $(pwd)/requirements.txt"
-          ls -al
+          echo "Installing from $(pwd)/requirements.txt"
+          ls -al requirements.txt
 
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt -v
- 
-      - name: Run pipeline 
-        run: |
-            cd "$GITHUB_WORKSPACE"
-            python -m app.main
 
+      - name: Run pipeline
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          python -m app.main
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
