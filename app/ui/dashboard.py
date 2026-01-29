@@ -1,129 +1,117 @@
 from __future__ import annotations
+
 import json
 from pathlib import Path
+from datetime import datetime
+
 import streamlit as st
 
-REPORT_PATH = Path("data/reports/idea_cards.json")
+ROOT = Path(__file__).resolve().parents[2]  # 프로젝트 루트
+REPORT_PATH = ROOT / "data" / "reports" / "idea_cards.json"
+SNAPSHOTS_DIR = ROOT / "snapshots"
 
 
-def load_cards():
+def load_cards() -> list[dict]:
     if not REPORT_PATH.exists():
-        st.error("idea_cards.json이 없습니다. 먼저 python -m app.main 실행하세요.")
-        st.stop()
+        return []
     return json.loads(REPORT_PATH.read_text(encoding="utf-8"))
 
 
-def fmt_pct(x):
+def score_of(card: dict) -> float:
+    s = card.get("scores") or {}
     try:
-        return f"{float(x) * 100:.0f}%"
+        return float(s.get("priority") or 0)
     except Exception:
-        return "-"
+        return 0.0
+
+
+def latest_graph_image() -> Path | None:
+    # 1) latest 우선
+    p = SNAPSHOTS_DIR / "reference_graph_latest.png"
+    if p.exists():
+        return p
+
+    # 2) 없으면 최신 png
+    if not SNAPSHOTS_DIR.exists():
+        return None
+    pngs = sorted(SNAPSHOTS_DIR.glob("*.png"), key=lambda x: x.stat().st_mtime, reverse=True)
+    return pngs[0] if pngs else None
 
 
 st.set_page_config(page_title="Idea Decision Dashboard", layout="wide")
-st.title("🚀 Startup Idea Decision Dashboard")
+
+st.title("Idea Decision Dashboard")
+st.caption(f"Last refreshed: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+st.write(f"Cards source: `{REPORT_PATH}`")
 
 cards = load_cards()
 
-# ---------------- Sidebar Filters ----------------
-st.sidebar.header("Filters")
-min_conf = st.sidebar.slider("Min Confidence", 0.0, 1.0, 0.2, 0.05)
-min_priority = st.sidebar.slider("Min Priority", 0.0, 1.0, 0.2, 0.05)
-
-filtered = [
-    c for c in cards
-    if c["scores"]["confidence"] >= min_conf
-    and c["scores"]["priority"] >= min_priority
-]
-
-# ---------------- Ranking Table ----------------
-st.subheader("📌 Ranking")
-
-rows = []
-for c in filtered:
-    s = c["scores"]
-    rows.append({
-        "Title": c["title"],
-        "Priority": fmt_pct(s["priority"]),
-        "Feasibility": fmt_pct(s["feasibility"]),
-        "Evidence": fmt_pct(s["evidence"]),
-        "Momentum": fmt_pct(s["momentum"]),
-        "Novelty": fmt_pct(s["novelty"]),
-        "Confidence": fmt_pct(s["confidence"]),
-        "Tags": ", ".join(c.get("tags", [])[:5]),
-        "RawPriority": fmt_pct(s.get("raw_priority", s["priority"])),
-    })
-
-st.dataframe(rows, use_container_width=True, height=420)
-st.caption(f"Total cards: {len(cards)} / Filtered: {len(filtered)}")
-
-st.divider()
-
-# ---------------- Detail View ----------------
-st.subheader("🔍 Detail")
-
-titles = [c["title"] for c in filtered]
-if not titles:
-    st.warning("필터 조건에 맞는 아이디어가 없습니다.")
+if not cards:
+    st.warning("`idea_cards.json`이 없어요. 먼저 파이프라인을 돌려줘: `python -m app.main`")
     st.stop()
 
-selected_title = st.selectbox("Select an idea", titles)
-selected = next(c for c in filtered if c["title"] == selected_title)
+# Sidebar
+st.sidebar.header("Filters")
+top_n = st.sidebar.slider("Top N", 5, 50, 10)
+min_priority = st.sidebar.slider("Min Priority", 0.0, 1.0, 0.0, 0.05)
+q = st.sidebar.text_input("Search (title/summary/features/risks)", "")
 
-col1, col2 = st.columns([1, 1])
+# Filter + sort
+filtered = []
+for c in cards:
+    pri = score_of(c)
+    if pri < min_priority:
+        continue
 
-with col1:
-    st.markdown(f"## {selected['title']}")
-    st.write(selected.get("summary", ""))
+    title = (c.get("title") or c.get("idea") or "").lower()
+    summary = (c.get("summary") or c.get("one_liner") or "").lower()
+    features = c.get("features") or []
+    risks = c.get("risks") or []
 
-    st.markdown("### Scores")
-    st.json(selected["scores"], expanded=False)
+    hay = " ".join([
+        title,
+        summary,
+        " ".join(features) if isinstance(features, list) else str(features),
+        " ".join(risks) if isinstance(risks, list) else str(risks),
+    ])
 
-    st.markdown("### Drivers")
-    st.write(selected.get("drivers", []))
+    if q.strip() and q.strip().lower() not in hay:
+        continue
 
-    st.markdown("### Risks")
-    st.write(selected.get("risks", []))
+    filtered.append(c)
 
-with col2:
-    st.markdown("### Evidence")
-    ev = selected.get("evidence", [])
-    if ev:
-        for e in ev[:10]:
-            st.markdown(
-                f"- **{e.get('title','')}** "
-                f"({e.get('source','')}) · rel={e.get('relevance',0):.2f}"
-            )
+filtered = sorted(filtered, key=score_of, reverse=True)
+top = filtered[:top_n]
+
+colA, colB = st.columns([2, 1])
+
+with colA:
+    st.subheader("Top Cards")
+    for i, c in enumerate(top, start=1):
+        title = c.get("title") or c.get("idea") or f"idea_{i}"
+        summary = c.get("summary") or c.get("one_liner") or ""
+        url = c.get("url") or ""
+        features = c.get("features") or []
+        risks = c.get("risks") or []
+
+        with st.expander(f"#{i} {title}  (priority={score_of(c):.2f})", expanded=(i <= 3)):
+            if summary:
+                st.write(summary)
+            if url:
+                st.write(url)
+            st.write("**features**:", ", ".join(features) if isinstance(features, list) else str(features))
+            st.write("**risks**:", ", ".join(risks) if isinstance(risks, list) else str(risks))
+            st.json(c)
+
+with colB:
+    st.subheader("Latest Graph")
+    img = latest_graph_image()
+    if img:
+        st.image(str(img), use_container_width=True)
+        st.caption(str(img.relative_to(ROOT)))
     else:
-        st.info("No evidence")
+        st.info("`snapshots/`에 그래프 이미지가 없어요.")
 
-    st.markdown("### Trend")
-    st.json(selected.get("trend", {}), expanded=False)
-
-st.divider()
-
-# ---------------- Compare ----------------
-st.subheader("🆚 Compare")
-
-compare_titles = st.multiselect(
-    "Pick ideas to compare",
-    titles,
-    default=titles[:2] if len(titles) >= 2 else []
-)
-
-if compare_titles:
-    comp = []
-    for c in filtered:
-        if c["title"] in compare_titles:
-            s = c["scores"]
-            comp.append({
-                "Title": c["title"],
-                "Priority": fmt_pct(s["priority"]),
-                "Feasibility": fmt_pct(s["feasibility"]),
-                "Evidence": fmt_pct(s["evidence"]),
-                "Momentum": fmt_pct(s["momentum"]),
-                "Novelty": fmt_pct(s["novelty"]),
-                "Confidence": fmt_pct(s["confidence"]),
-            })
-
-    st.dataframe(comp, use_container_width=True)
+    st.subheader("Quick Commands")
+    st.code("python -m app.main", language="bash")
+    st.code("streamlit run app/ui/dashboard.py", language="bash")
