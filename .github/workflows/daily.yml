@@ -31,13 +31,12 @@ jobs:
           find . -name "requirements.txt"
 
       - name: Install dependencies
+        working-directory: ${{ github.workspace }}
         run: |
-          cd "$GITHUB_WORKSPACE"
-          echo "Installing from $(pwd)/requirements.txt"
-          ls -al requirements.txt
-
+          echo "PWD=$(pwd)"
+          ls -al
           python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt -v
+          python -m pip install -r ./requirements.txt -v
 
       - name: Run pipeline
         run: |
