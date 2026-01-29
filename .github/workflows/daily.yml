@@ -20,29 +20,14 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        shell: bash
         run: |
-          set -euxo pipefail
-
-          echo "=== pwd ==="
+          echo "=== Current directory ==="
           pwd
-          echo "=== github.workspace ==="
-          echo "${GITHUB_WORKSPACE}"
-
-          echo "=== list (raw) ==="
+          echo "=== List files ==="
           ls -la
-          echo "=== list (show hidden chars) ==="
-          ls -lb
-
-          echo "=== stat requirements ==="
-          stat "${GITHUB_WORKSPACE}/requirements.txt" || true
-
-          echo "=== head requirements ==="
-          head -n 5 "${GITHUB_WORKSPACE}/requirements.txt" || true
 
           python -m pip install --upgrade pip
-          python -m pip install -r "${GITHUB_WORKSPACE}/requirements.txt"
-
+          pip install -r requirements.txt
       - name: Run pipeline
         working-directory: ${{ github.workspace }}
         run: |
