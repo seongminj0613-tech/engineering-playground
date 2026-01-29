@@ -44,16 +44,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          set -x
           cd "$GITHUB_WORKSPACE"
-
-          echo "===== requirements.txt raw dump ====="
-          sed -n 'l' requirements.txt || true
-          echo "====================================="
-        
-          echo "===== normal cat ====="
-          cat requirements.txt || true
-          echo "====================================="
+          echo "Workspace = $(pwd)"
+          ls -al
 
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt -v
