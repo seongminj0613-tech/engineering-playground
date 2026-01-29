@@ -44,19 +44,19 @@ jobs:
 
       - name: Install dependencies
         run: |
-          set -eux
+          set -x
           cd "$GITHUB_WORKSPACE"
 
-
-          echo "Workspace = $(pwd)"
-          ls -al
-
-          echo "===== requirements.txt content ====="
+          echo "===== requirements.txt raw dump ====="
+          sed -n 'l' requirements.txt || true
+          echo "====================================="
+        
+          echo "===== normal cat ====="
           cat requirements.txt || true
-          echo "===================================="
+          echo "====================================="
 
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          python -m pip install -r requirements.txt -v
  
       - name: Run pipeline 
         run: |
