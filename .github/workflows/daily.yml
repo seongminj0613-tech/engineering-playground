@@ -16,32 +16,19 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
       - name: Install dependencies
-        shell: bash
+        working-directory: ${{ github.workspace }}
         run: |
-         set -euxo pipefail
+          echo "=== pwd ==="
+          pwd
 
-         echo "=== pwd ==="
-         pwd
-         echo "=== github.workspace ==="
-         echo "${GITHUB_WORKSPACE}"
+          echo "=== list ==="
+          ls -la
 
-         echo "=== list (raw) ==="
-         ls -la
-         echo "=== list (show hidden chars) ==="
-         ls -lb
-
-         echo "=== stat requirements ==="
-         stat "${GITHUB_WORKSPACE}/requirements.txt" || true
-
-         echo "=== head requirements ==="
-         head -n 5 "${GITHUB_WORKSPACE}/requirements.txt" || true
-
-         python -m pip install --upgrade pip
-         python -m pip install -r "${GITHUB_WORKSPACE}/requirements.txt"
-
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
       - name: Run pipeline
+        working-directory: ${{ github.workspace }}
         run: |
           python -m app.main
 
