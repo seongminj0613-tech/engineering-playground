@@ -37,19 +37,23 @@ jobs:
           ls -al
           python -c "import sys; print(sys.version)"
 
+      - name: Where am I
+        run: |
+          echo "PWD=$(pwd)"
+          ls -al
+
       - name: Install dependencies
         run: |
+           cd "$GITHUB_WORKSPACE"
+           echo "Workspace = $(pwd)"
+           ls -al
            python -m pip install --upgrade pip
-           echo "Searching requirements.txt..."
-           find . -maxdepth 5 -name "requirements*.txt"
-           REQ=$(find . -maxdepth 5 -name "requirements*.txt" -print -quit)
-           echo "Using requirements: $REQ"
-           test -n "$REQ"
-           pip install -r "$REQ"
+           pip install -r requirements.txt
   
       - name: Run pipeline
         run: |
-          python -m app.main
+            cd "$GITHUB_WORKSPACE"
+            python -m app.main
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
