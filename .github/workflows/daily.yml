@@ -24,6 +24,12 @@ jobs:
           pwd
           ls -al
 
+      - name: Debug workspace files
+        run: |
+          echo "PWD=$(pwd)"
+          ls -al
+          find . -name "requirements.txt"
+
       - name: Install dependencies
         run: |
           cd "$GITHUB_WORKSPACE"
