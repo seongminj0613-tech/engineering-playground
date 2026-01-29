@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from urllib.parse import urlencode
 from collections import Counter, defaultdict
 from contextlib import redirect_stdout
+from app.presentation.plot_graph import main as plot_graph_main
 
 ALGOLIA_SEARCH = "https://hn.algolia.com/api/v1/search"
 ALGOLIA_ITEM = "https://hn.algolia.com/api/v1/items"  # items/<id> 로 댓글 트리 조회
@@ -424,8 +425,8 @@ def main():
     generate_mvp_report(cases)
     
 def run_plot():
-    import subprocess, sys
-    subprocess.run([sys.executable, "plot_graph.py"], check=True)
+    plot_graph_main()
+
     
 def run_pipeline():
     cases = collect_cases()     # ✅ 수집 + csv 저장

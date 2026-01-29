@@ -1,11 +1,17 @@
 from __future__ import annotations
 import json
 from pathlib import Path
-import importlib
+import csv
+from pathlib import Path
+
 
 from app.presentation.idea_card import IdeaCard, EvidenceItem
 from app.presentation.export import export_cards_json
 from app.scoring.priority import compute_raw_priority, apply_priority_normalization
+from app.ingestion.hn_fetch import main as hn_fetch_main
+from app.presentation.plot_daily import main as plot_daily_main
+from app.presentation.plot_graph import main as plot_graph_main
+
 REPORT_PATH = Path("data/reports/idea_cards.json")
 
 def ensure_list(x):
@@ -20,42 +26,32 @@ def ensure_list(x):
         return [x]
     return [str(x)]
 
-
 def load_hn_results():
     """
-    hn_fetch.py에서 '최종 결과 리스트'를 가져온다.
-    ✅ 여기만 네 코드에 맞게 함수명/변수명 바꾸면 끝.
+    hn_fetch.py를 실행하고,
+    결과가 return되지 않으면 저장된 CSV에서 다시 로드한다.
     """
-    hn = importlib.import_module("hn_fetch")
+    result = hn_fetch_main()
 
-    # 1) hn_fetch.py에 main()/run() 같은 엔트리가 있는 경우
-    #    아래 중 맞는 걸 하나만 남기고 나머지는 지워도 됨.
-    if hasattr(hn, "run_pipeline"):
-        return hn.run_pipeline()
-    if hasattr(hn, "main"):
-        return hn.main()
-    if hasattr(hn, "build_results"):
-        return hn.build_results()
+    # 1) hn_fetch_main이 리스트를 반환하면 그걸 사용
+    if result is not None:
+        return result
 
-    # 2) 함수가 아니라, 이미 만들어진 리스트 변수가 있는 경우
-    if hasattr(hn, "RESULTS"):
-        return hn.RESULTS
+    # 2) 반환이 None이면 CSV에서 로드
+    csv_path = Path("hn_meeting_summary_cases.csv")
+    if not csv_path.exists():
+        raise RuntimeError(
+            "hn_fetch_main()이 None을 반환했고 "
+            "hn_meeting_summary_cases.csv 파일도 없습니다."
+        )
 
-    raise RuntimeError(
-        "hn_fetch.py에서 결과를 가져올 수 없음. "
-        "run_pipeline/main/build_results/RESULTS 중 하나를 찾지 못했음."
-    )
+    with csv_path.open("r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        rows = list(reader)
 
-def ensure_list(x):
-    if x is None:
-        return []
-    if isinstance(x, list):
-        return x
-    if isinstance(x, str):
-        if "," in x:
-            return [s.strip() for s in x.split(",") if s.strip()]
-        return [x]
-    return [str(x)]
+    print(f"[main] loaded {len(rows)} rows from CSV fallback")
+    return rows
+
 
 
 
