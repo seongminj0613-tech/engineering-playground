@@ -19,13 +19,18 @@ jobs:
 
       - name: Install dependencies
         run: |
-         echo "=== Current directory ==="
-         pwd
-         echo "=== List files ==="
-         ls -la
+          echo "=== Current directory ==="
+          pwd
+          echo "=== List files ==="
+          ls -la
 
-         python -m pip install --upgrade pip
-         python -m pip install -r "$GITHUB_WORKSPACE/requirements.txt"
+          cd "$GITHUB_WORKSPACE"
+          echo "=== After cd to workspace ==="
+          pwd
+          ls -la
+
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
 
       - name: Run pipeline
         run: |
