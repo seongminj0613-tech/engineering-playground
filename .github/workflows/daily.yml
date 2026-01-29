@@ -44,9 +44,16 @@ jobs:
 
       - name: Install dependencies
         run: |
+          set -eux
           cd "$GITHUB_WORKSPACE"
+
+
           echo "Workspace = $(pwd)"
           ls -al
+
+          echo "===== requirements.txt content ====="
+          cat requirements.txt || true
+          echo "===================================="
 
           python -m pip install --upgrade pip
           pip install -r requirements.txt
