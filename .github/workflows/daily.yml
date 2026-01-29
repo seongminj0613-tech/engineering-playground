@@ -48,17 +48,10 @@ jobs:
           echo "Workspace = $(pwd)"
           ls -al
 
-          echo "Searching requirements.txt..."
-          find . -maxdepth 5 -name "requirements*.txt"
-
-          REQ=$(find . -maxdepth 5 -name "requirements*.txt" -print -quit)
-          echo "Using requirements: $REQ"
-          test -n "$REQ"
-
           python -m pip install --upgrade pip
-          pip install -r "$REQ"
-  
-      - name: Run pipeline
+          pip install -r requirements.txt
+ 
+      - name: Run pipeline 
         run: |
             cd "$GITHUB_WORKSPACE"
             python -m app.main
