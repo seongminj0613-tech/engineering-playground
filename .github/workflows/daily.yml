@@ -29,16 +29,20 @@ jobs:
           find . -maxdepth 3 -type d
 
           echo "=== requirements files ==="
-          find . -maxdepth 5 -name "requirements*.txt" -print   
+          find . -maxdepth 5 -name "requirements*.txt" -print  
+
+      - name: Sanity check
+        run: |
+          pwd
+          ls -al
+          python -c "import sys; print(sys.version)"
 
       - name: Install dependencies
-        working-directory: daily_idea_pipeline
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       
       - name: Run pipeline
-        working-directory: daily_idea_pipeline
         run: |
           python -m app.main
 
@@ -46,4 +50,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: daily-artifacts
-          path: daily_idea_pipeline/공학-놀이터/reports/**
+          path: 공학-놀이터/reports/**
