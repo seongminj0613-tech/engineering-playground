@@ -21,6 +21,13 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Debug folders
+        run: |
+          pwd
+          ls -al
+          ls -al repo
+          find repo -maxdepth 3 -type d    
+
       - name: Install dependencies
         working-directory: repo/daily_idea_pipeline
         run: |
