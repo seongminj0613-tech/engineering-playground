@@ -1,0 +1,844 @@
+[
+  {
+    "idea_id": "idea_22",
+    "title": "Launch HN: Hypercontext (YC S21) – Meeting notes, actions, and OKRs in one app",
+    "summary": "Launch HN: Hypercontext (YC S21) – Meeting notes, actions, and OKRs in one app",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 1.0,
+      "novelty": 0.5,
+      "priority": 0.9655172413793104,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 145.0,
+      "comments": 60.0
+    },
+    "created_at": "2026-02-02T13:56:54.716633"
+  },
+  {
+    "idea_id": "idea_23",
+    "title": "How to take meeting notes",
+    "summary": "How to take meeting notes",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 1.0,
+      "novelty": 0.5,
+      "priority": 0.9655172413793104,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "cost_explosion",
+      "privacy"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 229.0,
+      "comments": 126.0
+    },
+    "created_at": "2026-02-02T13:56:54.716650"
+  },
+  {
+    "idea_id": "idea_28",
+    "title": "First C# 7 Design Meeting Notes",
+    "summary": "First C# 7 Design Meeting Notes",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 1.0,
+      "novelty": 0.5,
+      "priority": 0.9655172413793104,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "latency",
+      "hallucination"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 154.0,
+      "comments": 80.0
+    },
+    "created_at": "2026-02-02T13:56:54.716737"
+  },
+  {
+    "idea_id": "idea_29",
+    "title": "A CEO's Sequoia Meeting Notes",
+    "summary": "A CEO's Sequoia Meeting Notes",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.92,
+      "novelty": 0.5,
+      "priority": 0.896551724137931,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "hallucination"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 123.0,
+      "comments": 61.0
+    },
+    "created_at": "2026-02-02T13:56:54.716753"
+  },
+  {
+    "idea_id": "idea_27",
+    "title": "Open-RethinkDB meeting notes",
+    "summary": "Open-RethinkDB meeting notes",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.91,
+      "novelty": 0.5,
+      "priority": 0.8620689655172413,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 158.0,
+      "comments": 24.0
+    },
+    "created_at": "2026-02-02T13:56:54.716716"
+  },
+  {
+    "idea_id": "idea_25",
+    "title": "A Starter's Guide to Writing Effective Meeting Notes",
+    "summary": "A Starter's Guide to Writing Effective Meeting Notes",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.905,
+      "novelty": 0.5,
+      "priority": 0.8275862068965517,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "hallucination"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 145.0,
+      "comments": 36.0
+    },
+    "created_at": "2026-02-02T13:56:54.716682"
+  },
+  {
+    "idea_id": "idea_26",
+    "title": "Open-RethinkDB meeting notes #4",
+    "summary": "Open-RethinkDB meeting notes #4",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.86,
+      "novelty": 0.5,
+      "priority": 0.7931034482758621,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 137.0,
+      "comments": 35.0
+    },
+    "created_at": "2026-02-02T13:56:54.716701"
+  },
+  {
+    "idea_id": "idea_5",
+    "title": "Meeting notes between Forgejo and the Dutch government via Git commits",
+    "summary": "Meeting notes between Forgejo and the Dutch government via Git commits",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.76,
+      "novelty": 0.5,
+      "priority": 0.7586206896551724,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "hallucination"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 107.0,
+      "comments": 45.0
+    },
+    "created_at": "2026-02-02T13:56:54.716345"
+  },
+  {
+    "idea_id": "idea_17",
+    "title": "Jamie: AI assistant that creates meeting summaries",
+    "summary": "Jamie: AI assistant that creates meeting summaries",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.51,
+      "novelty": 0.5,
+      "priority": 0.7241379310344828,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "hallucination"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 43.0,
+      "comments": 59.0
+    },
+    "created_at": "2026-02-02T13:56:54.716545"
+  },
+  {
+    "idea_id": "idea_21",
+    "title": "Meeting notes lose value the moment you finish writing them",
+    "summary": "Meeting notes lose value the moment you finish writing them",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.175,
+      "novelty": 0.5,
+      "priority": 0.6896551724137931,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "hallucination"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 26.0,
+      "comments": 9.0
+    },
+    "created_at": "2026-02-02T13:56:54.716614"
+  },
+  {
+    "idea_id": "idea_7",
+    "title": "Open-source granola (meetings summary)",
+    "summary": "Open-source granola (meetings summary)",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.17,
+      "novelty": 0.5,
+      "priority": 0.6551724137931034,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 28.0,
+      "comments": 6.0
+    },
+    "created_at": "2026-02-02T13:56:54.716381"
+  },
+  {
+    "idea_id": "idea_10",
+    "title": "Show HN: Hyprnote – VSCode for Meeting Notes (Open-Source and Local-First)",
+    "summary": "Show HN: Hyprnote – VSCode for Meeting Notes (Open-Source and Local-First)",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.1,
+      "novelty": 0.5,
+      "priority": 0.6206896551724138,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 18.0,
+      "comments": 2.0
+    },
+    "created_at": "2026-02-02T13:56:54.716432"
+  },
+  {
+    "idea_id": "idea_6",
+    "title": "Show HN: Gamma API- Auto-generate decks, docs and carousels from raw input",
+    "summary": "Show HN: Gamma API- Auto-generate decks, docs and carousels from raw input",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.09,
+      "novelty": 0.5,
+      "priority": 0.5862068965517241,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 15.0,
+      "comments": 3.0
+    },
+    "created_at": "2026-02-02T13:56:54.716365"
+  },
+  {
+    "idea_id": "idea_15",
+    "title": "Show HN: Inkdrop (Techstars ’22) AI assistant that reduces meeting time",
+    "summary": "Show HN: Inkdrop (Techstars ’22) AI assistant that reduces meeting time",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.025,
+      "novelty": 0.5,
+      "priority": 0.5517241379310345,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 2.0,
+      "comments": 3.0
+    },
+    "created_at": "2026-02-02T13:56:54.716514"
+  },
+  {
+    "idea_id": "idea_9",
+    "title": "Show HN: Weaved – Voice recordings become tasks and notes via AI",
+    "summary": "Show HN: Weaved – Voice recordings become tasks and notes via AI",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.02,
+      "novelty": 0.5,
+      "priority": 0.4827586206896552,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 4.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-02T13:56:54.716415"
+  },
+  {
+    "idea_id": "idea_18",
+    "title": "GPT3 Generated Meeting Summaries and Action Items",
+    "summary": "GPT3 Generated Meeting Summaries and Action Items",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.02,
+      "novelty": 0.5,
+      "priority": 0.4827586206896552,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 4.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-02T13:56:54.716566"
+  },
+  {
+    "idea_id": "idea_24",
+    "title": "Montana VC investment per capita goes from $3 to $79 in 2 years",
+    "summary": "Montana VC investment per capita goes from $3 to $79 in 2 years",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.02,
+      "novelty": 0.5,
+      "priority": 0.4827586206896552,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "cost_explosion"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 3.0,
+      "comments": 1.0
+    },
+    "created_at": "2026-02-02T13:56:54.716666"
+  },
+  {
+    "idea_id": "idea_11",
+    "title": "An enhanced daily meeting summary across all your calendars",
+    "summary": "An enhanced daily meeting summary across all your calendars",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.015,
+      "novelty": 0.5,
+      "priority": 0.41379310344827586,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 2.0,
+      "comments": 1.0
+    },
+    "created_at": "2026-02-02T13:56:54.716449"
+  },
+  {
+    "idea_id": "idea_0",
+    "title": "Show HN: Claude Code prompts to turn voice AI exports to a personal knowledge",
+    "summary": "Show HN: Claude Code prompts to turn voice AI exports to a personal knowledge",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.01,
+      "novelty": 0.5,
+      "priority": 0.29310344827586204,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "cost_explosion"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 1.0,
+      "comments": 1.0
+    },
+    "created_at": "2026-02-02T13:56:54.716203"
+  },
+  {
+    "idea_id": "idea_1",
+    "title": "Show HN: Turn meetings into presentation-ready slides",
+    "summary": "Show HN: Turn meetings into presentation-ready slides",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.01,
+      "novelty": 0.5,
+      "priority": 0.29310344827586204,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 2.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-02T13:56:54.716240"
+  },
+  {
+    "idea_id": "idea_8",
+    "title": "Show HN: Traction – Gong but for team meetings = Team Intelligence",
+    "summary": "Show HN: Traction – Gong but for team meetings = Team Intelligence",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.01,
+      "novelty": 0.5,
+      "priority": 0.29310344827586204,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 2.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-02T13:56:54.716399"
+  },
+  {
+    "idea_id": "idea_13",
+    "title": "D Language Foundation March 2023 Monthly Meeting Summary",
+    "summary": "D Language Foundation March 2023 Monthly Meeting Summary",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.01,
+      "novelty": 0.5,
+      "priority": 0.29310344827586204,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 2.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-02T13:56:54.716480"
+  },
+  {
+    "idea_id": "idea_16",
+    "title": "Vowel launches AI-powered meeting summaries",
+    "summary": "Vowel launches AI-powered meeting summaries",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.01,
+      "novelty": 0.5,
+      "priority": 0.29310344827586204,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 2.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-02T13:56:54.716530"
+  },
+  {
+    "idea_id": "idea_19",
+    "title": "Automating Meeting Summaaries",
+    "summary": "Automating Meeting Summaaries",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.01,
+      "novelty": 0.5,
+      "priority": 0.29310344827586204,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 1.0,
+      "comments": 1.0
+    },
+    "created_at": "2026-02-02T13:56:54.716584"
+  },
+  {
+    "idea_id": "idea_2",
+    "title": "Show HN: Turn meetings into summaries, presentations, and an AI to ask questions",
+    "summary": "Show HN: Turn meetings into summaries, presentations, and an AI to ask questions",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.005,
+      "novelty": 0.5,
+      "priority": 0.08620689655172414,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 1.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-02T13:56:54.716267"
+  },
+  {
+    "idea_id": "idea_3",
+    "title": "Show HN: ClearNoteLab – Turn meeting notes into client-ready PDFs in 30 seconds",
+    "summary": "Show HN: ClearNoteLab – Turn meeting notes into client-ready PDFs in 30 seconds",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.005,
+      "novelty": 0.5,
+      "priority": 0.08620689655172414,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 1.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-02T13:56:54.716287"
+  },
+  {
+    "idea_id": "idea_4",
+    "title": "Show HN: macOS local meeting recorder with Whisper transcription/ Claude notes",
+    "summary": "Show HN: macOS local meeting recorder with Whisper transcription/ Claude notes",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.005,
+      "novelty": 0.5,
+      "priority": 0.08620689655172414,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "cost_explosion"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 1.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-02T13:56:54.716326"
+  },
+  {
+    "idea_id": "idea_12",
+    "title": "Show HN: Mavis AI – Get meeting summary and transcript",
+    "summary": "Show HN: Mavis AI – Get meeting summary and transcript",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.005,
+      "novelty": 0.5,
+      "priority": 0.08620689655172414,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 1.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-02T13:56:54.716463"
+  },
+  {
+    "idea_id": "idea_14",
+    "title": "Show HN: Bringing AI to Calendar Workflows",
+    "summary": "Show HN: Bringing AI to Calendar Workflows",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.005,
+      "novelty": 0.5,
+      "priority": 0.08620689655172414,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 1.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-02T13:56:54.716499"
+  },
+  {
+    "idea_id": "idea_20",
+    "title": "C++ Annotated September–October 2022",
+    "summary": "C++ Annotated September–October 2022",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.005,
+      "novelty": 0.5,
+      "priority": 0.08620689655172414,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 1.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-02T13:56:54.716599"
+  }
+]
