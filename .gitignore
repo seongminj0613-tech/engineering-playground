@@ -1,10 +1,21 @@
 __pycache__/
 *.pyc
 
-snapshots/
-reports/
-
 .env
 *.log
 *.csv
 reference_graph_*.png
+
+# ignore generated files
+reports/*
+snapshots/*
+data/reports/*
+
+# allow CI generated reports
+!reports/
+!reports/**
+!snapshots/
+!snapshots/**
+!data/
+!data/reports/
+!data/reports/**
