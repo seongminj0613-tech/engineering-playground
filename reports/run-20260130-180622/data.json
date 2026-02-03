@@ -1,0 +1,38 @@
+[
+  {
+    "total": 0.82,
+    "components": {
+      "positive": 0.8,
+      "risk": 0.0,
+      "volume": 0.02,
+      "novelty": 0.0
+    },
+    "stats": {
+      "signal_count": 1,
+      "source_count": 1
+    },
+    "idea_id": "IDEA-1",
+    "idea_id_raw": "IDEA-001",
+    "rank": 1,
+    "title": "Daily Trend Radar",
+    "total_score": 0.82
+  },
+  {
+    "total": 0.0,
+    "components": {
+      "positive": 0.0,
+      "risk": -0.9,
+      "volume": 0.02,
+      "novelty": 0.0
+    },
+    "stats": {
+      "signal_count": 1,
+      "source_count": 1
+    },
+    "idea_id": "IDEA-2",
+    "idea_id_raw": "IDEA-002",
+    "rank": 2,
+    "title": "Ops Incident Playbook Generator",
+    "total_score": 0
+  }
+]

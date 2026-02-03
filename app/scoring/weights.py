@@ -1,0 +1,7 @@
+# app/scoring/weights.py
+
+WEIGHT_FEASIBILITY = 0.35
+WEIGHT_MARKET      = 0.35
+WEIGHT_TREND       = 0.30
+
+MAX_RISK_PENALTY   = 40

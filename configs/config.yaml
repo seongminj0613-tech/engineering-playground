@@ -1,0 +1,33 @@
+project:
+  name: idea-scoring-reporter
+  timezone: Asia/Seoul
+
+run:
+  top_n: 5
+  report_dir: reports
+  date: auto   # auto or "YYYY-MM-DD"
+
+scoring:
+  model_version: v0.1
+  weights:
+    market: 0.30
+    feasibility: 0.25
+    risk: 0.20        # risk는 감점(1 - risk)로 반영
+    evidence: 0.25
+  risk_penalty_mode: "invert"  # invert => (1-risk)로 가점화
+
+features:
+  market_keywords:
+    high: ["cost reduction", "automation", "b2b", "retention", "workflow", "compliance"]
+    mid:  ["dashboard", "insight", "recommendation", "analytics", "integration"]
+  feasibility_keywords:
+    easy: ["rule-based", "etl", "scheduler", "markdown report", "jsonl", "batch"]
+    hard: ["fine-tuning", "real-time", "multi-agent", "on-device", "federated"]
+  risk_keywords:
+    high: ["pii", "privacy", "security", "regulation", "medical", "finance"]
+    mid:  ["external api", "rate limit", "scraping", "dependency"]
+
+evidence:
+  max_evidence_score: 3.0
+  negative_types: ["risk_flag"]
+  risk_weight: 0.6

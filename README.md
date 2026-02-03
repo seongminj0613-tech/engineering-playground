@@ -30,3 +30,4 @@ This project runs a fully automated daily analysis pipeline using **GitHub Actio
   - `data/reports/`
 
 ✅ Verified via GitHub Actions (CI)
+🔗 Workflow: `.github/workflows/daily.yml`

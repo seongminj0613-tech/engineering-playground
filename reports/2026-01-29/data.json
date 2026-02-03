@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "run_id": "run-20260129-174345",
+    "model_version": "v0.1",
+    "total_ideas": 10,
+    "total_signals": 10,
+    "generated_at": "2026-01-29T17:43:45.068759"
+  },
+  "ranked": [
+    {
+      "rank": 1,
+      "idea_id": "IDEA-003",
+      "title": "B2B Workflow Scoring",
+      "tags": [
+        "b2b",
+        "workflow",
+        "compliance"
+      ],
+      "market": 1.0,
+      "feasibility": 0.6,
+      "risk": 0.2,
+      "evidence": 0.0,
+      "total_score": 0.61,
+      "signal_count": 0,
+      "avg_reliability": 0.0,
+      "explain": "Auto-scored based on keyword rules + evidence count"
+    },
+    {
+      "rank": 2,
+      "idea_id": "IDEA-006",
+      "title": "Customer Churn Early Warning",
+      "tags": [
+        "retention",
+        "analytics",
+        "b2b"
+      ],
+      "market": 0.5,
+      "feasibility": 0.6,
+      "risk": 0.2,
+      "evidence": 0.0,
+      "total_score": 0.46,
+      "signal_count": 0,
+      "avg_reliability": 0.0,
+      "explain": "Auto-scored based on keyword rules + evidence count"
+    },
+    {
+      "rank": 3,
+      "idea_id": "IDEA-001",
+      "title": "Daily Trend Radar",
+      "tags": [
+        "ai",
+        "news",
+        "dashboard"
+      ],
+      "market": 0.0,
+      "feasibility": 0.6,
+      "risk": 0.2,
+      "evidence": 0.4,
+      "total_score": 0.41,
+      "signal_count": 2,
+      "avg_reliability": 0.675,
+      "explain": "Auto-scored based on keyword rules + evidence count"
+    },
+    {
+      "rank": 4,
+      "idea_id": "IDEA-002",
+      "title": "Ops Incident Playbook Generator",
+      "tags": [
+        "devops",
+        "sre",
+        "automation"
+      ],
+      "market": 0.0,
+      "feasibility": 0.6,
+      "risk": 0.2,
+      "evidence": 0.4,
+      "total_score": 0.41,
+      "signal_count": 2,
+      "avg_reliability": 0.775,
+      "explain": "Auto-scored based on keyword rules + evidence count"
+    },
+    {
+      "rank": 5,
+      "idea_id": "IDEA-005",
+      "title": "Cloud Cost Leak Detector",
+      "tags": [
+        "cloud",
+        "cost",
+        "automation"
+      ],
+      "market": 0.0,
+      "feasibility": 0.6,
+      "risk": 0.2,
+      "evidence": 0.4,
+      "total_score": 0.41,
+      "signal_count": 2,
+      "avg_reliability": 0.69,
+      "explain": "Auto-scored based on keyword rules + evidence count"
+    }
+  ]
+}

@@ -24,6 +24,7 @@
 
 ## 4) Risk Impact Zone (1-hop / 2-hop)
 - **hallucination**
+<<<<<<< HEAD
   - 1-hop(7): Generator(Prompt-only), case_13986828, case_8958059, case_34613598, case_327937, case_45929247, case_31768298
   - 2-hop(38): Generator(Prompt-only), meeting_memory, case_24547098, cost_explosion, action_items, case_13986828, speaker_labels, case_34613598, structured_output, multilingual, case_8958059, case_327937, case_45929247, pii_redaction, privacy, latency, case_31768298, hallucination_guard, case_46493969, case_12983331, case_17420399, case_35547859, case_46353596, case_34732840, case_46528245, case_33719870, case_45348151, case_39006262, case_35439454, case_13493311, case_35549526, case_44271745, case_34425801, case_38446289, case_34148357, case_43741559, case_44200037, case_44148559
 - **privacy**
@@ -32,14 +33,29 @@
 - **latency**
   - 1-hop(2): Generator(Prompt-only), case_8958059
   - 2-hop(38): Generator(Prompt-only), meeting_memory, hallucination, case_24547098, cost_explosion, action_items, case_13986828, speaker_labels, case_34613598, structured_output, multilingual, case_8958059, case_327937, case_45929247, pii_redaction, privacy, case_31768298, hallucination_guard, case_46493969, case_12983331, case_17420399, case_35547859, case_46353596, case_34732840, case_46528245, case_33719870, case_45348151, case_39006262, case_35439454, case_13493311, case_35549526, case_44271745, case_34425801, case_38446289, case_34148357, case_43741559, case_44200037, case_44148559
+=======
+  - 1-hop(7): Generator(Prompt-only), case_13986828, case_34613598, case_8958059, case_45929247, case_327937, case_31768298
+  - 2-hop(38): Generator(Prompt-only), meeting_memory, cost_explosion, action_items, case_24547098, case_13986828, case_34613598, speaker_labels, structured_output, case_8958059, multilingual, case_327937, case_45929247, case_12983331, case_35547859, hallucination_guard, latency, case_31768298, case_46493969, privacy, case_17420399, pii_redaction, case_44271745, case_38446289, case_44200037, case_46353596, case_35439454, case_34732840, case_13493311, case_34425801, case_43741559, case_35549526, case_45348151, case_34148357, case_46528245, case_44148559, case_33719870, case_39006262
+- **privacy**
+  - 1-hop(2): Generator(Prompt-only), case_24547098
+  - 2-hop(38): Generator(Prompt-only), meeting_memory, hallucination, cost_explosion, action_items, case_24547098, case_13986828, case_34613598, speaker_labels, structured_output, case_8958059, multilingual, case_327937, case_45929247, case_12983331, case_35547859, hallucination_guard, latency, case_31768298, case_46493969, case_17420399, pii_redaction, case_44271745, case_38446289, case_44200037, case_46353596, case_35439454, case_34732840, case_13493311, case_34425801, case_43741559, case_35549526, case_45348151, case_34148357, case_46528245, case_44148559, case_33719870, case_39006262
+- **latency**
+  - 1-hop(2): Generator(Prompt-only), case_8958059
+  - 2-hop(38): Generator(Prompt-only), meeting_memory, hallucination, cost_explosion, action_items, case_24547098, case_13986828, case_34613598, speaker_labels, structured_output, case_8958059, multilingual, case_327937, case_45929247, case_12983331, case_35547859, hallucination_guard, case_31768298, case_46493969, privacy, case_17420399, pii_redaction, case_44271745, case_38446289, case_44200037, case_46353596, case_35439454, case_34732840, case_13493311, case_34425801, case_43741559, case_35549526, case_45348151, case_34148357, case_46528245, case_44148559, case_33719870, case_39006262
+>>>>>>> bc29a2e (chore: update workflow and README)
 
 ## 5) Impact Score Top Nodes
 - 1. **Generator(Prompt-only)** — score=9, degree=38, type=pattern
 - 2. **case_8958059** — score=7, degree=4, type=case
 - 3. **case_13986828** — score=5, degree=5, type=case
 - 4. **case_34613598** — score=5, degree=4, type=case
+<<<<<<< HEAD
 - 5. **case_327937** — score=5, degree=3, type=case
 - 6. **case_45929247** — score=5, degree=3, type=case
+=======
+- 5. **case_45929247** — score=5, degree=3, type=case
+- 6. **case_327937** — score=5, degree=3, type=case
+>>>>>>> bc29a2e (chore: update workflow and README)
 - 7. **case_31768298** — score=5, degree=2, type=case
 - 8. **case_24547098** — score=5, degree=6, type=case
 - 9. **meeting_memory** — score=3, degree=7, type=feature
