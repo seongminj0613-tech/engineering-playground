@@ -48,6 +48,13 @@ jobs:
         run: |
           python -m app.main
 
+      - name: Sync charts to GitHub Pages assets
+        run: |
+          mkdir -p docs/assets/charts
+          cp -r reports/charts/* docs/assets/charts/
+
+      
+
       - name: Check if there are changes
         id: changes
         run: |
