@@ -9,76 +9,40 @@ on:
   workflow_dispatch:
 
 jobs:
-  run:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
         with:
-          persist-credentials: true
           fetch-depth: 0
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
-
-      - name: Debug workspace
-        run: |
-          echo "=== WORKSPACE ==="
-          pwd
-          ls -al
-
-      - name: Debug workspace files
-        run: |
-          echo "PWD=$(pwd)"
-          ls -al
-          find . -name "requirements.txt"
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Ensure output folders exist
+      # ✅ (선택) 너의 파이프라인이 따로 있으면 여기서 먼저 돌려
+      # - name: Run pipeline
+      #   run: |
+      #     python -m app.pipeline.main
+
+      - name: Render HTML (index + history)
         run: |
-          mkdir -p reports snapshots data/reports
+          python -m app.presentation.render_topn_html 25
 
-      - name: Run idea pipeline
-        run: |
-          python -m app.main
-
-      - name: Sync charts to GitHub Pages assets
-        run: |
-          mkdir -p docs/assets/charts
-          cp -r reports/charts/* docs/assets/charts/
-
-      
-
-      - name: Check if there are changes
-        id: changes
-        run: |
-          if [ -z "$(git status --porcelain)" ]; then
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-          else
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Upload reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: daily-reports
-          path: |
-            reports
-            snapshots
-            data/reports
-
-      - name: Commit generated reports
-        if: ${{ steps.changes.outputs.has_changes == 'true' && github.event_name == 'schedule' }}
+      - name: Commit & push docs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f reports snapshots data/reports
-          git commit -m "chore: update daily reports" || echo "No changes to commit"
+
+          git add docs/index.html docs/history
+          git status
+          git commit -m "chore: update daily idea pages" || echo "No changes to commit"
           git push
