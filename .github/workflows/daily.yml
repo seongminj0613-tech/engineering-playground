@@ -14,6 +14,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -48,7 +51,6 @@ jobs:
       - name: Check if there are changes
         id: changes
         run: |
-          git status --porcelain
           if [ -z "$(git status --porcelain)" ]; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
           else
@@ -66,10 +68,10 @@ jobs:
             data/reports
 
       - name: Commit generated reports
-        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+        if: ${{ steps.changes.outputs.has_changes == 'true' && github.event_name == 'schedule' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f reports snapshots data/reports
-          git commit -m "chore: update daily reports"
+          git commit -m "chore: update daily reports" || echo "No changes to commit"
           git push
