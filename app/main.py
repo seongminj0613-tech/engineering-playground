@@ -11,6 +11,7 @@ from app.scoring.priority import compute_raw_priority, apply_priority_normalizat
 from app.ingestion.hn_fetch import main as hn_fetch_main
 from app.presentation.plot_daily import main as plot_daily_main
 from app.presentation.plot_graph import main as plot_graph_main
+from app.presentation.plot_idea_rank import plot_idea_rank
 
 REPORT_PATH = Path("data/reports/idea_cards.json")
 
@@ -139,13 +140,17 @@ def to_cards(raw_results):
 def main():
     raw = load_hn_results()
     cards = to_cards(raw)
+    
     raw_ps = [c.scores.priority for c in cards]  # 현재는 raw_priority가 들어있음
     norm_ps = apply_priority_normalization(raw_ps)
     
     for c, p in zip(cards, norm_ps):
         c.scores.priority = p  # 최종 priority로 덮어쓰기
+    
     out = export_cards_json(cards, str(REPORT_PATH))
     print(f"[OK] Exported {len(cards)} cards -> {out}")
+    
+    plot_idea_rank(cards)
 
 
 if __name__ == "__main__":
