@@ -28,10 +28,10 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      # ✅ (선택) 너의 파이프라인이 따로 있으면 여기서 먼저 돌려
-      # - name: Run pipeline
-      #   run: |
-      #     python -m app.pipeline.main
+      - name: Update history snapshot
+        run: |
+         python -m app.presentation.update_history_snapshot --help || true
+         python app/presentation/update_history_snapshot.py
 
       - name: Render HTML (index + history)
         run: |
