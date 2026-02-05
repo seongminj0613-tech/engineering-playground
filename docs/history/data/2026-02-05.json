@@ -1,116 +1,116 @@
 {
   "date": "2026-02-05",
-  "topn": 10,
+  "topn": 15,
   "items": [
     {
       "idea_id": "IDEA-001",
       "rank": 1,
-      "total_score": 44.56,
       "title": "Daily Trend Radar",
       "tags": [
         "ai",
         "news",
         "dashboard"
-      ]
+      ],
+      "total_score": 0.0
     },
     {
       "idea_id": "IDEA-002",
       "rank": 2,
-      "total_score": 46.91,
       "title": "Ops Incident Playbook Generator",
       "tags": [
         "devops",
         "sre",
         "automation"
-      ]
+      ],
+      "total_score": 0.0
     },
     {
       "idea_id": "IDEA-003",
       "rank": 3,
-      "total_score": 52.16,
       "title": "B2B Workflow Scoring",
       "tags": [
         "b2b",
         "workflow",
         "compliance"
-      ]
+      ],
+      "total_score": 0.0
     },
     {
       "idea_id": "IDEA-004",
       "rank": 4,
-      "total_score": 44.02,
       "title": "Resume-to-Job Fit Matcher",
       "tags": [
         "hr",
         "recommendation",
         "analytics"
-      ]
+      ],
+      "total_score": 0.0
     },
     {
       "idea_id": "IDEA-005",
       "rank": 5,
-      "total_score": 47.43,
       "title": "Cloud Cost Leak Detector",
       "tags": [
         "cloud",
         "cost",
         "automation"
-      ]
+      ],
+      "total_score": 0.0
     },
     {
       "idea_id": "IDEA-006",
       "rank": 6,
-      "total_score": 48.13,
       "title": "Customer Churn Early Warning",
       "tags": [
         "retention",
         "analytics",
         "b2b"
-      ]
+      ],
+      "total_score": 0.0
     },
     {
       "idea_id": "IDEA-007",
       "rank": 7,
-      "total_score": 47.82,
       "title": "Meeting Notes to Jira Tasks",
       "tags": [
         "workflow",
         "integration",
         "automation"
-      ]
+      ],
+      "total_score": 0.0
     },
     {
       "idea_id": "IDEA-008",
       "rank": 8,
-      "total_score": 48.76,
       "title": "Security Policy Drift Monitor",
       "tags": [
         "security",
         "compliance",
         "devops"
-      ]
+      ],
+      "total_score": 0.0
     },
     {
       "idea_id": "IDEA-009",
       "rank": 9,
-      "total_score": 45.31,
       "title": "Real-time Multi-agent Research",
       "tags": [
         "ai",
         "multi-agent",
         "real-time"
-      ]
+      ],
+      "total_score": 0.0
     },
     {
       "idea_id": "IDEA-010",
       "rank": 10,
-      "total_score": 47.08,
       "title": "Privacy-safe Data Collector",
       "tags": [
         "privacy",
         "pii",
         "compliance"
-      ]
+      ],
+      "total_score": 0.0
     }
   ]
 }
