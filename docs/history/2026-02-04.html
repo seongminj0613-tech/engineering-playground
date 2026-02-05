@@ -20,7 +20,20 @@
     .summary { margin-top: 6px; color: #333; }
     .tags { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
     .tag { border: 1px solid #ddd; padding: 2px 8px; border-radius: 999px; font-size: 12px; color: #333; background: #fafafa; }
-
+    .controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 14px 0 10px; }
+    .input { padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; min-width: 260px; }
+    .select { padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; }
+    .slider-wrap { display: flex; gap: 8px; align-items: center; }
+    .btn { padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; background: #fafafa; cursor: pointer; }
+    .btn:hover { background: #f2f2f2; }
+   
+   
+    .delta { margin-left: 6px; font-weight: 800; font-size: 12px; } 
+    .delta.up { color: #16a34a; }
+    .delta.down { color: #dc2626; }
+    .delta.new { color: #2563eb; }
+    .delta.same { color: #6b7280; }
+    
     .scorecell { width: 140px; }
     .score { display: inline-block; padding: 6px 10px; border-radius: 10px; font-weight: 800; }
     .score.high { background: #eaffea; border: 1px solid #b8f0b8; }
@@ -43,11 +56,18 @@
     @media (max-width: 900px) {
       .detail-grid { grid-template-columns: 1fr; }
     }
+    .scoreline { font-size: 13px; margin-bottom: 2px; }
+    .breakdown-box { font-size: 11px; color: #444; }
+    .bd-item { margin-top: 2px; line-height: 1.2; }
+    .bd-why { color: #888; margin-left: 6px; }
+
+
   </style>
 </head>
 <body>
   <h1>Daily Idea Ranking</h1>
-  <div class="meta">Generated: 2026-02-04 02:27 · Source: data/reports/idea_cards.json · Showing Top 25</div>
+  
+  <div class="meta">Generated: 2026-02-04 16:47 · Source: data/reports/idea_cards.json · Showing Top 25</div>
 
   <table>
     <thead>
@@ -60,18 +80,18 @@
     </thead>
     <tbody>
       <tr>
-              <td class="rank">1</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Launch HN: Hypercontext (YC S21) – Meeting notes, actions, and OKRs in one app</span>
-                  <span class="id">idea_22</span>
-                </div>
-                <div class="summary">Launch HN: Hypercontext (YC S21) – Meeting notes, actions, and OKRs in one app</div>
-                <div class="tags"></div>
+            <td class="rank">1 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Launch HN: Hypercontext (YC S21) – Meeting notes, actions, and OKRs in one app</span>
+                <span class="id">idea_22</span>
+             </div>
+             <div class="summary">Launch HN: Hypercontext (YC S21) – Meeting notes, actions, and OKRs in one app</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -85,25 +105,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">1.0</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:1.0, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">2</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">How to take meeting notes</span>
-                  <span class="id">idea_23</span>
-                </div>
-                <div class="summary">How to take meeting notes</div>
-                <div class="tags"></div>
+            <td class="rank">2 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">How to take meeting notes</span>
+                <span class="id">idea_23</span>
+             </div>
+             <div class="summary">How to take meeting notes</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -118,25 +140,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">1.0</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:1.0, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">3</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">First C# 7 Design Meeting Notes</span>
-                  <span class="id">idea_28</span>
-                </div>
-                <div class="summary">First C# 7 Design Meeting Notes</div>
-                <div class="tags"></div>
+            <td class="rank">3 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">First C# 7 Design Meeting Notes</span>
+                <span class="id">idea_28</span>
+             </div>
+             <div class="summary">First C# 7 Design Meeting Notes</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -151,25 +175,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">1.0</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:1.0, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">4</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">A CEO's Sequoia Meeting Notes</span>
-                  <span class="id">idea_29</span>
-                </div>
-                <div class="summary">A CEO's Sequoia Meeting Notes</div>
-                <div class="tags"></div>
+            <td class="rank">4 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">A CEO's Sequoia Meeting Notes</span>
+                <span class="id">idea_29</span>
+             </div>
+             <div class="summary">A CEO's Sequoia Meeting Notes</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -183,25 +209,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.92</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.92, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">5</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Open-RethinkDB meeting notes</span>
-                  <span class="id">idea_27</span>
-                </div>
-                <div class="summary">Open-RethinkDB meeting notes</div>
-                <div class="tags"></div>
+            <td class="rank">5 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Open-RethinkDB meeting notes</span>
+                <span class="id">idea_27</span>
+             </div>
+             <div class="summary">Open-RethinkDB meeting notes</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -215,25 +243,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.91</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.91, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">6</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">A Starter's Guide to Writing Effective Meeting Notes</span>
-                  <span class="id">idea_25</span>
-                </div>
-                <div class="summary">A Starter's Guide to Writing Effective Meeting Notes</div>
-                <div class="tags"></div>
+            <td class="rank">6 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">A Starter's Guide to Writing Effective Meeting Notes</span>
+                <span class="id">idea_25</span>
+             </div>
+             <div class="summary">A Starter's Guide to Writing Effective Meeting Notes</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -247,25 +277,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.91</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.91, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">7</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Open-RethinkDB meeting notes #4</span>
-                  <span class="id">idea_26</span>
-                </div>
-                <div class="summary">Open-RethinkDB meeting notes #4</div>
-                <div class="tags"></div>
+            <td class="rank">7 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Open-RethinkDB meeting notes #4</span>
+                <span class="id">idea_26</span>
+             </div>
+             <div class="summary">Open-RethinkDB meeting notes #4</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -279,25 +311,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.86</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.86, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">8</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Meeting notes between Forgejo and the Dutch government via Git commits</span>
-                  <span class="id">idea_5</span>
-                </div>
-                <div class="summary">Meeting notes between Forgejo and the Dutch government via Git commits</div>
-                <div class="tags"></div>
+            <td class="rank">8 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Meeting notes between Forgejo and the Dutch government via Git commits</span>
+                <span class="id">idea_5</span>
+             </div>
+             <div class="summary">Meeting notes between Forgejo and the Dutch government via Git commits</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -311,25 +345,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.76</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.76, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">9</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Jamie: AI assistant that creates meeting summaries</span>
-                  <span class="id">idea_17</span>
-                </div>
-                <div class="summary">Jamie: AI assistant that creates meeting summaries</div>
-                <div class="tags"></div>
+            <td class="rank">9 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Jamie: AI assistant that creates meeting summaries</span>
+                <span class="id">idea_17</span>
+             </div>
+             <div class="summary">Jamie: AI assistant that creates meeting summaries</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -343,25 +379,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.72</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.51, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">10</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Meeting notes lose value the moment you finish writing them</span>
-                  <span class="id">idea_21</span>
-                </div>
-                <div class="summary">Meeting notes lose value the moment you finish writing them</div>
-                <div class="tags"></div>
+            <td class="rank">10 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Meeting notes lose value the moment you finish writing them</span>
+                <span class="id">idea_21</span>
+             </div>
+             <div class="summary">Meeting notes lose value the moment you finish writing them</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -375,25 +413,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.69</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.17, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">11</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Open-source granola (meetings summary)</span>
-                  <span class="id">idea_7</span>
-                </div>
-                <div class="summary">Open-source granola (meetings summary)</div>
-                <div class="tags"></div>
+            <td class="rank">11 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Open-source granola (meetings summary)</span>
+                <span class="id">idea_7</span>
+             </div>
+             <div class="summary">Open-source granola (meetings summary)</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -407,25 +447,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.66</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.17, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">12</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Show HN: Hyprnote – VSCode for Meeting Notes (Open-Source and Local-First)</span>
-                  <span class="id">idea_10</span>
-                </div>
-                <div class="summary">Show HN: Hyprnote – VSCode for Meeting Notes (Open-Source and Local-First)</div>
-                <div class="tags"></div>
+            <td class="rank">12 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Show HN: Hyprnote – VSCode for Meeting Notes (Open-Source and Local-First)</span>
+                <span class="id">idea_10</span>
+             </div>
+             <div class="summary">Show HN: Hyprnote – VSCode for Meeting Notes (Open-Source and Local-First)</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -439,25 +481,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.62</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.1, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">13</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Show HN: Gamma API- Auto-generate decks, docs and carousels from raw input</span>
-                  <span class="id">idea_6</span>
-                </div>
-                <div class="summary">Show HN: Gamma API- Auto-generate decks, docs and carousels from raw input</div>
-                <div class="tags"></div>
+            <td class="rank">13 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Show HN: Gamma API- Auto-generate decks, docs and carousels from raw input</span>
+                <span class="id">idea_6</span>
+             </div>
+             <div class="summary">Show HN: Gamma API- Auto-generate decks, docs and carousels from raw input</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -471,25 +515,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.59</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.09, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">14</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Show HN: Inkdrop (Techstars ’22) AI assistant that reduces meeting time</span>
-                  <span class="id">idea_15</span>
-                </div>
-                <div class="summary">Show HN: Inkdrop (Techstars ’22) AI assistant that reduces meeting time</div>
-                <div class="tags"></div>
+            <td class="rank">14 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Show HN: Inkdrop (Techstars ’22) AI assistant that reduces meeting time</span>
+                <span class="id">idea_15</span>
+             </div>
+             <div class="summary">Show HN: Inkdrop (Techstars ’22) AI assistant that reduces meeting time</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -503,25 +549,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.55</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.03, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">15</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Show HN: Weaved – Voice recordings become tasks and notes via AI</span>
-                  <span class="id">idea_9</span>
-                </div>
-                <div class="summary">Show HN: Weaved – Voice recordings become tasks and notes via AI</div>
-                <div class="tags"></div>
+            <td class="rank">15 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Show HN: Weaved – Voice recordings become tasks and notes via AI</span>
+                <span class="id">idea_9</span>
+             </div>
+             <div class="summary">Show HN: Weaved – Voice recordings become tasks and notes via AI</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -535,25 +583,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.5</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.02, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">16</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">GPT3 Generated Meeting Summaries and Action Items</span>
-                  <span class="id">idea_18</span>
-                </div>
-                <div class="summary">GPT3 Generated Meeting Summaries and Action Items</div>
-                <div class="tags"></div>
+            <td class="rank">16 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">GPT3 Generated Meeting Summaries and Action Items</span>
+                <span class="id">idea_18</span>
+             </div>
+             <div class="summary">GPT3 Generated Meeting Summaries and Action Items</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -567,25 +617,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.5</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.02, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">17</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Montana VC investment per capita goes from $3 to $79 in 2 years</span>
-                  <span class="id">idea_24</span>
-                </div>
-                <div class="summary">Montana VC investment per capita goes from $3 to $79 in 2 years</div>
-                <div class="tags"></div>
+            <td class="rank">17 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Montana VC investment per capita goes from $3 to $79 in 2 years</span>
+                <span class="id">idea_24</span>
+             </div>
+             <div class="summary">Montana VC investment per capita goes from $3 to $79 in 2 years</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -599,25 +651,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.5</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.02, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">18</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">An enhanced daily meeting summary across all your calendars</span>
-                  <span class="id">idea_11</span>
-                </div>
-                <div class="summary">An enhanced daily meeting summary across all your calendars</div>
-                <div class="tags"></div>
+            <td class="rank">18 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">An enhanced daily meeting summary across all your calendars</span>
+                <span class="id">idea_11</span>
+             </div>
+             <div class="summary">An enhanced daily meeting summary across all your calendars</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -631,25 +685,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.5</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.01, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">19</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Show HN: Claude Code prompts to turn voice AI exports to a personal knowledge</span>
-                  <span class="id">idea_0</span>
-                </div>
-                <div class="summary">Show HN: Claude Code prompts to turn voice AI exports to a personal knowledge</div>
-                <div class="tags"></div>
+            <td class="rank">19 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Show HN: Claude Code prompts to turn voice AI exports to a personal knowledge</span>
+                <span class="id">idea_0</span>
+             </div>
+             <div class="summary">Show HN: Claude Code prompts to turn voice AI exports to a personal knowledge</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -663,25 +719,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.5</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.01, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">20</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Show HN: Turn meetings into presentation-ready slides</span>
-                  <span class="id">idea_1</span>
-                </div>
-                <div class="summary">Show HN: Turn meetings into presentation-ready slides</div>
-                <div class="tags"></div>
+            <td class="rank">20 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Show HN: Turn meetings into presentation-ready slides</span>
+                <span class="id">idea_1</span>
+             </div>
+             <div class="summary">Show HN: Turn meetings into presentation-ready slides</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -695,25 +753,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.5</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.01, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">21</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Show HN: Traction – Gong but for team meetings = Team Intelligence</span>
-                  <span class="id">idea_8</span>
-                </div>
-                <div class="summary">Show HN: Traction – Gong but for team meetings = Team Intelligence</div>
-                <div class="tags"></div>
+            <td class="rank">21 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Show HN: Traction – Gong but for team meetings = Team Intelligence</span>
+                <span class="id">idea_8</span>
+             </div>
+             <div class="summary">Show HN: Traction – Gong but for team meetings = Team Intelligence</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -727,25 +787,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.5</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.01, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">22</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">D Language Foundation March 2023 Monthly Meeting Summary</span>
-                  <span class="id">idea_13</span>
-                </div>
-                <div class="summary">D Language Foundation March 2023 Monthly Meeting Summary</div>
-                <div class="tags"></div>
+            <td class="rank">22 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">D Language Foundation March 2023 Monthly Meeting Summary</span>
+                <span class="id">idea_13</span>
+             </div>
+             <div class="summary">D Language Foundation March 2023 Monthly Meeting Summary</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -759,25 +821,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.5</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.01, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">23</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Vowel launches AI-powered meeting summaries</span>
-                  <span class="id">idea_16</span>
-                </div>
-                <div class="summary">Vowel launches AI-powered meeting summaries</div>
-                <div class="tags"></div>
+            <td class="rank">23 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Vowel launches AI-powered meeting summaries</span>
+                <span class="id">idea_16</span>
+             </div>
+             <div class="summary">Vowel launches AI-powered meeting summaries</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -791,25 +855,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.5</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.01, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">24</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Automating Meeting Summaaries</span>
-                  <span class="id">idea_19</span>
-                </div>
-                <div class="summary">Automating Meeting Summaaries</div>
-                <div class="tags"></div>
+            <td class="rank">24 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Automating Meeting Summaaries</span>
+                <span class="id">idea_19</span>
+             </div>
+             <div class="summary">Automating Meeting Summaaries</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -823,25 +889,27 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.5</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.01, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
 <tr>
-              <td class="rank">25</td>
-              <td>
-                <div class="title-row">
-                  <span class="title">Show HN: Turn meetings into summaries, presentations, and an AI to ask questions</span>
-                  <span class="id">idea_2</span>
-                </div>
-                <div class="summary">Show HN: Turn meetings into summaries, presentations, and an AI to ask questions</div>
-                <div class="tags"></div>
+            <td class="rank">25 <span class="delta same">–</span></td>
+            <td>
+              <div class="title-row">
+                <span class="title">Show HN: Turn meetings into summaries, presentations, and an AI to ask questions</span>
+                <span class="id">idea_2</span>
+             </div>
+             <div class="summary">Show HN: Turn meetings into summaries, presentations, and an AI to ask questions</div>
+             <div class="tags"></div>
 
-                <details>
-                  <summary>Details</summary>
-                  <div class="detail-grid">
+             <details>
+               <summary>Details</summary>
+               <div class="detail-grid">
           <div>
             <h4>Evidence</h4>
             <ul></ul>
@@ -855,12 +923,14 @@
             <ul></ul>
           </div>
         </div>
-                </details>
-              </td>
-              <td class="scorecell"><div class="score low">0.5</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.01, novelty:0.5</div></td>
-              <td class="trendcell"></td>
-            </tr>
+             </details>
+          </td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
+          <td class="trendcell"></td>
+          </tr>
     </tbody>
   </table>
 

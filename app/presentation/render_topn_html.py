@@ -111,6 +111,27 @@ def render_top_n(rows: list[dict], n: int = 15) -> list[dict]:
 
 def build_html(table_rows: list[dict]) -> str:
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
+    
+    def fmt_list(items):
+        if not items:
+           return ""
+        # items가 list가 아니면 list로 변환
+        if not isinstance(items, list):
+           items = [items]
+        lis = []
+        for x in items[:10]:
+            # dict면 title/url 등 최대한 보기 좋게
+            if isinstance(x, dict):
+               title = _escape(str(x.get("title") or x.get("name") or ""))
+               url = x.get("url")
+               if url:
+                   url = _escape(str(url))
+                   lis.append(f'<li><a href="{url}" target="_blank" rel="noreferrer">{title or url}</a></li>')
+               else:
+                   lis.append(f"<li>{title}</li>")
+            else:
+                lis.append(f"<li>{_escape(str(x))}</li>")
+        return "\n".join(lis)
 
     def fmt_tags(tags):
         if isinstance(tags, list):
@@ -136,61 +157,46 @@ def build_html(table_rows: list[dict]) -> str:
     def fmt_scores(scores):
         if not isinstance(scores, dict) or not scores:
             return ""
-        # total을 우선 보여주되, 나머지는 작은 글씨로
-        total = None
-        for k in ["total", "total_score", "final", "final_score", "score"]:
-            if k in scores:
-                total = scores.get(k)
-                break
-        if total is None:
-            nums = [v for v in scores.values() if isinstance(v, (int, float))]
-            total = max(nums) if nums else 0
-
+     
+        total = scores.get("total", 0.0)
         total_f = _to_float(total)
+
+        # badge 색상 (기존 스타일 유지)
         badge_cls = "score mid"
-        if total_f >= 80:
+        if total_f >= 0.75:
             badge_cls = "score high"
-        elif total_f >= 50:
+        elif total_f >= 0.5:
             badge_cls = "score mid"
         else:
             badge_cls = "score low"
 
-        # 상세 점수(숫자만 4개까지)
+        # 2) breakdown (상위 2개만)
+        breakdown = scores.get("breakdown", {})
         parts = []
-        for k, v in scores.items():
-            if isinstance(v, (int, float)) and k not in ["total", "total_score", "final", "final_score", "score"]:
-                parts.append(f"{_escape(str(k))}:{round(float(v), 2)}")
-        detail = ", ".join(parts[:4])
+        if isinstance(breakdown, dict):
+            parts = sorted(
+                breakdown.items(),
+                key=lambda kv: _to_float(kv[1].get("contribution", 0)),
+                reverse=True
+            )[:2]
+
+        breakdown_html = "".join(
+            f"""
+            <div class="bd-item">
+              <b>{_escape(str(k))}</b>: {round(_to_float(v.get("contribution", 0)), 3)}
+              <span class="bd-why">{_escape(str(v.get("why", "")))}</span>
+            </div>
+            """
+            for k, v in parts
+        )
 
         return f"""
-        <div class="{badge_cls}">{round(total_f, 2)}</div>
-        <div class="small">{_escape(detail)}</div>
+          <div class="{badge_cls} scoreline">Total: {round(total_f, 3)}</div>
+          <div class="breakdown-box">
+            {breakdown_html}
+          </div>
         """.strip()
-
-    def fmt_list(x):
-        # evidence/risks/assumptions가 list/dict/str 아무거나 와도 대응
-        if x is None:
-            return ""
-        if isinstance(x, str):
-            return f"<li>{_escape(x)}</li>"
-        if isinstance(x, dict):
-            items = [f"<li><b>{_escape(str(k))}</b>: {_escape(str(v))}</li>" for k, v in x.items()]
-            return "\n".join(items)
-        if isinstance(x, list):
-            items = []
-            for it in x[:10]:
-                if isinstance(it, dict):
-                    # dict 안에 핵심 텍스트 후보
-                    txt = it.get("text") or it.get("summary") or it.get("title") or str(it)
-                    url = it.get("url") or it.get("source") or ""
-                    if url and (str(url).startswith("http://") or str(url).startswith("https://")):
-                        items.append(f'<li><a href="{_escape(str(url))}" target="_blank" rel="noopener noreferrer">{_escape(str(txt))}</a></li>')
-                    else:
-                        items.append(f"<li>{_escape(str(txt))}</li>")
-                else:
-                    items.append(f"<li>{_escape(str(it))}</li>")
-            return "\n".join(items)
-        return f"<li>{_escape(str(x))}</li>"
+       
 
     trs = []
     for r in table_rows:
@@ -311,26 +317,16 @@ def build_html(table_rows: list[dict]) -> str:
     @media (max-width: 900px) {{
       .detail-grid {{ grid-template-columns: 1fr; }}
     }}
+    .scoreline {{ font-size: 13px; margin-bottom: 2px; }}
+    .breakdown-box {{ font-size: 11px; color: #444; }}
+    .bd-item {{ margin-top: 2px; line-height: 1.2; }}
+    .bd-why {{ color: #888; margin-left: 6px; }}
+
+
   </style>
 </head>
 <body>
   <h1>Daily Idea Ranking</h1>
-    <div class="controls">
-    <input id="q" class="input" type="search" placeholder="Search title / summary / idea_id..." />
-    <select id="tag" class="select">
-      <option value="">All tags</option>
-    </select>
-
-    <div class="slider-wrap">
-      <label for="topn">Top N:</label>
-      <input id="topn" type="range" min="5" max="200" step="1" value="15" />
-      <span id="topnVal">15</span>
-    </div>
-
-    <button id="clear" class="btn" type="button">Clear</button>
-  </div>
-
-  <div class="meta" id="meta2"></div>
   
   <div class="meta">Generated: {now} · Source: data/reports/idea_cards.json · Showing Top {len(table_rows)}</div>
 
@@ -347,126 +343,6 @@ def build_html(table_rows: list[dict]) -> str:
       {trs_html}
     </tbody>
   </table>
-  <script id="ideas-data" type="application/json">{ideas_json_escaped}</script>
-  <script>
-    window.__IDEAS__ = {ideas_json};
-  </script>
-
- 
-  <script>
-  (() => {{
-    const raw = document.getElementById('ideas-data')?.textContent || "[]";
-    let IDEAS = [];
-    try {{
-      IDEAS = JSON.parse(raw);
-    }} catch (e) {{
-      console.error("Failed to parse ideas JSON:", e);
-      IDEAS = [];
-    }}
-
-    IDEAS = IDEAS.map(x => ({{
-      ...x,
-      _title: String(x.title || '').toLowerCase(),
-      _summary: String(x.summary || '').toLowerCase(),
-      _id: String(x.idea_id || '').toLowerCase(),
-      _tags: Array.isArray(x.tags) ? x.tags.map(t => String(t)) : (x.tags ? [String(x.tags)] : [])
-    }}));
-
-    const qEl = document.getElementById('q');
-    const tagEl = document.getElementById('tag');
-    const topnEl = document.getElementById('topn');
-    const topnVal = document.getElementById('topnVal');
-    const meta2 = document.getElementById('meta2');
-    const clearBtn = document.getElementById('clear');
-
-    if (!qEl || !tagEl || !topnEl || !topnVal || !meta2 || !clearBtn) {{
-      console.error("UI elements not found. Did you add the controls block?");
-      return;
-    }}
-
-    const maxN = Math.max(5, IDEAS.length);
-    topnEl.max = String(maxN);
-    if (Number(topnEl.value) > maxN) topnEl.value = String(Math.min(15, maxN));
-    topnVal.textContent = topnEl.value;
-
-    // tags dropdown 채우기
-    const tagSet = new Set();
-    IDEAS.forEach(x => x._tags.forEach(t => tagSet.add(t)));
-    Array.from(tagSet).sort((a,b)=>a.localeCompare(b)).forEach(t => {{
-      const opt = document.createElement('option');
-      opt.value = t;
-      opt.textContent = t;
-      tagEl.appendChild(opt);
-    }});
-
-    function esc(s) {{
-      return String(s ?? '')
-        .replaceAll('&','&amp;')
-        .replaceAll('<','&lt;')
-        .replaceAll('>','&gt;')
-        .replaceAll('"','&quot;');
-    }}
-
-    function passes(x, q, tag) {{
-      if (tag && !x._tags.includes(tag)) return false;
-      if (q) {{
-        if (!(x._title.includes(q) || x._summary.includes(q) || x._id.includes(q))) return false;
-      }}
-      return true;
-    }}
-
-    function fmtDelta(delta) {{
-      if (delta === null || delta === undefined) return '<span class="delta new">NEW</span>';
-      if (delta > 0) return `<span class="delta up">↑ +${{delta}}</span>`;
-      if (delta < 0) return `<span class="delta down">↓ ${{Math.abs(delta)}}</span>`;
-      return '<span class="delta same">–</span>';
-    }}
-
-    function render() {{
-      const q = (qEl.value || '').trim().toLowerCase();
-      const tag = tagEl.value || '';
-      const n = Number(topnEl.value || 15);
-      topnVal.textContent = String(n);
-
-      const filtered = IDEAS.filter(x => passes(x, q, tag));
-      const shown = filtered.slice(0, n);
-
-      const tbody = document.querySelector('table tbody');
-      tbody.innerHTML = shown.map(r => {{
-        const deltaHtml = fmtDelta(r.rank_delta);
-        const tagsHtml = (r._tags || []).slice(0,8).map(t => `<span class="tag">${{esc(t)}}</span>`).join('');
-
-        return `
-          <tr>
-            <td class="rank">${{r.rank}} ${{deltaHtml}}</td>
-            <td>
-              <div class="title-row">
-                <span class="title">${{esc(r.title || '(untitled)')}}</span>
-                <span class="id">${{esc(r.idea_id || '')}}</span>
-              </div>
-              <div class="summary">${{esc(String(r.summary || '').slice(0,220))}}</div>
-              <div class="tags">${{tagsHtml}}</div>
-            </td>
-            <td class="scorecell"><div class="small">Filtered view</div></td>
-            <td class="trendcell"></td>
-          </tr>
-        `;
-      }}).join('');
-
-      meta2.textContent = `Filtered: ${{filtered.length}} / ${{IDEAS.length}} · Showing: ${{Math.min(n, filtered.length)}}`;
-    }}
-
-    [qEl, tagEl, topnEl].forEach(el => el.addEventListener('input', render));
-    clearBtn.addEventListener('click', () => {{
-      qEl.value = '';
-      tagEl.value = '';
-      topnEl.value = String(Math.min(15, maxN));
-      render();
-    }});
-
-    render();
-  }})();
-  </script>
 
   <p class="small">Next: auto-generate this page in GitHub Actions + add /history pages.</p>
   

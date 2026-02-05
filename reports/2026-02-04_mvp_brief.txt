@@ -1,0 +1,90 @@
+==== MVP Reference Brief ====
+date: 2026-02-04
+
+
+
+🔥 DECISION BRIEF CALLED 🔥
+
+
+========================================================================
+REFERENCE DECISION BRIEF
+Usecase: Meeting/Call Summary (Post-upload) | Target: Team/SMB
+========================================================================
+
+[Decision]
+- Recommended Architecture: Generator(Prompt-only)
+- Confidence: High (0.95)
+- Evidence: cases=30, points=1359, comments=553
+
+[Why this is the default]
+- 시장 시그널 기준으로 가장 흔한 출발점(구현 난이도 낮음)
+- Team/SMB에 맞는 빠른 출시/반복(피드백 루프) 가능
+- 비용/운영 복잡도가 비교적 낮아 PoC→유료전환이 쉬움
+
+[Market Signals]
+- Pattern share:
+  - Generator(Prompt-only): 27/30 (0.90)
+  - Agent: 3/30 (0.10)
+
+[Build First: Core AI capabilities]
+- meeting_memory (signal=5)
+- action_items (signal=5)
+- structured_output (signal=2)
+- multilingual (signal=2)
+- speaker_labels (signal=2)
+- pii_redaction (signal=1)
+
+[Top Risks & Mitigations]
+- hallucination (signal=6) → hallucination_guard + human_review + structured_output + timestamp_alignment
+- cost_explosion (signal=4) → batching + chunking + caching + rate_limit
+- privacy (signal=1) → pii_redaction + access_control + retention_policy + audit_log
+- latency (signal=1) → queueing + batching + caching
+
+[Commercialization Checklist]
+- Must (MVP to sell):
+  - Upload UX (post-upload flow)
+  - Summary templates (meeting type presets)
+  - Editing & Approval (human-in-the-loop)
+  - Export/Share (Slack/Notion/email)
+  - Basic privacy controls (PII redaction + retention)
+- Should (stickiness):
+  - Action items + owners + due dates
+  - Timestamp jump-to-text/audio
+  - Multi-language output
+  - Integrations (Jira/Trello/CRM)
+- Could (differentiators):
+  - Project/meeting memory (team context)
+  - Glossary/style injection
+  - Speaker labels/diarization (if input supports)
+
+[Defer (avoid early complexity)]
+- Full Agent orchestration (tool chains) — overkill for MVP
+- Heavy RAG infra — 품질/운영 부담이 먼저 커짐
+- 완전 자동 배포/실행형 워크플로우 — 안전장치 후순위
+
+[Evidence Cases (top 5 by points)]
+- pts:229 | How to take meeting notes
+  https://barehands.substack.com/p/how-to-take-meeting-notes
+- pts:158 | Open-RethinkDB meeting notes
+  https://docs.google.com/document/d/13TsZoWckcvJpprpL1zU54xsf0Zqm8mfmLkCHZcZbTMI/edit
+- pts:154 | First C# 7 Design Meeting Notes
+  https://github.com/dotnet/roslyn/issues/98
+- pts:145 | Launch HN: Hypercontext (YC S21) – Meeting notes, actions, and OKRs in one app
+  https://news.ycombinator.com/item?id=27882350
+- pts:145 | A Starter's Guide to Writing Effective Meeting Notes
+  https://meetnotes.co/writing-effective-meeting-notes/
+
+[Architecture Skeleton (ASCII)]
+Generator(Prompt-only)
+ ├─ requires → structured_output
+ ├─ requires → action_items
+ ├─ requires → human_review_loop
+ ├─ improves → timestamp_alignment
+ ├─ improves → multilingual
+ └─ risk → hallucination (mitigate: hallucination_guard + human_review + structured_output + timestamp_alignment)
+========================================================================
+
+---- Artifacts ----
+- graph_edges_snapshot.csv
+- daily_interest_metrics.csv
+- snapshots/reference_graph_2026-02-04.png

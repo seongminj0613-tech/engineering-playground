@@ -2,7 +2,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import csv
-from pathlib import Path
+
 
 
 from app.presentation.idea_card import IdeaCard, EvidenceItem
@@ -56,24 +56,51 @@ def load_hn_results():
 
 
 
+def add_part(breakdown, key, score, weight, why):
+    breakdown[key] = {
+        "score": round(float(score), 3),
+        "weight": float(weight),
+        "contribution": round(float(score) * float(weight), 3),
+        "why": why,
+    }
+
+def _to_float(x, default=0.0):
+    """숫자/문자열/None 등 어떤 값이 와도 안전하게 float로."""
+    if x is None:
+        return float(default)
+    if isinstance(x, (int, float)):
+        return float(x)
+    # "0.12", " 1 ", 같은 문자열은 변환 가능
+    if isinstance(x, str):
+        s = x.strip()
+        try:
+            return float(s)
+        except ValueError:
+            return float(default)
+    # dict 등 예상 못한 타입이면 default
+    return float(default)
+    
+
+
+
 def to_cards(raw_results):
     cards = []
     for i, r in enumerate(raw_results):
-        # r이 dict라고 가정 (대부분 이렇게 되어있음)
+        if not isinstance(r, dict):
+            r = {"title": str(r), "summary": str(r)}
         title = r.get("title") or r.get("idea") or f"idea_{i}"
         summary = r.get("summary") or r.get("one_liner") or title
 
-        feasibility = float(r.get("feasibility", 0.0))
-        confidence = float(r.get("confidence", 0.0))
+        feasibility = _to_float(r.get("feasibility", 0.0))
+        confidence  = _to_float(r.get("confidence", 0.0))
 
-        # evidence proxy (임시): mentions/points/comments 기반
-        mentions = float(r.get("mentions", 0) or 0)
-        points = float(r.get("total_points", r.get("points", 0)) or 0)
-        comments = float(r.get("total_comments", r.get("comments", 0)) or 0)
+        mentions  = _to_float(r.get("mentions", 0))
+        points    = _to_float(r.get("total_points", r.get("points", 0)))
+        comments  = _to_float(r.get("total_comments", r.get("comments", 0)))
 
         evidence = min(1.0, mentions / 10.0)
         momentum = min(1.0, (points + comments) / 200.0)
-        novelty = float(r.get("novelty", 0.5))
+        novelty     = _to_float(r.get("novelty", 0.5))
 
         raw_priority = compute_raw_priority(
             feasibility=feasibility,
@@ -83,7 +110,7 @@ def to_cards(raw_results):
             confidence=confidence,
         )
 
-        # decision_why -> drivers 변환 (있으면)
+        # decision_why -> drivers
         drivers = []
         decision_why = r.get("decision_why", {})
         if isinstance(decision_why, dict):
@@ -91,20 +118,42 @@ def to_cards(raw_results):
                 if isinstance(v, list):
                     drivers += [f"[{k}] {x}" for x in v]
 
-        # evidence articles (있으면)
+        # evidence articles
         evidence_items = []
         articles = r.get("articles") or r.get("evidence_articles") or []
         if isinstance(articles, list):
             for a in articles[:10]:
                 if isinstance(a, dict):
-                    evidence_items.append(EvidenceItem(
-                        title=a.get("title", ""),
-                        source=a.get("source", a.get("domain", "")),
-                        published_at=a.get("published_at"),
-                        url=a.get("url"),
-                        snippet=a.get("snippet"),
-                        relevance=float(a.get("relevance", 0.0) or 0.0),
-                    ))
+                    evidence_items.append(
+                        EvidenceItem(
+                            title=a.get("title", ""),
+                            source=a.get("source", a.get("domain", "")),
+                            published_at=a.get("published_at"),
+                            url=a.get("url"),
+                            snippet=a.get("snippet"),
+                            relevance=float(a.get("relevance", 0.0) or 0.0),
+                        )
+                    )
+
+        # === B단계: breakdown 계산 ===
+        breakdown = {}
+
+        add_part(breakdown, "evidence", evidence, 0.35,
+                 f"mentions={mentions}, points={points}, comments={comments}")
+
+        add_part(breakdown, "momentum", momentum, 0.25,
+                 "points + comments 기반 확산도")
+
+        add_part(breakdown, "feasibility", feasibility, 0.25,
+                 "입력된 구현 가능성 점수")
+
+        add_part(breakdown, "novelty", novelty, 0.15,
+                 "기본 novelty score")
+
+        add_part(breakdown, "confidence", confidence, 0.00,
+                 "현재 total에는 미반영")
+
+        total_score = sum(v["contribution"] for v in breakdown.values())
 
         card = IdeaCard(
             idea_id=str(r.get("id") or r.get("idea_id") or f"idea_{i}"),
@@ -118,10 +167,12 @@ def to_cards(raw_results):
                 "momentum": momentum,
                 "novelty": novelty,
                 "confidence": confidence,
-                "priority": raw_priority,        # 아직은 raw
-                "raw_priority": raw_priority,    # 디버깅/표시용
+                "priority": raw_priority,        # 아직 raw
+                "raw_priority": raw_priority,    # 표시용
+                "total": round(total_score, 3),  # ✅ 추가
+                "breakdown": breakdown,          # ✅ 추가
             },
-            drivers=drivers,               
+            drivers=drivers,
             risks=ensure_list(r.get("risks")),
             evidence=evidence_items,
             trend=r.get("trend", {}),
@@ -133,23 +184,24 @@ def to_cards(raw_results):
         )
         cards.append(card)
 
+    # ⚠️ scores가 dict면 이렇게 정렬해야 함
     cards.sort(key=lambda c: c.scores.priority, reverse=True)
     return cards
-
 
 def main():
     raw = load_hn_results()
     cards = to_cards(raw)
-    
-    raw_ps = [c.scores.priority for c in cards]  # 현재는 raw_priority가 들어있음
+
+    raw_ps = [c.scores.priority for c in cards]
     norm_ps = apply_priority_normalization(raw_ps)
-    
+
     for c, p in zip(cards, norm_ps):
-        c.scores.priority = p  # 최종 priority로 덮어쓰기
+        c.scores.priority = p
     
+
     out = export_cards_json(cards, str(REPORT_PATH))
     print(f"[OK] Exported {len(cards)} cards -> {out}")
-    
+
     plot_idea_rank(cards)
 
 

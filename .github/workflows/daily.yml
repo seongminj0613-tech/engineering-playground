@@ -32,6 +32,11 @@ jobs:
         run: |
          python -m app.presentation.update_history_snapshot --help || true
          python app/presentation/update_history_snapshot.py
+      
+      - name: Build daily diff (D-1)
+        run: |
+          python -m app.presentation.plot_daily_diff
+
 
       - name: Render HTML (index + history)
         run: |

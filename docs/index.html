@@ -56,28 +56,18 @@
     @media (max-width: 900px) {
       .detail-grid { grid-template-columns: 1fr; }
     }
+    .scoreline { font-size: 13px; margin-bottom: 2px; }
+    .breakdown-box { font-size: 11px; color: #444; }
+    .bd-item { margin-top: 2px; line-height: 1.2; }
+    .bd-why { color: #888; margin-left: 6px; }
+
+
   </style>
 </head>
 <body>
   <h1>Daily Idea Ranking</h1>
-    <div class="controls">
-    <input id="q" class="input" type="search" placeholder="Search title / summary / idea_id..." />
-    <select id="tag" class="select">
-      <option value="">All tags</option>
-    </select>
-
-    <div class="slider-wrap">
-      <label for="topn">Top N:</label>
-      <input id="topn" type="range" min="5" max="200" step="1" value="15" />
-      <span id="topnVal">15</span>
-    </div>
-
-    <button id="clear" class="btn" type="button">Clear</button>
-  </div>
-
-  <div class="meta" id="meta2"></div>
   
-  <div class="meta">Generated: 2026-02-05 02:29 · Source: data/reports/idea_cards.json · Showing Top 25</div>
+  <div class="meta">Generated: 2026-02-04 16:47 · Source: data/reports/idea_cards.json · Showing Top 25</div>
 
   <table>
     <thead>
@@ -119,6 +109,10 @@
           </td>
           <td class="scorecell"><div class="score low">1.0</div>
         <div class="small">feasibility:0.0, evidence:0.0, momentum:1.0, novelty:0.5</div></td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
           <td class="trendcell"></td>
           </tr>
 <tr>
@@ -150,8 +144,10 @@
         </div>
              </details>
           </td>
-          <td class="scorecell"><div class="score low">1.0</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:1.0, novelty:0.5</div></td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
           <td class="trendcell"></td>
           </tr>
 <tr>
@@ -183,8 +179,10 @@
         </div>
              </details>
           </td>
-          <td class="scorecell"><div class="score low">1.0</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:1.0, novelty:0.5</div></td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
           <td class="trendcell"></td>
           </tr>
 <tr>
@@ -217,6 +215,10 @@
           </td>
           <td class="scorecell"><div class="score low">0.92</div>
         <div class="small">feasibility:0.0, evidence:0.0, momentum:0.92, novelty:0.5</div></td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
           <td class="trendcell"></td>
           </tr>
 <tr>
@@ -249,6 +251,10 @@
           </td>
           <td class="scorecell"><div class="score low">0.91</div>
         <div class="small">feasibility:0.0, evidence:0.0, momentum:0.91, novelty:0.5</div></td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
           <td class="trendcell"></td>
           </tr>
 <tr>
@@ -279,8 +285,10 @@
         </div>
              </details>
           </td>
-          <td class="scorecell"><div class="score low">0.91</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.91, novelty:0.5</div></td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
           <td class="trendcell"></td>
           </tr>
 <tr>
@@ -855,8 +863,10 @@
         </div>
              </details>
           </td>
-          <td class="scorecell"><div class="score low">0.5</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.01, novelty:0.5</div></td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
           <td class="trendcell"></td>
           </tr>
 <tr>
@@ -887,8 +897,10 @@
         </div>
              </details>
           </td>
-          <td class="scorecell"><div class="score low">0.5</div>
-        <div class="small">feasibility:0.0, evidence:0.0, momentum:0.01, novelty:0.5</div></td>
+          <td class="scorecell"><div class="score low scoreline">Total: 0.0</div>
+          <div class="breakdown-box">
+            
+          </div></td>
           <td class="trendcell"></td>
           </tr>
     </tbody>
@@ -1019,5 +1031,45 @@
   <p class="small">
   History: <a href="./history/index.html">Open history</a>
   </p>
+<script>
+(async function () {
+  // 1️⃣ weekly diff 로드 (정상 순서)
+  const weeklyDiff = await fetch("./history/weekly_diff.json")
+    .then(r => r.json())
+    .catch(() => ({}));
+
+  // 2️⃣ 로드 확인 (디버그용)
+  const keyCount = Object.keys(weeklyDiff).length;
+  document.querySelector(".meta").textContent += ` · weeklyDiff keys: ${keyCount}`;
+
+  // 3️⃣ 테이블 순회
+  document.querySelectorAll("tbody tr").forEach(tr => {
+    const idEl = tr.querySelector(".id");          // idea_27 같은 텍스트
+    const deltaEl = tr.querySelector(".rank .delta");
+    if (!idEl || !deltaEl) return;
+
+    const ideaId = (idEl.textContent || "").trim();
+    const d = weeklyDiff[ideaId];
+
+    const rankDelta =
+      d && typeof d.rank_delta === "number" ? d.rank_delta : null;
+
+    let text = "–";
+    let cls = "same";
+
+    if (rankDelta < 0) {
+      text = `↑${Math.abs(rankDelta)}`;
+      cls = "up";
+    } else if (rankDelta > 0) {
+      text = `↓${rankDelta}`;
+      cls = "down";
+    }
+
+    deltaEl.textContent = text;
+    deltaEl.classList.remove("up", "down", "new", "same");
+    deltaEl.classList.add(cls);
+  });
+})();
+</script>
 </body>
 </html>
