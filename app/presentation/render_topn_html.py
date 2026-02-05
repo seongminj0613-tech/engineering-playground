@@ -249,7 +249,7 @@ def build_html(table_rows: list[dict]) -> str:
                {detail_html}
              </details>
           </td>
-          <td class="scorecell">{fmt_scores(r.get("scores"))}</td>
+          <td class="scorecell">{round(r.get('total_score',0),2)}</td>
           <td class="trendcell">{fmt_trend(r.get("trend"))}</td>
           </tr>
           """.strip()
