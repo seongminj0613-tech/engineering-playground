@@ -1,6 +1,6 @@
 import json
 import yaml
-import datetime
+import datetime as dt
 import re
 from pathlib import Path
 from collections import defaultdict
@@ -8,6 +8,9 @@ from app.scoring.model_v0_1 import ScoreModelV01
 from app.reporting.render_md import render_md
 from app.reporting.render_json import render_json
 from app.signals.signals import build_signals_from_disclosure
+from datetime import timezone, date
+from app.scoring.signals import build_corpus_counter, extract_signals
+from app.scoring.scorer import score_from_signals, seeded_jitter
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -45,7 +48,7 @@ def load_config():
 
 
 def build_run_id():
-    return datetime.datetime.now().strftime("run-%Y%m%d-%H%M%S")
+    return dt.datetime.now().strftime("run-%Y%m%d-%H%M%S")
 
 def rank_scores(rows: list, top_k: int = 10) -> list:
     # 점수 키는 contract로 'total_score'가 최종이지만
@@ -63,9 +66,7 @@ def rank_scores(rows: list, top_k: int = 10) -> list:
 def package_result(ideas: list, ranked_rows: list) -> dict:
     items = []
 
-    ranked_by_id = {
-        r["idea_id"]: r for r in ranked_rows
-    }
+    ranked_by_id = { norm_idea_id(r.get("idea_id")): r for r in ranked_rows }
 
     for idea in ideas:
         iid = norm_idea_id(idea.get("idea_id"))
@@ -166,7 +167,7 @@ def render(result: dict) -> None:
         ranked_rows.append(r)
 
     context = {
-        "date": datetime.datetime.now().strftime("%Y-%m-%d"),
+        "date": dt.datetime.now().strftime("%Y-%m-%d"),
         "run_id": run_id,
         "rows": ranked_rows,      # 전체 점수 테이블
         "ranked": ranked_rows,    # 상위 리스트(지금은 same)
@@ -177,6 +178,99 @@ def render(result: dict) -> None:
     render_md(out_dir, context)
 
     print(f"📁 Pipeline finished: {out_dir}")
+    
+def compute_freshness(idea: dict, today: date) -> float:
+    raw = idea.get("created_at") or idea.get("date") or ""
+    if not raw:
+        return 0.3
+    try:
+        parsed = dt.datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
+        age_days = (today - parsed.date()).days
+        if age_days <= 0: return 1.0
+        if age_days <= 3: return 0.8
+        if age_days <= 7: return 0.6
+        if age_days <= 14: return 0.4
+        return 0.2
+    except Exception:
+        return 0.3
+
+
+def compute_trend_score(idea: dict, topic_freq: dict) -> float:
+    tags = idea.get("tags") or []
+    if isinstance(tags, str):
+        tags = [tags]
+    if not tags:
+        return 0.0
+    freq = sum(topic_freq.get(t, 0) for t in tags)
+    return min(1.0, freq / 10.0)
+
+
+def score_ideas_v2_from_ideas_only(ideas: list) -> list:
+    today = dt.datetime.now(timezone.utc).date()
+    
+    # novelty용 코퍼스
+    corpus_counter = build_corpus_counter(ideas)
+
+    # trend용 tag 빈도
+    topic_freq = {}
+    for it in ideas:
+        tags = it.get("tags") or []
+        if isinstance(tags, str):
+            tags = [tags]
+        for t in tags:
+            topic_freq[t] = topic_freq.get(t, 0) + 1
+
+    scored_rows = []
+
+    for it in ideas:
+        iid_raw = it.get("idea_id") or it.get("id") or it.get("url") or it.get("title")
+        
+        iid_existing = it.get("idea_id")
+
+        if iid_existing:
+            iid = str(iid_existing)   # 기존 id 유지 (idea_22 그대로)
+        else:
+           iid = str(iid_raw) if iid_raw else f"idea_{len(scored_rows)+1}"
+           it["idea_id"] = iid       # 없을 때만 생성
+
+        freshness = compute_freshness(it, today)
+        trend = compute_trend_score(it, topic_freq)
+
+        signals = extract_signals(
+            it,
+            corpus_counter=corpus_counter,
+            trend_score=trend,
+            freshness=freshness,
+        )
+
+        base = score_from_signals(signals)
+        jitter = seeded_jitter(iid or str(it.get("title", "")), today, max_points=0.8)
+        total = max(0.0, min(100.0, base + jitter))
+
+        # ✅ idea에도 박아두기 (render에서 참고 가능)
+        it["signals"] = signals
+        it["total_score"] = round(total, 2)
+
+        scored_rows.append({
+            "idea_id": iid,
+            "idea_id_raw": iid_raw,
+            "total_score": round(total, 2),
+            "signals": signals,
+            "signal_count": len(signals),
+            # render에서 쓰는 필드들 보강(선택)
+            "evidence": it.get("evidence") or [],
+            "tags": it.get("tags") or [],
+            "risk": it.get("risk") or "unknown",
+            "impact": it.get("impact") or "unknown",
+            "confidence": it.get("confidence") or "unknown",
+            "market": it.get("market") or "unknown",
+            "feasibility": it.get("feasibility") or "unknown",
+        })
+
+    print("DEBUG v2 scored_rows:", len(scored_rows))
+    print("DEBUG v2 sample total_score:", scored_rows[0]["total_score"] if scored_rows else None)
+    return scored_rows
+
 
 def main():
     print("🚀 Pipeline started")
@@ -184,19 +278,22 @@ def main():
     # 1) 설정 로드
     cfg = load_config()
     ideas = load_jsonl(ROOT / "data" / "raw" / "ideas.jsonl")
-    signals = load_jsonl(ROOT / "data" / "raw" / "signals.jsonl")
-
-    if not ideas or not signals:
-        result = {"status": "ok", "items": []}  # 결과 0
+    if not ideas:
+        result = {"status": "ok", "items": []}
         render(result)
         return
 
-    scorer = ScoreModelV01(cfg.get("scoring", {}))
-    scored_rows = score_ideas(ideas, signals, scorer)
-    
-    print("DEBUG ideas:", len(ideas), "signals:", len(signals))
+    scored_rows = score_ideas_v2_from_ideas_only(ideas)   # ✅ C: 여기서 signals+score 생성
+  
+    out_path = ROOT / "data" / "reports" / "idea_cards.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(ideas, f, ensure_ascii=False, indent=2)
+    print(f"✅ idea_cards.json updated → {out_path}")
+    print("DEBUG ideas:", len(ideas), "scored_rows:", len(scored_rows))
     print("DEBUG idea_id sample:", ideas[0].get("idea_id") if ideas else None)
-    print("DEBUG signal idea_id sample:", signals[0].get("idea_id") if signals else None)
+    print("DEBUG total_score sample:", scored_rows[0].get("total_score") if scored_rows else None)
+    print("DEBUG signals sample keys:", list((scored_rows[0].get("signals") or {}).keys()) if scored_rows else None)
 
     ranked_top = rank_scores(scored_rows, top_k=10)
     result = package_result(ideas, ranked_top)

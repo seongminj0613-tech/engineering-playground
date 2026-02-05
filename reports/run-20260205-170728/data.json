@@ -1,0 +1,292 @@
+[
+  {
+    "idea_id": "IDEA-001",
+    "idea_id_raw": "IDEA-001",
+    "total_score": 44.56,
+    "signals": {
+      "novelty": 0.5533673727996529,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.3775406687981454,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.4,
+      "freshness": 0.6
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "tags": [
+      "ai",
+      "news",
+      "dashboard"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "rank": 9,
+    "title": "Daily Trend Radar"
+  },
+  {
+    "idea_id": "IDEA-002",
+    "idea_id_raw": "IDEA-002",
+    "total_score": 46.91,
+    "signals": {
+      "novelty": 0.5383858565626407,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.5,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.6,
+      "freshness": 0.6
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "tags": [
+      "devops",
+      "sre",
+      "automation"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "rank": 7,
+    "title": "Ops Incident Playbook Generator"
+  },
+  {
+    "idea_id": "IDEA-003",
+    "idea_id_raw": "IDEA-003",
+    "total_score": 52.16,
+    "signals": {
+      "novelty": 0.48611468225399523,
+      "specificity": 0.3775406687981454,
+      "feasibility": 0.6265244012788873,
+      "market_pull": 0.8175744761936437,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.7,
+      "freshness": 0.6
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "tags": [
+      "b2b",
+      "workflow",
+      "compliance"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "rank": 1,
+    "title": "B2B Workflow Scoring"
+  },
+  {
+    "idea_id": "IDEA-004",
+    "idea_id_raw": "IDEA-004",
+    "total_score": 44.02,
+    "signals": {
+      "novelty": 0.5763218799074524,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.3775406687981454,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.4,
+      "freshness": 0.6
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "tags": [
+      "hr",
+      "recommendation",
+      "analytics"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "rank": 10,
+    "title": "Resume-to-Job Fit Matcher"
+  },
+  {
+    "idea_id": "IDEA-005",
+    "idea_id_raw": "IDEA-005",
+    "total_score": 47.43,
+    "signals": {
+      "novelty": 0.5104151598873646,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.6224593312018546,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.5,
+      "freshness": 0.6
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "tags": [
+      "cloud",
+      "cost",
+      "automation"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "rank": 5,
+    "title": "Cloud Cost Leak Detector"
+  },
+  {
+    "idea_id": "IDEA-006",
+    "idea_id_raw": "IDEA-006",
+    "total_score": 48.13,
+    "signals": {
+      "novelty": 0.5415704832167998,
+      "specificity": 0.358165954911269,
+      "feasibility": 0.6148995729467615,
+      "market_pull": 0.6224593312018546,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.5,
+      "freshness": 0.6
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "tags": [
+      "retention",
+      "analytics",
+      "b2b"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "rank": 3,
+    "title": "Customer Churn Early Warning"
+  },
+  {
+    "idea_id": "IDEA-007",
+    "idea_id_raw": "IDEA-007",
+    "total_score": 47.82,
+    "signals": {
+      "novelty": 0.5147016433692061,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.6224593312018546,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.6,
+      "freshness": 0.6
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "tags": [
+      "workflow",
+      "integration",
+      "automation"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "rank": 4,
+    "title": "Meeting Notes to Jira Tasks"
+  },
+  {
+    "idea_id": "IDEA-008",
+    "idea_id_raw": "IDEA-008",
+    "total_score": 48.76,
+    "signals": {
+      "novelty": 0.5055553269431596,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.6224593312018546,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.6,
+      "freshness": 0.6
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "tags": [
+      "security",
+      "compliance",
+      "devops"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "rank": 2,
+    "title": "Security Policy Drift Monitor"
+  },
+  {
+    "idea_id": "IDEA-009",
+    "idea_id_raw": "IDEA-009",
+    "total_score": 45.31,
+    "signals": {
+      "novelty": 0.49074179903855786,
+      "specificity": 0.401312339887548,
+      "feasibility": 0.6407874039325288,
+      "market_pull": 0.3775406687981454,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.4,
+      "freshness": 0.6
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "tags": [
+      "ai",
+      "multi-agent",
+      "real-time"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "rank": 8,
+    "title": "Real-time Multi-agent Research"
+  },
+  {
+    "idea_id": "IDEA-010",
+    "idea_id_raw": "IDEA-010",
+    "total_score": 47.08,
+    "signals": {
+      "novelty": 0.5119025128376735,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.5,
+      "evidence": 0.2,
+      "clarity": 0.7,
+      "trend_boost": 0.5,
+      "freshness": 0.6
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "tags": [
+      "privacy",
+      "pii",
+      "compliance"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "rank": 6,
+    "title": "Privacy-safe Data Collector"
+  }
+]

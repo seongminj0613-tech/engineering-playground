@@ -1009,7 +1009,9 @@
               <div class="summary">${esc(String(r.summary || '').slice(0,220))}</div>
               <div class="tags">${tagsHtml}</div>
             </td>
-            <td class="scorecell"><div class="small">Filtered view</div></td>
+            <td class="scorecell">
+               ${Number(r.total_score ?? r.score ?? 0).toFixed(2)}
+            </td>
             <td class="trendcell"></td>
           </tr>
         `;
