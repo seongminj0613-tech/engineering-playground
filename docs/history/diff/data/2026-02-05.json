@@ -1,0 +1,289 @@
+{
+  "date_prev": "2026-02-04",
+  "date_curr": "2026-02-05",
+  "summary": {
+    "curr_count": 25,
+    "prev_count": 25,
+    "new_count": 0,
+    "disappeared_count": 0
+  },
+  "new_ids": [],
+  "disappeared_ids": [],
+  "rows": [
+    {
+      "idea_id": "idea_22",
+      "title": "Launch HN: Hypercontext (YC S21) – Meeting notes, actions, and OKRs in one app",
+      "status": "EXISTING",
+      "rank_prev": 1,
+      "rank_curr": 1,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_23",
+      "title": "How to take meeting notes",
+      "status": "EXISTING",
+      "rank_prev": 2,
+      "rank_curr": 2,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_28",
+      "title": "First C# 7 Design Meeting Notes",
+      "status": "EXISTING",
+      "rank_prev": 3,
+      "rank_curr": 3,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_29",
+      "title": "A CEO's Sequoia Meeting Notes",
+      "status": "EXISTING",
+      "rank_prev": 4,
+      "rank_curr": 4,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_27",
+      "title": "Open-RethinkDB meeting notes",
+      "status": "EXISTING",
+      "rank_prev": 5,
+      "rank_curr": 5,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_25",
+      "title": "A Starter's Guide to Writing Effective Meeting Notes",
+      "status": "EXISTING",
+      "rank_prev": 6,
+      "rank_curr": 6,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_26",
+      "title": "Open-RethinkDB meeting notes #4",
+      "status": "EXISTING",
+      "rank_prev": 7,
+      "rank_curr": 7,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_5",
+      "title": "Meeting notes between Forgejo and the Dutch government via Git commits",
+      "status": "EXISTING",
+      "rank_prev": 8,
+      "rank_curr": 8,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_17",
+      "title": "Jamie: AI assistant that creates meeting summaries",
+      "status": "EXISTING",
+      "rank_prev": 9,
+      "rank_curr": 9,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_21",
+      "title": "Meeting notes lose value the moment you finish writing them",
+      "status": "EXISTING",
+      "rank_prev": 10,
+      "rank_curr": 10,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_7",
+      "title": "Open-source granola (meetings summary)",
+      "status": "EXISTING",
+      "rank_prev": 11,
+      "rank_curr": 11,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_10",
+      "title": "Show HN: Hyprnote – VSCode for Meeting Notes (Open-Source and Local-First)",
+      "status": "EXISTING",
+      "rank_prev": 12,
+      "rank_curr": 12,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_6",
+      "title": "Show HN: Gamma API- Auto-generate decks, docs and carousels from raw input",
+      "status": "EXISTING",
+      "rank_prev": 13,
+      "rank_curr": 13,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_15",
+      "title": "Show HN: Inkdrop (Techstars ’22) AI assistant that reduces meeting time",
+      "status": "EXISTING",
+      "rank_prev": 14,
+      "rank_curr": 14,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_9",
+      "title": "Show HN: Weaved – Voice recordings become tasks and notes via AI",
+      "status": "EXISTING",
+      "rank_prev": 15,
+      "rank_curr": 15,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_18",
+      "title": "GPT3 Generated Meeting Summaries and Action Items",
+      "status": "EXISTING",
+      "rank_prev": 16,
+      "rank_curr": 16,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_24",
+      "title": "Montana VC investment per capita goes from $3 to $79 in 2 years",
+      "status": "EXISTING",
+      "rank_prev": 17,
+      "rank_curr": 17,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_11",
+      "title": "An enhanced daily meeting summary across all your calendars",
+      "status": "EXISTING",
+      "rank_prev": 18,
+      "rank_curr": 18,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_0",
+      "title": "Show HN: Claude Code prompts to turn voice AI exports to a personal knowledge",
+      "status": "EXISTING",
+      "rank_prev": 19,
+      "rank_curr": 19,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_1",
+      "title": "Show HN: Turn meetings into presentation-ready slides",
+      "status": "EXISTING",
+      "rank_prev": 20,
+      "rank_curr": 20,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_8",
+      "title": "Show HN: Traction – Gong but for team meetings = Team Intelligence",
+      "status": "EXISTING",
+      "rank_prev": 21,
+      "rank_curr": 21,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_13",
+      "title": "D Language Foundation March 2023 Monthly Meeting Summary",
+      "status": "EXISTING",
+      "rank_prev": 22,
+      "rank_curr": 22,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_16",
+      "title": "Vowel launches AI-powered meeting summaries",
+      "status": "EXISTING",
+      "rank_prev": 23,
+      "rank_curr": 23,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_19",
+      "title": "Automating Meeting Summaaries",
+      "status": "EXISTING",
+      "rank_prev": 24,
+      "rank_curr": 24,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    },
+    {
+      "idea_id": "idea_2",
+      "title": "Show HN: Turn meetings into summaries, presentations, and an AI to ask questions",
+      "status": "EXISTING",
+      "rank_prev": 25,
+      "rank_curr": 25,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 0.0,
+      "score_delta": 0.0
+    }
+  ]
+}
