@@ -1,4 +1,4 @@
-# Graph Insights (2026-02-03)
+# Graph Insights (2026-02-04)
 
 ## 1) Top Hub Nodes (by Degree)
 - 1. **Generator(Prompt-only)** — degree=38, type=pattern
@@ -24,26 +24,26 @@
 
 ## 4) Risk Impact Zone (1-hop / 2-hop)
 - **hallucination**
-  - 1-hop(7): Generator(Prompt-only), case_13986828, case_8958059, case_34613598, case_45929247, case_327937, case_31768298
-  - 2-hop(38): Generator(Prompt-only), meeting_memory, case_24547098, cost_explosion, action_items, case_13986828, case_8958059, structured_output, multilingual, case_34613598, speaker_labels, case_327937, case_45929247, privacy, latency, case_12983331, hallucination_guard, case_17420399, case_35547859, pii_redaction, case_46493969, case_31768298, case_34732840, case_34425801, case_43741559, case_34148357, case_35439454, case_33719870, case_13493311, case_35549526, case_46528245, case_44271745, case_45348151, case_46353596, case_38446289, case_44148559, case_39006262, case_44200037
+  - 1-hop(7): Generator(Prompt-only), case_13986828, case_8958059, case_34613598, case_327937, case_45929247, case_31768298
+  - 2-hop(38): Generator(Prompt-only), meeting_memory, case_24547098, action_items, cost_explosion, case_13986828, case_8958059, structured_output, speaker_labels, multilingual, case_34613598, case_45929247, case_327937, latency, case_35547859, case_17420399, case_12983331, hallucination_guard, case_31768298, pii_redaction, privacy, case_46493969, case_39006262, case_44200037, case_46528245, case_34148357, case_13493311, case_43741559, case_44271745, case_46353596, case_34425801, case_35439454, case_45348151, case_44148559, case_33719870, case_34732840, case_38446289, case_35549526
 - **privacy**
   - 1-hop(2): Generator(Prompt-only), case_24547098
-  - 2-hop(38): Generator(Prompt-only), hallucination, meeting_memory, case_24547098, cost_explosion, action_items, case_13986828, case_8958059, structured_output, multilingual, case_34613598, speaker_labels, case_327937, case_45929247, latency, case_12983331, hallucination_guard, case_17420399, case_35547859, pii_redaction, case_46493969, case_31768298, case_34732840, case_34425801, case_43741559, case_34148357, case_35439454, case_33719870, case_13493311, case_35549526, case_46528245, case_44271745, case_45348151, case_46353596, case_38446289, case_44148559, case_39006262, case_44200037
+  - 2-hop(38): Generator(Prompt-only), hallucination, meeting_memory, case_24547098, action_items, cost_explosion, case_13986828, case_8958059, structured_output, speaker_labels, multilingual, case_34613598, case_45929247, case_327937, latency, case_35547859, case_17420399, case_12983331, hallucination_guard, case_31768298, pii_redaction, case_46493969, case_39006262, case_44200037, case_46528245, case_34148357, case_13493311, case_43741559, case_44271745, case_46353596, case_34425801, case_35439454, case_45348151, case_44148559, case_33719870, case_34732840, case_38446289, case_35549526
 - **latency**
   - 1-hop(2): Generator(Prompt-only), case_8958059
-  - 2-hop(38): Generator(Prompt-only), hallucination, meeting_memory, case_24547098, cost_explosion, action_items, case_13986828, case_8958059, structured_output, multilingual, case_34613598, speaker_labels, case_327937, case_45929247, privacy, case_12983331, hallucination_guard, case_17420399, case_35547859, pii_redaction, case_46493969, case_31768298, case_34732840, case_34425801, case_43741559, case_34148357, case_35439454, case_33719870, case_13493311, case_35549526, case_46528245, case_44271745, case_45348151, case_46353596, case_38446289, case_44148559, case_39006262, case_44200037
+  - 2-hop(38): Generator(Prompt-only), hallucination, meeting_memory, case_24547098, action_items, cost_explosion, case_13986828, case_8958059, structured_output, speaker_labels, multilingual, case_34613598, case_45929247, case_327937, case_35547859, case_17420399, case_12983331, hallucination_guard, case_31768298, pii_redaction, privacy, case_46493969, case_39006262, case_44200037, case_46528245, case_34148357, case_13493311, case_43741559, case_44271745, case_46353596, case_34425801, case_35439454, case_45348151, case_44148559, case_33719870, case_34732840, case_38446289, case_35549526
 
 ## 5) Impact Score Top Nodes
 - 1. **Generator(Prompt-only)** — score=9, degree=38, type=pattern
 - 2. **case_8958059** — score=7, degree=4, type=case
 - 3. **case_13986828** — score=5, degree=5, type=case
 - 4. **case_34613598** — score=5, degree=4, type=case
-- 5. **case_45929247** — score=5, degree=3, type=case
-- 6. **case_327937** — score=5, degree=3, type=case
+- 5. **case_327937** — score=5, degree=3, type=case
+- 6. **case_45929247** — score=5, degree=3, type=case
 - 7. **case_31768298** — score=5, degree=2, type=case
 - 8. **case_24547098** — score=5, degree=6, type=case
 - 9. **meeting_memory** — score=3, degree=7, type=feature
-- 10. **cost_explosion** — score=3, degree=6, type=feature
+- 10. **action_items** — score=3, degree=6, type=feature
 
 ## 6) Centrality (Betweenness / PageRank)
 ### 6.1 Betweenness Centrality (Top 10)

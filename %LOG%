@@ -1,0 +1,40 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "E:\boot camp data\프로젝트\app\main.py", line 209, in <module>
+    main()
+    ~~~~^^
+  File "E:\boot camp data\프로젝트\app\main.py", line 192, in main
+    raw = load_hn_results()
+  File "E:\boot camp data\프로젝트\app\main.py", line 35, in load_hn_results
+    result = hn_fetch_main()
+  File "E:\boot camp data\프로젝트\app\ingestion\hn_fetch.py", line 424, in main
+    cases = run_pipeline()
+  File "E:\boot camp data\프로젝트\app\ingestion\hn_fetch.py", line 432, in run_pipeline
+    cases = collect_cases()     # \u2705 수집 + csv 저장
+  File "E:\boot camp data\프로젝트\app\ingestion\hn_fetch.py", line 172, in collect_cases
+    print(f"    {r['title']}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'cp949' codec can't encode character '\u2013' in position 26: illegal multibyte sequence
+
+=== HN Meeting/Call Summary Cases (Top) - with Comments ===
+
+[1] 2026-01-21 | Agent | pts:1 com:1
+    Show HN: Claude Code prompts to turn voice AI exports to a personal knowledge
+    features: structured_output,meeting_memory
+    risks:    cost_explosion
+    url: https://thoughts.jock.pl/p/limitless-pendant-eu-ban-what-i-did-with-voice-data
+
+[2] 2026-01-07 | Generator(Prompt-only) | pts:2 com:0
+    Show HN: Turn meetings into presentation-ready slides
+    features: -
+    risks:    -
+    url: https://notefy.pro/
+
+[3] 2026-01-05 | Generator(Prompt-only) | pts:1 com:0
+    Show HN: Turn meetings into summaries, presentations, and an AI to ask questions
+    features: multilingual
+    risks:    -
+    url: https://notefy.pro/
+
+[4] 2025-12-22 | Generator(Prompt-only) | pts:1 com:0
