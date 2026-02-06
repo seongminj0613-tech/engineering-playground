@@ -10,7 +10,7 @@
       "compliance"
     ],
     "trend": "",
-    "total_score": 52.16,
+    "total_score": 51.85,
     "scores": {},
     "evidence": [],
     "risks": [],
@@ -18,40 +18,6 @@
   },
   {
     "rank": 2,
-    "idea_id": "IDEA-008",
-    "title": "Security Policy Drift Monitor",
-    "summary": "",
-    "tags": [
-      "security",
-      "compliance",
-      "devops"
-    ],
-    "trend": "",
-    "total_score": 48.76,
-    "scores": {},
-    "evidence": [],
-    "risks": [],
-    "assumptions": []
-  },
-  {
-    "rank": 3,
-    "idea_id": "IDEA-006",
-    "title": "Customer Churn Early Warning",
-    "summary": "",
-    "tags": [
-      "retention",
-      "analytics",
-      "b2b"
-    ],
-    "trend": "",
-    "total_score": 48.13,
-    "scores": {},
-    "evidence": [],
-    "risks": [],
-    "assumptions": []
-  },
-  {
-    "rank": 4,
     "idea_id": "IDEA-007",
     "title": "Meeting Notes to Jira Tasks",
     "summary": "",
@@ -61,31 +27,31 @@
       "automation"
     ],
     "trend": "",
-    "total_score": 47.82,
+    "total_score": 47.65,
     "scores": {},
     "evidence": [],
     "risks": [],
     "assumptions": []
   },
   {
-    "rank": 5,
-    "idea_id": "IDEA-005",
-    "title": "Cloud Cost Leak Detector",
+    "rank": 3,
+    "idea_id": "IDEA-008",
+    "title": "Security Policy Drift Monitor",
     "summary": "",
     "tags": [
-      "cloud",
-      "cost",
-      "automation"
+      "security",
+      "compliance",
+      "devops"
     ],
     "trend": "",
-    "total_score": 47.43,
+    "total_score": 47.25,
     "scores": {},
     "evidence": [],
     "risks": [],
     "assumptions": []
   },
   {
-    "rank": 6,
+    "rank": 4,
     "idea_id": "IDEA-010",
     "title": "Privacy-safe Data Collector",
     "summary": "",
@@ -95,7 +61,41 @@
       "compliance"
     ],
     "trend": "",
-    "total_score": 47.08,
+    "total_score": 47.12,
+    "scores": {},
+    "evidence": [],
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 5,
+    "idea_id": "IDEA-006",
+    "title": "Customer Churn Early Warning",
+    "summary": "",
+    "tags": [
+      "retention",
+      "analytics",
+      "b2b"
+    ],
+    "trend": "",
+    "total_score": 46.93,
+    "scores": {},
+    "evidence": [],
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 6,
+    "idea_id": "IDEA-005",
+    "title": "Cloud Cost Leak Detector",
+    "summary": "",
+    "tags": [
+      "cloud",
+      "cost",
+      "automation"
+    ],
+    "trend": "",
+    "total_score": 46.23,
     "scores": {},
     "evidence": [],
     "risks": [],
@@ -112,7 +112,7 @@
       "automation"
     ],
     "trend": "",
-    "total_score": 46.91,
+    "total_score": 45.94,
     "scores": {},
     "evidence": [],
     "risks": [],
@@ -129,7 +129,7 @@
       "real-time"
     ],
     "trend": "",
-    "total_score": 45.31,
+    "total_score": 43.94,
     "scores": {},
     "evidence": [],
     "risks": [],
@@ -146,7 +146,7 @@
       "dashboard"
     ],
     "trend": "",
-    "total_score": 44.56,
+    "total_score": 42.85,
     "scores": {},
     "evidence": [],
     "risks": [],
@@ -163,7 +163,7 @@
       "analytics"
     ],
     "trend": "",
-    "total_score": 44.02,
+    "total_score": 42.14,
     "scores": {},
     "evidence": [],
     "risks": [],
