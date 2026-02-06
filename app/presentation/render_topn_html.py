@@ -1,4 +1,5 @@
 from __future__ import annotations
+import argparse
 import sys
 import json
 from pathlib import Path
@@ -76,38 +77,50 @@ def render_top_n(rows: list[dict], n: int = 15) -> list[dict]:
     - scores: dict (contains total/feasibility/risk/etc)
     - evidence/risks/assumptions: list or dict or str
     """
-    def pick_total_score(r: dict) -> float:
-        s = r.get("scores") or {}
-        if isinstance(s, dict):
-            # 흔한 후보 키들
-            for k in ["total", "total_score", "final", "final_score", "score"]:
-                if k in s:
-                    return _to_float(s.get(k))
-            # dict 안에 숫자 중 가장 큰 값(보험)
-            nums = [v for v in s.values() if isinstance(v, (int, float))]
-            if nums:
-                return float(max(nums))
-        return 0.0
 
     ranked = sorted(rows, key=pick_total_score, reverse=True)[:n]
 
     out = []
     for i, r in enumerate(ranked, start=1):
         out.append(
-            {
-                "rank": i,
-                "idea_id": r.get("idea_id", ""),
-                "title": r.get("title", "(untitled)"),
-                "summary": r.get("summary", ""),
-                "tags": r.get("tags", []),
-                "trend": r.get("trend", ""),
-                "scores": r.get("scores", {}),
-                "evidence": r.get("evidence", []),
-                "risks": r.get("risks", []),
-                "assumptions": r.get("assumptions", []),
-            }
+          {
+            "rank": i,
+            "idea_id": r.get("idea_id", ""),
+            "title": r.get("title", "(untitled)"),
+            "summary": r.get("summary", ""),
+            "tags": r.get("tags", []),
+            "trend": r.get("trend", ""),
+
+            # ✅ 이 줄 추가 (핵심)
+            "total_score": pick_total_score(r),
+
+            "scores": r.get("scores", {}),
+            "evidence": r.get("evidence", []),
+            "risks": r.get("risks", []),
+            "assumptions": r.get("assumptions", []),
+        }
         )
     return out
+
+def pick_total_score(r: dict) -> float:
+    # ✅ 1) top-level 우선
+    for k in ["total_score", "total", "final", "final_score", "score"]:
+        if k in r:
+            return _to_float(r.get(k))
+
+    # ✅ 2) nested(scores)도 지원
+    s = r.get("scores") or r.get("score") or {}
+    if isinstance(s, dict):
+        for k in ["total", "total_score", "final", "final_score", "score"]:
+            if k in s:
+                return _to_float(s.get(k))
+
+        nums = [v for v in s.values() if isinstance(v, (int, float))]
+        if nums:
+            return float(max(nums))
+
+    return 0.0
+
 
 def build_html(table_rows: list[dict]) -> str:
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -249,7 +262,7 @@ def build_html(table_rows: list[dict]) -> str:
                {detail_html}
              </details>
           </td>
-          <td class="scorecell">{round(r.get('total_score',0),2)}</td>
+          <td class="scorecell">{round(_to_float(r.get("total_score", 0)), 2)}</td>
           <td class="trendcell">{fmt_trend(r.get("trend"))}</td>
           </tr>
           """.strip()
@@ -454,6 +467,90 @@ def write_history_snapshot_json(table_rows: list[dict], top_n: int) -> Path:
 
     return out
 
+def load_history_snapshot_json(day: str) -> list[dict]:
+    """
+    Load docs/history/data/YYYY-MM-DD.json and convert to table_rows schema
+    that build_html() expects.
+    """
+    snap = HISTORY_DATA_DIR / f"{day}.json"
+    if not snap.exists():
+        raise FileNotFoundError(f"History snapshot json not found: {snap}")
+
+    data = json.loads(snap.read_text(encoding="utf-8"))
+    items = data.get("items", [])
+    if not isinstance(items, list):
+        items = []
+
+    table_rows = []
+    for it in items:
+        table_rows.append(
+            {
+                "rank": int(it.get("rank") or 0),
+                "idea_id": it.get("idea_id", ""),
+                "title": it.get("title", "(untitled)"),
+                "summary": "",           # 과거 스냅샷엔 없으니 빈 값
+                "tags": it.get("tags", []),
+                "trend": "",
+                "total_score": _to_float(it.get("total_score", 0.0)),
+                "scores": {"total": _to_float(it.get("total_score", 0.0))},  # 기존 fmt_scores 호환
+                "evidence": [],
+                "risks": [],
+                "assumptions": [],
+            }
+        )
+
+    # rank 오름차순 정렬 보정
+    table_rows = sorted(table_rows, key=lambda r: r.get("rank", 10**9))
+    return table_rows
+
+
+def write_history_snapshot_for_date(html: str, day: str) -> Path:
+    """
+    Save snapshot into docs/history/YYYY-MM-DD.html (for specific day)
+    """
+    history_dir = DOCS_DIR / "history"
+    history_dir.mkdir(parents=True, exist_ok=True)
+
+    out = history_dir / f"{day}.html"
+    out.write_text(html, encoding="utf-8")
+    return out
+
+
+def rebuild_history_pages() -> None:
+    """
+    Re-generate docs/history/YYYY-MM-DD.html for all dates in docs/history/data/index.json
+    """
+    if not HISTORY_INDEX_JSON.exists():
+        print("⚠️ No history index.json found. Nothing to rebuild.")
+        return
+
+    try:
+        idx = json.loads(HISTORY_INDEX_JSON.read_text(encoding="utf-8"))
+    except Exception:
+        print("⚠️ Failed to read history index.json. Nothing to rebuild.")
+        return
+
+    dates = idx.get("dates", [])
+    if not isinstance(dates, list) or not dates:
+        print("⚠️ No dates in history index.json. Nothing to rebuild.")
+        return
+
+    ok = 0
+    for day in sorted(dates):
+        try:
+            table_rows = load_history_snapshot_json(day)
+            html = build_html(table_rows)
+            out = write_history_snapshot_for_date(html, day)
+            ok += 1
+            print(f"✅ Rebuilt history page -> {out}")
+        except Exception as e:
+            print(f"❌ Failed to rebuild {day}: {e}")
+
+    # 링크 인덱스 다시 생성
+    hist_index = write_history_index()
+    print(f"📜 History index -> {hist_index} (rebuilt {ok} pages)")
+
+
 def load_prev_rank_map(today: str) -> dict[str, int]:
     """
     return: {idea_id: prev_rank}
@@ -553,10 +650,23 @@ def main(top_n: int = 15) -> None:
 
 
 if __name__ == "__main__":
-    n = 15
-    if len(sys.argv) >= 2:
-        try:
-            n = int(sys.argv[1])
-        except Exception:
-            pass
-    main(top_n=n)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--topn", type=int, default=15, help="Top N to render for today")
+    parser.add_argument("--date", type=str, default=None, help="Re-render a specific history date (YYYY-MM-DD) from snapshot json")
+    parser.add_argument("--rebuild-history", action="store_true", help="Rebuild all history html pages from snapshot json index")
+    args = parser.parse_args()
+
+    if args.rebuild_history:
+        rebuild_history_pages()
+    elif args.date:
+        # 특정 날짜 재생성
+        day = args.date.strip()
+        table_rows = load_history_snapshot_json(day)
+        html = build_html(table_rows)
+        out = write_history_snapshot_for_date(html, day)
+        hist_index = write_history_index()
+        print(f"✅ Rendered history date -> {out}")
+        print(f"📜 History index -> {hist_index}")
+    else:
+        # 기존 동작(오늘 생성)
+        main(top_n=args.topn)

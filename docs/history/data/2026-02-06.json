@@ -1,32 +1,10 @@
 {
   "date": "2026-02-06",
-  "topn": 25,
+  "topn": 15,
   "items": [
     {
-      "idea_id": "IDEA-001",
-      "rank": 1,
-      "title": "Daily Trend Radar",
-      "tags": [
-        "ai",
-        "news",
-        "dashboard"
-      ],
-      "total_score": 0.0
-    },
-    {
-      "idea_id": "IDEA-002",
-      "rank": 2,
-      "title": "Ops Incident Playbook Generator",
-      "tags": [
-        "devops",
-        "sre",
-        "automation"
-      ],
-      "total_score": 0.0
-    },
-    {
       "idea_id": "IDEA-003",
-      "rank": 3,
+      "rank": 1,
       "title": "B2B Workflow Scoring",
       "tags": [
         "b2b",
@@ -36,13 +14,35 @@
       "total_score": 0.0
     },
     {
-      "idea_id": "IDEA-004",
-      "rank": 4,
-      "title": "Resume-to-Job Fit Matcher",
+      "idea_id": "IDEA-008",
+      "rank": 2,
+      "title": "Security Policy Drift Monitor",
       "tags": [
-        "hr",
-        "recommendation",
-        "analytics"
+        "security",
+        "compliance",
+        "devops"
+      ],
+      "total_score": 0.0
+    },
+    {
+      "idea_id": "IDEA-006",
+      "rank": 3,
+      "title": "Customer Churn Early Warning",
+      "tags": [
+        "retention",
+        "analytics",
+        "b2b"
+      ],
+      "total_score": 0.0
+    },
+    {
+      "idea_id": "IDEA-007",
+      "rank": 4,
+      "title": "Meeting Notes to Jira Tasks",
+      "tags": [
+        "workflow",
+        "integration",
+        "automation"
       ],
       "total_score": 0.0
     },
@@ -58,41 +58,30 @@
       "total_score": 0.0
     },
     {
-      "idea_id": "IDEA-006",
+      "idea_id": "IDEA-010",
       "rank": 6,
-      "title": "Customer Churn Early Warning",
+      "title": "Privacy-safe Data Collector",
       "tags": [
-        "retention",
-        "analytics",
-        "b2b"
+        "privacy",
+        "pii",
+        "compliance"
       ],
       "total_score": 0.0
     },
     {
-      "idea_id": "IDEA-007",
+      "idea_id": "IDEA-002",
       "rank": 7,
-      "title": "Meeting Notes to Jira Tasks",
+      "title": "Ops Incident Playbook Generator",
       "tags": [
-        "workflow",
-        "integration",
+        "devops",
+        "sre",
         "automation"
       ],
       "total_score": 0.0
     },
     {
-      "idea_id": "IDEA-008",
-      "rank": 8,
-      "title": "Security Policy Drift Monitor",
-      "tags": [
-        "security",
-        "compliance",
-        "devops"
-      ],
-      "total_score": 0.0
-    },
-    {
       "idea_id": "IDEA-009",
-      "rank": 9,
+      "rank": 8,
       "title": "Real-time Multi-agent Research",
       "tags": [
         "ai",
@@ -102,13 +91,24 @@
       "total_score": 0.0
     },
     {
-      "idea_id": "IDEA-010",
-      "rank": 10,
-      "title": "Privacy-safe Data Collector",
+      "idea_id": "IDEA-001",
+      "rank": 9,
+      "title": "Daily Trend Radar",
       "tags": [
-        "privacy",
-        "pii",
-        "compliance"
+        "ai",
+        "news",
+        "dashboard"
+      ],
+      "total_score": 0.0
+    },
+    {
+      "idea_id": "IDEA-004",
+      "rank": 10,
+      "title": "Resume-to-Job Fit Matcher",
+      "tags": [
+        "hr",
+        "recommendation",
+        "analytics"
       ],
       "total_score": 0.0
     }
