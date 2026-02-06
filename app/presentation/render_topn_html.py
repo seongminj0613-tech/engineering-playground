@@ -438,7 +438,12 @@ def write_history_snapshot_json(table_rows: list[dict], top_n: int) -> Path:
                 "rank": r.get("rank", None),
                 "title": r.get("title", ""),
                 "tags": r.get("tags", []),
-                "total_score": _to_float((r.get("scores") or {}).get("total", (r.get("scores") or {}).get("total_score", 0.0))),
+                "total_score": _to_float(
+                    r.get("total_score")
+                    or (r.get("scores") or {}).get("total")
+                    or (r.get("scores") or {}).get("total_score")
+                    or 0.0
+                ),
             }
             for r in table_rows
             if r.get("idea_id")
