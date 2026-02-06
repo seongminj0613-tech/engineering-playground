@@ -1,0 +1,124 @@
+{
+  "date_prev": "2026-02-05",
+  "date_curr": "2026-02-06",
+  "summary": {
+    "curr_count": 10,
+    "prev_count": 10,
+    "new_count": 0,
+    "disappeared_count": 0
+  },
+  "new_ids": [],
+  "disappeared_ids": [],
+  "rows": [
+    {
+      "idea_id": "IDEA-001",
+      "title": "Daily Trend Radar",
+      "status": "EXISTING",
+      "rank_prev": 9,
+      "rank_curr": 1,
+      "rank_delta": 8,
+      "score_prev": 0.0,
+      "score_curr": 44.56,
+      "score_delta": 44.56
+    },
+    {
+      "idea_id": "IDEA-004",
+      "title": "Resume-to-Job Fit Matcher",
+      "status": "EXISTING",
+      "rank_prev": 10,
+      "rank_curr": 4,
+      "rank_delta": 6,
+      "score_prev": 0.0,
+      "score_curr": 44.02,
+      "score_delta": 44.02
+    },
+    {
+      "idea_id": "IDEA-002",
+      "title": "Ops Incident Playbook Generator",
+      "status": "EXISTING",
+      "rank_prev": 7,
+      "rank_curr": 2,
+      "rank_delta": 5,
+      "score_prev": 0.0,
+      "score_curr": 46.91,
+      "score_delta": 46.91
+    },
+    {
+      "idea_id": "IDEA-005",
+      "title": "Cloud Cost Leak Detector",
+      "status": "EXISTING",
+      "rank_prev": 5,
+      "rank_curr": 5,
+      "rank_delta": 0,
+      "score_prev": 0.0,
+      "score_curr": 47.43,
+      "score_delta": 47.43
+    },
+    {
+      "idea_id": "IDEA-009",
+      "title": "Real-time Multi-agent Research",
+      "status": "EXISTING",
+      "rank_prev": 8,
+      "rank_curr": 9,
+      "rank_delta": -1,
+      "score_prev": 0.0,
+      "score_curr": 45.31,
+      "score_delta": 45.31
+    },
+    {
+      "idea_id": "IDEA-003",
+      "title": "B2B Workflow Scoring",
+      "status": "EXISTING",
+      "rank_prev": 1,
+      "rank_curr": 3,
+      "rank_delta": -2,
+      "score_prev": 0.0,
+      "score_curr": 52.16,
+      "score_delta": 52.16
+    },
+    {
+      "idea_id": "IDEA-006",
+      "title": "Customer Churn Early Warning",
+      "status": "EXISTING",
+      "rank_prev": 3,
+      "rank_curr": 6,
+      "rank_delta": -3,
+      "score_prev": 0.0,
+      "score_curr": 48.13,
+      "score_delta": 48.13
+    },
+    {
+      "idea_id": "IDEA-007",
+      "title": "Meeting Notes to Jira Tasks",
+      "status": "EXISTING",
+      "rank_prev": 4,
+      "rank_curr": 7,
+      "rank_delta": -3,
+      "score_prev": 0.0,
+      "score_curr": 47.82,
+      "score_delta": 47.82
+    },
+    {
+      "idea_id": "IDEA-010",
+      "title": "Privacy-safe Data Collector",
+      "status": "EXISTING",
+      "rank_prev": 6,
+      "rank_curr": 10,
+      "rank_delta": -4,
+      "score_prev": 0.0,
+      "score_curr": 47.08,
+      "score_delta": 47.08
+    },
+    {
+      "idea_id": "IDEA-008",
+      "title": "Security Policy Drift Monitor",
+      "status": "EXISTING",
+      "rank_prev": 2,
+      "rank_curr": 8,
+      "rank_delta": -6,
+      "score_prev": 0.0,
+      "score_curr": 48.76,
+      "score_delta": 48.76
+    }
+  ]
+}
