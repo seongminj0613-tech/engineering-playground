@@ -2,6 +2,7 @@ import json
 import yaml
 import datetime as dt
 import re
+import app.matching.match_external as _mx
 from pathlib import Path
 from collections import defaultdict
 from app.scoring.model_v0_1 import ScoreModelV01
@@ -11,7 +12,8 @@ from app.signals.signals import build_signals_from_disclosure
 from datetime import timezone, date
 from app.scoring.signals import build_corpus_counter, extract_signals
 from app.scoring.scorer import score_from_signals, seeded_jitter
-
+from app.matching.match_external import load_external_docs, match_evidence_for_idea, compute_market_signal
+from app.history.delta import apply_rank_and_delta, top_movers
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -145,26 +147,17 @@ def render(result: dict) -> None:
         if isinstance(r["tags"], str):
             r["tags"] = [r["tags"]]
         
-        
-        r["risk"] = (
-            score.get("risk")
-            or idea.get("risk")
-            or "unknown"
-        )
-            
-        r["market"] = idea.get("market") or score.get("market") or "unknown"
-       
-        r["feasibility"] = (
-           score.get("feasibility")
-           or idea.get("feasibility")
-           or "unknown"
-        ) 
-        
         r["risk"] = score.get("risk") or idea.get("risk") or "unknown"
+        r["market"] = idea.get("market") or score.get("market") or "unknown"
+        r["feasibility"] = score.get("feasibility") or idea.get("feasibility") or "unknown"
         r["impact"] = score.get("impact") or idea.get("impact") or "unknown"
         r["confidence"] = score.get("confidence") or idea.get("confidence") or "unknown"
 
         ranked_rows.append(r)
+
+    # 🔥 여기! for문 끝나고 정렬 1번만
+    ranked_rows.sort(key=lambda r: int(r.get("rank") or 999999))
+     
 
     context = {
         "date": dt.datetime.now().strftime("%Y-%m-%d"),
@@ -172,6 +165,8 @@ def render(result: dict) -> None:
         "rows": ranked_rows,      # 전체 점수 테이블
         "ranked": ranked_rows,    # 상위 리스트(지금은 same)
         "meta": {"n_items": len(items)},
+        "movers_up": result.get("movers_up", []),
+        "movers_down": result.get("movers_down", []),
     }
 
     render_json(out_dir, ranked_rows)
@@ -207,6 +202,10 @@ def compute_trend_score(idea: dict, topic_freq: dict) -> float:
 
 def score_ideas_v2_from_ideas_only(ideas: list) -> list:
     today = dt.datetime.now(timezone.utc).date()
+    docs = load_external_docs(ROOT / "data" / "external" / "external_docs.jsonl")
+    
+ 
+    
     
     # novelty용 코퍼스
     corpus_counter = build_corpus_counter(ideas)
@@ -235,6 +234,16 @@ def score_ideas_v2_from_ideas_only(ideas: list) -> list:
 
         freshness = compute_freshness(it, today)
         trend = compute_trend_score(it, topic_freq)
+        # ✅ external evidence 매칭 (v1)
+        evidence = match_evidence_for_idea(it, docs, top_n=3)
+        it["external_evidence"] = evidence
+
+        market_signal = compute_market_signal(evidence)
+        # score_breakdown 형태로 남기고 싶으면(추천)
+        sb = it.get("score_breakdown") or {}
+        sb["market_signal"] = market_signal
+        it["score_breakdown"] = sb
+        
 
         signals = extract_signals(
             it,
@@ -245,8 +254,8 @@ def score_ideas_v2_from_ideas_only(ideas: list) -> list:
 
         base = score_from_signals(signals)
         jitter = seeded_jitter(iid or str(it.get("title", "")), today, max_points=0.8)
-        total = max(0.0, min(100.0, base + jitter))
-
+        w = 0.8  # 가중치 (너무 크면 외부근거가 다 먹어버림)
+        total = max(0.0, min(100.0, base + jitter + (market_signal * w)))
         # ✅ idea에도 박아두기 (render에서 참고 가능)
         it["signals"] = signals
         it["total_score"] = round(total, 2)
@@ -259,16 +268,17 @@ def score_ideas_v2_from_ideas_only(ideas: list) -> list:
             "signal_count": len(signals),
             # render에서 쓰는 필드들 보강(선택)
             "evidence": it.get("evidence") or [],
+            "market_signal": (it.get("score_breakdown") or {}).get("market_signal", 0.0),
             "tags": it.get("tags") or [],
             "risk": it.get("risk") or "unknown",
             "impact": it.get("impact") or "unknown",
             "confidence": it.get("confidence") or "unknown",
             "market": it.get("market") or "unknown",
-            "feasibility": it.get("feasibility") or "unknown",
+            "feasibility": it.get("feasibility") or "unknown",            
         })
 
-    print("DEBUG v2 scored_rows:", len(scored_rows))
-    print("DEBUG v2 sample total_score:", scored_rows[0]["total_score"] if scored_rows else None)
+  
+    
     return scored_rows
 
 
@@ -278,6 +288,33 @@ def main():
     # 1) 설정 로드
     cfg = load_config()
     ideas = load_jsonl(ROOT / "data" / "raw" / "ideas.jsonl")
+    
+    from app.ingestion.external_docs import append_external_docs
+
+    EXTERNAL_PATH = ROOT / "data" / "external" / "external_docs.jsonl"
+
+    # ✅ 부트스트랩: 아이디어의 tags/title을 기반으로 "외부 문서 형태"를 만들어 일단 50개까지 채움
+    # (진짜 외부 수집은 다음 단계에서 HN/RSS로 교체)
+    bootstrap_docs = []
+    for it in ideas:
+        tags = it.get("tags") or []
+        if isinstance(tags, str):
+           tags = [tags]
+        title = str(it.get("title") or it.get("idea") or "")
+        if not title:
+           continue
+        bootstrap_docs.append({
+            "source": "bootstrap",
+            "title": f"Trend signal about: {title}",
+            "url": f"https://example.local/{it.get('idea_id','')}",
+            "snippet": str(it.get("content") or "")[:160],
+            "tags": tags or ["trend"],
+            "published_at": dt.datetime.now().date().isoformat(),
+        })
+
+    added = append_external_docs(EXTERNAL_PATH, bootstrap_docs)
+    print("[EXTERNAL BOOTSTRAP] added:", added, "path:", EXTERNAL_PATH)
+    
     if not ideas:
         result = {"status": "ok", "items": []}
         render(result)
@@ -294,9 +331,45 @@ def main():
     print("DEBUG idea_id sample:", ideas[0].get("idea_id") if ideas else None)
     print("DEBUG total_score sample:", scored_rows[0].get("total_score") if scored_rows else None)
     print("DEBUG signals sample keys:", list((scored_rows[0].get("signals") or {}).keys()) if scored_rows else None)
+    
+    ranked_top = rank_scores(scored_rows, top_k=50)
+    today_str = dt.datetime.now().strftime("%Y-%m-%d")
+    prev_str = (dt.datetime.now() - dt.timedelta(days=1)).strftime("%Y-%m-%d")
 
-    ranked_top = rank_scores(scored_rows, top_k=10)
+    prev_path = ROOT / "docs" / "history" / "data" / f"{prev_str}.json"
+    prev_rows = []
+    if prev_path.exists():
+        try:
+            prev_obj = json.loads(prev_path.read_text(encoding="utf-8"))
+            # 네 스냅샷 포맷이 list면 그대로, dict면 items/rows 같은 키에서 꺼내기
+            if isinstance(prev_obj, list):
+                prev_rows = prev_obj
+            elif isinstance(prev_obj, dict):
+                prev_rows = prev_obj.get("rows") or prev_obj.get("ranked") or prev_obj.get("items") or []
+        except Exception:
+            prev_rows = []
+
+    ranked_top = apply_rank_and_delta(ranked_top, prev_rows)
+
+    up5, down5 = top_movers(ranked_top, k=5)
+    print("\n=== MOVERS (UP 5) ===")
+    for r in up5:
+        print(r.get("idea_id"), "Δrank", r.get("rank_delta"), "Δscore", r.get("score_delta"))
+    print("=== MOVERS (DOWN 5) ===")
+    for r in down5:
+        print(r.get("idea_id"), "Δrank", r.get("rank_delta"), "Δscore", r.get("score_delta"))
+    print("=== END MOVERS ===\n")
+    
     result = package_result(ideas, ranked_top)
+    result["movers_up"] = up5
+    result["movers_down"] = down5
+    render(result)
+    hist_dir = ROOT / "docs" / "history" / "data"
+    hist_dir.mkdir(parents=True, exist_ok=True)
+    today_path = hist_dir / f"{today_str}.json"
+    today_path.write_text(json.dumps(ranked_top, ensure_ascii=False, indent=2), encoding="utf-8")
+    print("[HISTORY] saved:", today_path)
+    
     render(result)
     return
    

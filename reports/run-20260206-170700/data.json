@@ -30,7 +30,8 @@
     "rank_prev": 1,
     "rank_delta": 0,
     "score_prev": 52.16,
-    "score_delta": -0.31
+    "score_delta": -0.31,
+    "title": "B2B Workflow Scoring"
   },
   {
     "idea_id": "IDEA-007",
@@ -63,7 +64,8 @@
     "rank_prev": 4,
     "rank_delta": 2,
     "score_prev": 47.82,
-    "score_delta": -0.17
+    "score_delta": -0.17,
+    "title": "Meeting Notes to Jira Tasks"
   },
   {
     "idea_id": "IDEA-008",
@@ -96,7 +98,8 @@
     "rank_prev": 2,
     "rank_delta": -1,
     "score_prev": 48.76,
-    "score_delta": -1.51
+    "score_delta": -1.51,
+    "title": "Security Policy Drift Monitor"
   },
   {
     "idea_id": "IDEA-010",
@@ -129,7 +132,8 @@
     "rank_prev": 6,
     "rank_delta": 2,
     "score_prev": 47.08,
-    "score_delta": 0.04
+    "score_delta": 0.04,
+    "title": "Privacy-safe Data Collector"
   },
   {
     "idea_id": "IDEA-006",
@@ -162,7 +166,8 @@
     "rank_prev": 3,
     "rank_delta": -2,
     "score_prev": 48.13,
-    "score_delta": -1.2
+    "score_delta": -1.2,
+    "title": "Customer Churn Early Warning"
   },
   {
     "idea_id": "IDEA-005",
@@ -195,7 +200,8 @@
     "rank_prev": 5,
     "rank_delta": -1,
     "score_prev": 47.43,
-    "score_delta": -1.2
+    "score_delta": -1.2,
+    "title": "Cloud Cost Leak Detector"
   },
   {
     "idea_id": "IDEA-002",
@@ -228,7 +234,8 @@
     "rank_prev": 7,
     "rank_delta": 0,
     "score_prev": 46.91,
-    "score_delta": -0.97
+    "score_delta": -0.97,
+    "title": "Ops Incident Playbook Generator"
   },
   {
     "idea_id": "IDEA-009",
@@ -261,7 +268,8 @@
     "rank_prev": 8,
     "rank_delta": 0,
     "score_prev": 45.31,
-    "score_delta": -1.37
+    "score_delta": -1.37,
+    "title": "Real-time Multi-agent Research"
   },
   {
     "idea_id": "IDEA-001",
@@ -294,7 +302,8 @@
     "rank_prev": 9,
     "rank_delta": 0,
     "score_prev": 44.56,
-    "score_delta": -1.71
+    "score_delta": -1.71,
+    "title": "Daily Trend Radar"
   },
   {
     "idea_id": "IDEA-004",
@@ -327,6 +336,7 @@
     "rank_prev": 10,
     "rank_delta": 0,
     "score_prev": 44.02,
-    "score_delta": -1.88
+    "score_delta": -1.88,
+    "title": "Resume-to-Job Fit Matcher"
   }
 ]

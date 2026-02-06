@@ -38,6 +38,22 @@ def render_md(report_dir: Path, context: dict):
     lines.append("- Expand signals coverage (news/papers/competitors)\n")
 
     out_path = report_dir / "summary.md"
+    up = context.get("movers_up", []) or []
+    down = context.get("movers_down", []) or []
+
+    lines.append("\n## 🚀 Movers (Up)\n")
+    if not up:
+        lines.append("- (none)\n")
+    else:
+        for r in up:
+           lines.append(f"- **{r.get('idea_id')}**  Δrank {r.get('rank_delta')}  Δscore {r.get('score_delta')}\n")
+
+    lines.append("\n## 🔻 Movers (Down)\n")
+    if not down:
+        lines.append("- (none)\n")
+    else:
+        for r in down:
+            lines.append(f"- **{r.get('idea_id')}**  Δrank {r.get('rank_delta')}  Δscore {r.get('score_delta')}\n")
     out_path.write_text("\n".join(lines), encoding="utf-8")
 
     print(f"📝 summary.md saved → {out_path}")

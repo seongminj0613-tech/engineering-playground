@@ -421,14 +421,14 @@ def _ensure_history_data_dir() -> None:
     HISTORY_DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def write_history_snapshot_json(table_rows: list[dict], top_n: int) -> Path:
+def write_history_snapshot_json(table_rows: list[dict], top_n: int, day: str | None = None) -> Path:
     """
     Save today's snapshot into docs/history/data/YYYY-MM-DD.json
     (idea_id 기준 rank/score/title/tags 저장)
     """
     _ensure_history_data_dir()
-    day = _today_slug()
-
+    day = day or _today_slug()
+    
     payload = {
         "date": day,
         "topn": top_n,
@@ -519,6 +519,8 @@ def write_history_snapshot_for_date(html: str, day: str) -> Path:
     out = history_dir / f"{day}.html"
     out.write_text(html, encoding="utf-8")
     return out
+
+
 
 
 def rebuild_history_pages() -> None:
@@ -612,6 +614,64 @@ def _link_or_text(s: str) -> str:
         return f'<a href="{esc}" target="_blank" rel="noopener noreferrer">{esc}</a>'
     return _escape(s)
 
+def save_daily_run_json(day: str, rows: list[dict]) -> Path:
+    outdir = ROOT / "reports" / "daily"
+    outdir.mkdir(parents=True, exist_ok=True)
+    out = outdir / f"{day}.json"
+    out.write_text(json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8")
+    return out
+
+
+def backfill_snapshot_from_run(day: str, run_json_path: str, top_n: int = 15) -> Path:
+    """
+    reports/run-*/data.json → 과거 날짜 snapshot json 재생성
+    """
+    p = Path(run_json_path)
+    rows = _load_rows(p)
+
+    ranked = sorted(rows, key=lambda r: int(r.get("rank") or 10**9))[:top_n]
+
+    items = []
+    for i, r in enumerate(ranked, start=1):
+        idea_id = str(r.get("idea_id") or "")
+        if not idea_id:
+            continue
+
+        items.append(
+            {
+                "idea_id": idea_id,
+                "rank": int(r.get("rank") or i),
+                "title": str(r.get("title") or ""),
+                "tags": r.get("tags") if isinstance(r.get("tags"), list) else ([r.get("tags")] if r.get("tags") else []),
+                "total_score": _to_float(r.get("total_score", 0.0)),
+            }
+        )
+
+    out = HISTORY_DATA_DIR / f"{day}.json"
+    payload = {"date": day, "topn": len(items), "items": items}
+    out.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    # index.json 업데이트
+    idx = {"dates": []}
+    if HISTORY_INDEX_JSON.exists():
+        try:
+            idx = json.loads(HISTORY_INDEX_JSON.read_text(encoding="utf-8"))
+        except Exception:
+            idx = {"dates": []}
+
+    dates = idx.get("dates", [])
+    if not isinstance(dates, list):
+        dates = []
+
+    if day not in dates:
+        dates.append(day)
+
+    idx["dates"] = sorted(set(dates))
+    HISTORY_INDEX_JSON.write_text(json.dumps(idx, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    print(f"✅ Backfilled snapshot json -> {out} (src={p})")
+    return out
+
 
 def main(top_n: int = 15) -> None:
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
@@ -621,6 +681,9 @@ def main(top_n: int = 15) -> None:
     top = render_top_n(rows, n=top_n)
     
     today = _today_slug()
+    daily_path = save_daily_run_json(today, top)
+    print(f"🧷 Daily run saved -> {daily_path}")
+    
     prev_rank = load_prev_rank_map(today)
 
     for item in top:
@@ -652,17 +715,30 @@ def main(top_n: int = 15) -> None:
     print(f"📜 History index -> {hist_index}")
     print(f"📥 Data source -> {src} (rows={len(rows)})")
     print(f"🧾 History data -> {snap_json}")
-
+    
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--topn", type=int, default=15, help="Top N to render for today")
     parser.add_argument("--date", type=str, default=None, help="Re-render a specific history date (YYYY-MM-DD) from snapshot json")
     parser.add_argument("--rebuild-history", action="store_true", help="Rebuild all history html pages from snapshot json index")
+    parser.add_argument("--backfill-date", type=str, default=None, help="Backfill snapshot json date (YYYY-MM-DD)")
+    parser.add_argument("--backfill-run", type=str, default=None, help="Backfill source run json path (reports/run-*/data.json)")
     args = parser.parse_args()
 
     if args.rebuild_history:
         rebuild_history_pages()
+    elif args.backfill_date and args.backfill_run:
+        day = args.backfill_date.strip()
+        backfill_snapshot_from_run(day, args.backfill_run, top_n=args.topn)
+        # backfill 했으면 그 날짜 HTML도 바로 재생성해주자(편의)
+        table_rows = load_history_snapshot_json(day)
+        html = build_html(table_rows)
+        out = write_history_snapshot_for_date(html, day)
+        hist_index = write_history_index()
+        print(f"✅ Rendered history date -> {out}")
+        print(f"📜 History index -> {hist_index}")
+    
     elif args.date:
         # 특정 날짜 재생성
         day = args.date.strip()
