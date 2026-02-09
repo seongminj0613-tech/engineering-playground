@@ -24,7 +24,11 @@
       "trend_boost": 0.4,
       "freshness": 0.4
     },
-    "total_score": 42.85
+    "total_score": 42.91,
+    "summary": "Collect daily tech news, summarize, and rank trends for product planning.",
+    "rank": 10,
+    "rank_delta": 0,
+    "evidence_count": 0
   },
   {
     "idea_id": "IDEA-002",
@@ -51,7 +55,11 @@
       "trend_boost": 0.6,
       "freshness": 0.4
     },
-    "total_score": 45.94
+    "total_score": 45.83,
+    "summary": "Generate incident response playbooks from past tickets and postmortems.",
+    "rank": 7,
+    "rank_delta": 0,
+    "evidence_count": 0
   },
   {
     "idea_id": "IDEA-003",
@@ -78,7 +86,11 @@
       "trend_boost": 0.7,
       "freshness": 0.4
     },
-    "total_score": 51.85
+    "total_score": 52.2,
+    "summary": "Score internal proposals based on cost reduction, compliance, and feasibility.",
+    "rank": 1,
+    "rank_delta": 0,
+    "evidence_count": 0
   },
   {
     "idea_id": "IDEA-004",
@@ -105,7 +117,11 @@
       "trend_boost": 0.4,
       "freshness": 0.4
     },
-    "total_score": 42.14
+    "total_score": 43.46,
+    "summary": "Match resumes to job posts using embeddings and show gaps as action items.",
+    "rank": 9,
+    "rank_delta": 0,
+    "evidence_count": 0
   },
   {
     "idea_id": "IDEA-005",
@@ -132,7 +148,11 @@
       "trend_boost": 0.5,
       "freshness": 0.4
     },
-    "total_score": 46.23
+    "total_score": 47.27,
+    "summary": "Detect cost anomalies from billing exports and recommend savings actions.",
+    "rank": 3,
+    "rank_delta": 0,
+    "evidence_count": 0
   },
   {
     "idea_id": "IDEA-006",
@@ -159,7 +179,11 @@
       "trend_boost": 0.5,
       "freshness": 0.4
     },
-    "total_score": 46.93
+    "total_score": 47.64,
+    "summary": "Predict churn risk and propose retention workflows for customer success.",
+    "rank": 2,
+    "rank_delta": 0,
+    "evidence_count": 0
   },
   {
     "idea_id": "IDEA-007",
@@ -186,7 +210,11 @@
       "trend_boost": 0.6,
       "freshness": 0.4
     },
-    "total_score": 47.65
+    "total_score": 47.2,
+    "summary": "Convert meeting notes into structured Jira tickets with priority scoring.",
+    "rank": 5,
+    "rank_delta": 0,
+    "evidence_count": 0
   },
   {
     "idea_id": "IDEA-008",
@@ -213,7 +241,11 @@
       "trend_boost": 0.6,
       "freshness": 0.4
     },
-    "total_score": 47.25
+    "total_score": 47.25,
+    "summary": "Monitor infra configs and alert when security baselines drift.",
+    "rank": 4,
+    "rank_delta": 0,
+    "evidence_count": 0
   },
   {
     "idea_id": "IDEA-009",
@@ -240,7 +272,11 @@
       "trend_boost": 0.4,
       "freshness": 0.4
     },
-    "total_score": 43.94
+    "total_score": 44.0,
+    "summary": "Use multiple agents to research markets in real-time with continuous updates.",
+    "rank": 8,
+    "rank_delta": 0,
+    "evidence_count": 0
   },
   {
     "idea_id": "IDEA-010",
@@ -267,6 +303,10 @@
       "trend_boost": 0.5,
       "freshness": 0.4
     },
-    "total_score": 47.12
+    "total_score": 45.95,
+    "summary": "Collect user feedback with privacy constraints and PII redaction built-in.",
+    "rank": 6,
+    "rank_delta": 0,
+    "evidence_count": 0
   }
 ]

@@ -3,19 +3,19 @@
     "rank": 1,
     "idea_id": "IDEA-003",
     "title": "B2B Workflow Scoring",
-    "summary": "",
+    "summary": "Score internal proposals based on cost reduction, compliance, and feasibility.",
     "tags": [
       "b2b",
       "workflow",
       "compliance"
     ],
     "trend": "",
-    "total_score": 51.85,
+    "total_score": 52.2,
     "scores": {
-      "total": 51.85,
+      "total": 52.2,
       "breakdown": {
         "base": {
-          "contribution": 51.85,
+          "contribution": 52.2,
           "why": "model/base total score"
         }
       }
@@ -27,21 +27,21 @@
   },
   {
     "rank": 2,
-    "idea_id": "IDEA-007",
-    "title": "Meeting Notes to Jira Tasks",
-    "summary": "",
+    "idea_id": "IDEA-006",
+    "title": "Customer Churn Early Warning",
+    "summary": "Predict churn risk and propose retention workflows for customer success.",
     "tags": [
-      "workflow",
-      "integration",
-      "automation"
+      "retention",
+      "analytics",
+      "b2b"
     ],
     "trend": "",
-    "total_score": 47.65,
+    "total_score": 47.64,
     "scores": {
-      "total": 47.65,
+      "total": 47.64,
       "breakdown": {
         "base": {
-          "contribution": 47.65,
+          "contribution": 47.64,
           "why": "model/base total score"
         }
       }
@@ -53,9 +53,39 @@
   },
   {
     "rank": 3,
+    "idea_id": "IDEA-005",
+    "title": "Cloud Cost Leak Detector",
+    "summary": "Detect cost anomalies from billing exports and recommend savings actions.",
+    "tags": [
+      "cloud",
+      "cost",
+      "automation"
+    ],
+    "trend": "",
+    "total_score": 47.31,
+    "scores": {
+      "total": 47.31,
+      "breakdown": {
+        "base": {
+          "contribution": 47.27,
+          "why": "model/base total score"
+        },
+        "signal:cloud": {
+          "contribution": 0.04,
+          "why": "keyword match: cloud"
+        }
+      }
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 4,
     "idea_id": "IDEA-008",
     "title": "Security Policy Drift Monitor",
-    "summary": "",
+    "summary": "Monitor infra configs and alert when security baselines drift.",
     "tags": [
       "security",
       "compliance",
@@ -82,22 +112,48 @@
     "assumptions": []
   },
   {
-    "rank": 4,
+    "rank": 5,
+    "idea_id": "IDEA-007",
+    "title": "Meeting Notes to Jira Tasks",
+    "summary": "Convert meeting notes into structured Jira tickets with priority scoring.",
+    "tags": [
+      "workflow",
+      "integration",
+      "automation"
+    ],
+    "trend": "",
+    "total_score": 47.2,
+    "scores": {
+      "total": 47.2,
+      "breakdown": {
+        "base": {
+          "contribution": 47.2,
+          "why": "model/base total score"
+        }
+      }
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 6,
     "idea_id": "IDEA-010",
     "title": "Privacy-safe Data Collector",
-    "summary": "",
+    "summary": "Collect user feedback with privacy constraints and PII redaction built-in.",
     "tags": [
       "privacy",
       "pii",
       "compliance"
     ],
     "trend": "",
-    "total_score": 47.15,
+    "total_score": 45.980000000000004,
     "scores": {
-      "total": 47.15,
+      "total": 45.980000000000004,
       "breakdown": {
         "base": {
-          "contribution": 47.12,
+          "contribution": 45.95,
           "why": "model/base total score"
         },
         "signal:data": {
@@ -112,78 +168,22 @@
     "assumptions": []
   },
   {
-    "rank": 5,
-    "idea_id": "IDEA-006",
-    "title": "Customer Churn Early Warning",
-    "summary": "",
-    "tags": [
-      "retention",
-      "analytics",
-      "b2b"
-    ],
-    "trend": "",
-    "total_score": 46.93,
-    "scores": {
-      "total": 46.93,
-      "breakdown": {
-        "base": {
-          "contribution": 46.93,
-          "why": "model/base total score"
-        }
-      }
-    },
-    "evidence": [],
-    "evidence_count": 0,
-    "risks": [],
-    "assumptions": []
-  },
-  {
-    "rank": 6,
-    "idea_id": "IDEA-005",
-    "title": "Cloud Cost Leak Detector",
-    "summary": "",
-    "tags": [
-      "cloud",
-      "cost",
-      "automation"
-    ],
-    "trend": "",
-    "total_score": 46.269999999999996,
-    "scores": {
-      "total": 46.269999999999996,
-      "breakdown": {
-        "base": {
-          "contribution": 46.23,
-          "why": "model/base total score"
-        },
-        "signal:cloud": {
-          "contribution": 0.04,
-          "why": "keyword match: cloud"
-        }
-      }
-    },
-    "evidence": [],
-    "evidence_count": 0,
-    "risks": [],
-    "assumptions": []
-  },
-  {
     "rank": 7,
     "idea_id": "IDEA-002",
     "title": "Ops Incident Playbook Generator",
-    "summary": "",
+    "summary": "Generate incident response playbooks from past tickets and postmortems.",
     "tags": [
       "devops",
       "sre",
       "automation"
     ],
     "trend": "",
-    "total_score": 45.94,
+    "total_score": 45.83,
     "scores": {
-      "total": 45.94,
+      "total": 45.83,
       "breakdown": {
         "base": {
-          "contribution": 45.94,
+          "contribution": 45.83,
           "why": "model/base total score"
         }
       }
@@ -197,19 +197,19 @@
     "rank": 8,
     "idea_id": "IDEA-009",
     "title": "Real-time Multi-agent Research",
-    "summary": "",
+    "summary": "Use multiple agents to research markets in real-time with continuous updates.",
     "tags": [
       "ai",
       "multi-agent",
       "real-time"
     ],
     "trend": "",
-    "total_score": 44.05,
+    "total_score": 44.11,
     "scores": {
-      "total": 44.05,
+      "total": 44.11,
       "breakdown": {
         "base": {
-          "contribution": 43.94,
+          "contribution": 44.0,
           "why": "model/base total score"
         },
         "signal:ai": {
@@ -229,26 +229,22 @@
   },
   {
     "rank": 9,
-    "idea_id": "IDEA-001",
-    "title": "Daily Trend Radar",
-    "summary": "",
+    "idea_id": "IDEA-004",
+    "title": "Resume-to-Job Fit Matcher",
+    "summary": "Match resumes to job posts using embeddings and show gaps as action items.",
     "tags": [
-      "ai",
-      "news",
-      "dashboard"
+      "hr",
+      "recommendation",
+      "analytics"
     ],
     "trend": "",
-    "total_score": 42.910000000000004,
+    "total_score": 43.46,
     "scores": {
-      "total": 42.910000000000004,
+      "total": 43.46,
       "breakdown": {
         "base": {
-          "contribution": 42.85,
+          "contribution": 43.46,
           "why": "model/base total score"
-        },
-        "signal:ai": {
-          "contribution": 0.06,
-          "why": "keyword match: ai"
         }
       }
     },
@@ -259,22 +255,26 @@
   },
   {
     "rank": 10,
-    "idea_id": "IDEA-004",
-    "title": "Resume-to-Job Fit Matcher",
-    "summary": "",
+    "idea_id": "IDEA-001",
+    "title": "Daily Trend Radar",
+    "summary": "Collect daily tech news, summarize, and rank trends for product planning.",
     "tags": [
-      "hr",
-      "recommendation",
-      "analytics"
+      "ai",
+      "news",
+      "dashboard"
     ],
     "trend": "",
-    "total_score": 42.14,
+    "total_score": 42.97,
     "scores": {
-      "total": 42.14,
+      "total": 42.97,
       "breakdown": {
         "base": {
-          "contribution": 42.14,
+          "contribution": 42.91,
           "why": "model/base total score"
+        },
+        "signal:ai": {
+          "contribution": 0.06,
+          "why": "keyword match: ai"
         }
       }
     },

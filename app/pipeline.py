@@ -66,6 +66,20 @@ def rank_scores(rows: list, top_k: int = 10) -> list:
 
     return ranked[:top_k]
 
+def build_summary_from_idea(idea: dict) -> str:
+    content = (idea.get("content") or "").strip()
+    title = (idea.get("title") or "").strip()
+    tags = idea.get("tags") or []
+
+    if content:
+        s = content.strip()
+        if len(s) > 140:
+            s = s[:140].rstrip() + "…"
+        return s if s.endswith(".") else s + "."
+
+    tag_hint = ", ".join(tags[:3]) if tags else "idea"
+    return f"{title} 아이디어를 {tag_hint} 기반으로 실행 가능성 평가합니다."
+
 def package_result(ideas: list, ranked_rows: list) -> dict:
     items = []
 
@@ -76,11 +90,13 @@ def package_result(ideas: list, ranked_rows: list) -> dict:
         r = ranked_by_id.get(iid)
         if not r:
             continue
+        summary = build_summary_from_idea(idea)
 
         items.append({
             "idea": idea,
             "score": r,
             "rank": r.get("rank"),
+            "summary": summary,
         })
 
     return {"status": "ok", "items": items}
@@ -323,11 +339,7 @@ def main():
 
     scored_rows = score_ideas_v2_from_ideas_only(ideas)   # ✅ C: 여기서 signals+score 생성
   
-    out_path = ROOT / "data" / "reports" / "idea_cards.json"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(ideas, f, ensure_ascii=False, indent=2)
-    print(f"✅ idea_cards.json updated → {out_path}")
+   
     print("DEBUG ideas:", len(ideas), "scored_rows:", len(scored_rows))
     print("DEBUG idea_id sample:", ideas[0].get("idea_id") if ideas else None)
     print("DEBUG total_score sample:", scored_rows[0].get("total_score") if scored_rows else None)
@@ -360,6 +372,31 @@ def main():
     for r in down5:
         print(r.get("idea_id"), "Δrank", r.get("rank_delta"), "Δscore", r.get("score_delta"))
     print("=== END MOVERS ===\n")
+     
+    ranked_by_id = { norm_idea_id(r.get("idea_id")): r for r in ranked_top }
+
+    for idea in ideas:
+        iid = norm_idea_id(idea.get("idea_id"))
+        r = ranked_by_id.get(iid)
+        if not r:
+            continue
+
+        # summary (돈 안드는 룰 기반)
+        idea["summary"] = idea.get("summary") or build_summary_from_idea(idea)
+
+        # score/rank/delta도 같이 박아두면 render가 바로 씀
+        idea["total_score"] = r.get("total_score", idea.get("total_score"))
+        idea["rank"] = r.get("rank")
+        idea["rank_delta"] = r.get("rank_delta")
+
+        # evidence_count도 render에서 쓰면 좋음 (없으면 0)
+        ev = idea.get("external_evidence") or idea.get("evidence") or []
+        idea["evidence_count"] = len(ev) if isinstance(ev, list) else 0
+    out_path = ROOT / "data" / "reports" / "idea_cards.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(ideas, f, ensure_ascii=False, indent=2)
+    print(f"✅ idea_cards.json updated → {out_path}")
     
     result = package_result(ideas, ranked_top)
     result["movers_up"] = up5

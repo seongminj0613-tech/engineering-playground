@@ -30,7 +30,8 @@
     "rank_prev": 0,
     "rank_delta": 0,
     "score_prev": 0.0,
-    "score_delta": 52.2
+    "score_delta": 52.2,
+    "title": "B2B Workflow Scoring"
   },
   {
     "idea_id": "IDEA-006",
@@ -63,7 +64,8 @@
     "rank_prev": 0,
     "rank_delta": 0,
     "score_prev": 0.0,
-    "score_delta": 47.64
+    "score_delta": 47.64,
+    "title": "Customer Churn Early Warning"
   },
   {
     "idea_id": "IDEA-005",
@@ -96,7 +98,8 @@
     "rank_prev": 0,
     "rank_delta": 0,
     "score_prev": 0.0,
-    "score_delta": 47.27
+    "score_delta": 47.27,
+    "title": "Cloud Cost Leak Detector"
   },
   {
     "idea_id": "IDEA-008",
@@ -129,7 +132,8 @@
     "rank_prev": 0,
     "rank_delta": 0,
     "score_prev": 0.0,
-    "score_delta": 47.25
+    "score_delta": 47.25,
+    "title": "Security Policy Drift Monitor"
   },
   {
     "idea_id": "IDEA-007",
@@ -162,7 +166,8 @@
     "rank_prev": 0,
     "rank_delta": 0,
     "score_prev": 0.0,
-    "score_delta": 47.2
+    "score_delta": 47.2,
+    "title": "Meeting Notes to Jira Tasks"
   },
   {
     "idea_id": "IDEA-010",
@@ -195,7 +200,8 @@
     "rank_prev": 0,
     "rank_delta": 0,
     "score_prev": 0.0,
-    "score_delta": 45.95
+    "score_delta": 45.95,
+    "title": "Privacy-safe Data Collector"
   },
   {
     "idea_id": "IDEA-002",
@@ -228,7 +234,8 @@
     "rank_prev": 0,
     "rank_delta": 0,
     "score_prev": 0.0,
-    "score_delta": 45.83
+    "score_delta": 45.83,
+    "title": "Ops Incident Playbook Generator"
   },
   {
     "idea_id": "IDEA-009",
@@ -261,7 +268,8 @@
     "rank_prev": 0,
     "rank_delta": 0,
     "score_prev": 0.0,
-    "score_delta": 44.0
+    "score_delta": 44.0,
+    "title": "Real-time Multi-agent Research"
   },
   {
     "idea_id": "IDEA-004",
@@ -294,7 +302,8 @@
     "rank_prev": 0,
     "rank_delta": 0,
     "score_prev": 0.0,
-    "score_delta": 43.46
+    "score_delta": 43.46,
+    "title": "Resume-to-Job Fit Matcher"
   },
   {
     "idea_id": "IDEA-001",
@@ -327,6 +336,7 @@
     "rank_prev": 0,
     "rank_delta": 0,
     "score_prev": 0.0,
-    "score_delta": 42.91
+    "score_delta": 42.91,
+    "title": "Daily Trend Radar"
   }
 ]
