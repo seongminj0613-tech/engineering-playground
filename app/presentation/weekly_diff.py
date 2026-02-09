@@ -11,12 +11,22 @@ def load_snapshot(date_str):
     path = HISTORY / f"{date_str}.json"
     if not path.exists():
         return {}
+
     with open(path, encoding="utf-8") as f:
         obj = json.load(f)
 
-    rows = obj.get("items", [])
-    return {r["idea_id"]: r for r in rows if "idea_id" in r}
+    # ✅ list로 저장된 경우 (reports/daily 구조)
+    if isinstance(obj, list):
+        rows = obj
 
+    # ✅ dict 구조 (history snapshot 구조)
+    elif isinstance(obj, dict):
+        rows = obj.get("items", obj.get("rows", obj.get("data", [])))
+
+    else:
+        rows = []
+
+    return {r.get("idea_id"): r for r in rows if isinstance(r, dict) and r.get("idea_id")}
 
 def main():
     with open(HISTORY / "index.json", encoding="utf-8") as f:

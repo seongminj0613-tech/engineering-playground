@@ -1,17 +1,22 @@
 from __future__ import annotations
+
 import argparse
-import sys
 import json
 from pathlib import Path
 from datetime import datetime
 
+# ✅ history는 snapshots.py로 전담
+from app.history.snapshots import (
+    _today_slug,
+    load_prev_rank_map,
+    write_history_snapshot_json,
+    write_history_snapshot,
+    write_history_index,
+)
+
 ROOT = Path(__file__).resolve().parents[2]  # app/ 기준 2단계 위
 DATA_DIR = ROOT / "data"
 DOCS_DIR = ROOT / "docs"
-
-HISTORY_DIR = DOCS_DIR / "history"
-HISTORY_DATA_DIR = HISTORY_DIR / "data"
-HISTORY_INDEX_JSON = HISTORY_DATA_DIR / "index.json"
 
 # ✅ 너 프로젝트에서 "최신 결과" 파일명에 맞춰서 하나만 쓰면 됨
 CANDIDATES = [
@@ -21,15 +26,18 @@ CANDIDATES = [
 ]
 
 
+# =========================
+# I/O helpers
+# =========================
 def _load_rows(path: Path) -> list[dict]:
     if path.suffix == ".json":
         obj = json.loads(path.read_text(encoding="utf-8"))
 
-        # ✅ case A: list[dict]
+        # case A: list[dict]
         if isinstance(obj, list):
             return obj
 
-        # ✅ case B: {"items":[...]} or {"ideas":[...]} or {"cards":[...]}
+        # case B: {"items":[...]} or {"ideas":[...]} or {"cards":[...]}
         if isinstance(obj, dict):
             for k in ["items", "ideas", "cards", "rows", "data"]:
                 v = obj.get(k)
@@ -48,6 +56,7 @@ def _load_rows(path: Path) -> list[dict]:
 
     if path.suffix == ".csv":
         import csv
+
         with path.open("r", encoding="utf-8", newline="") as f:
             return list(csv.DictReader(f))
 
@@ -70,45 +79,26 @@ def _to_float(x, default=0.0) -> float:
         return float(default)
 
 
-def render_top_n(rows: list[dict], n: int = 15) -> list[dict]:
-    """
-    idea_cards.json row schema:
-    - title, summary, tags, trend
-    - scores: dict (contains total/feasibility/risk/etc)
-    - evidence/risks/assumptions: list or dict or str
-    """
+def _escape(s: str) -> str:
+    return (
+        (s or "")
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+    )
 
-    ranked = sorted(rows, key=pick_total_score, reverse=True)[:n]
 
-    out = []
-    for i, r in enumerate(ranked, start=1):
-        out.append(
-          {
-            "rank": i,
-            "idea_id": r.get("idea_id", ""),
-            "title": r.get("title", "(untitled)"),
-            "summary": r.get("summary", ""),
-            "tags": r.get("tags", []),
-            "trend": r.get("trend", ""),
-
-            # ✅ 이 줄 추가 (핵심)
-            "total_score": pick_total_score(r),
-
-            "scores": r.get("scores", {}),
-            "evidence": r.get("evidence", []),
-            "risks": r.get("risks", []),
-            "assumptions": r.get("assumptions", []),
-        }
-        )
-    return out
-
+# =========================
+# Scoring
+# =========================
 def pick_total_score(r: dict) -> float:
-    # ✅ 1) top-level 우선
+    # 1) top-level 우선
     for k in ["total_score", "total", "final", "final_score", "score"]:
         if k in r:
             return _to_float(r.get(k))
 
-    # ✅ 2) nested(scores)도 지원
+    # 2) nested(scores)도 지원
     s = r.get("scores") or r.get("score") or {}
     if isinstance(s, dict):
         for k in ["total", "total_score", "final", "final_score", "score"]:
@@ -122,155 +112,194 @@ def pick_total_score(r: dict) -> float:
     return 0.0
 
 
+KEYWORD_BOOST = {
+    "ai": 0.06,
+    "llm": 0.06,
+    "agent": 0.05,
+    "rag": 0.05,
+    "security": 0.06,
+    "vulnerability": 0.05,
+    "zero trust": 0.05,
+    "cloud": 0.04,
+    "aws": 0.05,
+    "kubernetes": 0.06,
+    "k8s": 0.06,
+    "gpu": 0.05,
+    "nvidia": 0.05,
+    "inference": 0.04,
+    "data": 0.03,
+}
+
+
+def compute_signal_boost(r: dict) -> tuple[float, dict]:
+    """title/tags에서 키워드 기반 가산점 + breakdown 생성"""
+    title = (r.get("title") or "").lower()
+    tags = r.get("tags") or []
+    if not isinstance(tags, list):
+        tags = [tags]
+    tag_text = " ".join(str(t).lower() for t in tags)
+
+    blob = f"{title} {tag_text}"
+    score = 0.0
+    reasons = []
+
+    for k, w in KEYWORD_BOOST.items():
+        if k in blob:
+            score += w
+            reasons.append((k, w))
+
+    reasons = sorted(reasons, key=lambda x: x[1], reverse=True)[:2]
+    breakdown = {
+        f"signal:{k}": {"contribution": w, "why": f"keyword match: {k}"}
+        for k, w in reasons
+    }
+    return min(score, 0.15), breakdown  # 과도한 폭주 방지
+
+
+def enrich_score_with_boosts(r: dict) -> dict:
+    """base + keyword boost -> final total_score, scores.breakdown 채움"""
+    base = pick_total_score(r)
+    signal, bd = compute_signal_boost(r)
+
+    final = base + signal
+
+    # 점수 스케일 clamp: base가 1 이하로 돌면 0~1, 아니면 0~100
+    cap = 1.0 if base <= 1.0 else 100.0
+    final = max(0.0, min(cap, final))
+
+    scores = r.get("scores", {}) if isinstance(r.get("scores", {}), dict) else {}
+    scores["total"] = final
+    scores.setdefault("breakdown", {})
+    scores["breakdown"].update(
+        {
+            "base": {"contribution": base, "why": "model/base total score"},
+            **bd,
+        }
+    )
+
+    r["total_score"] = final
+    r["scores"] = scores
+    return r
+
+
+# =========================
+# Render Top-N table rows
+# =========================
+def render_top_n(rows: list[dict], n: int = 15) -> list[dict]:
+    enriched: list[dict] = []
+    for r in rows:
+        try:
+            enriched.append(enrich_score_with_boosts(dict(r)))
+        except Exception:
+            enriched.append(dict(r))  # row 깨져도 계속
+
+    ranked = sorted(enriched, key=pick_total_score, reverse=True)[:n]
+
+    out: list[dict] = []
+    for i, r in enumerate(ranked, start=1):
+        total_score = pick_total_score(r)
+
+        scores = r.get("scores", {}) if isinstance(r.get("scores", {}), dict) else {}
+        scores.setdefault("total", total_score)
+
+        evidence = r.get("evidence", [])
+        if evidence and not isinstance(evidence, list):
+            evidence = [evidence]
+
+        tags = r.get("tags", [])
+        if tags and not isinstance(tags, list):
+            tags = [tags]
+
+        out.append(
+            {
+                "rank": i,
+                "idea_id": r.get("idea_id", ""),
+                "title": r.get("title", "(untitled)"),
+                "summary": r.get("summary", ""),
+                "tags": tags,
+                "trend": r.get("trend", ""),
+                "total_score": total_score,
+                "scores": scores,
+                "evidence": evidence,
+                "evidence_count": len(evidence) if isinstance(evidence, list) else 0,
+                "risks": r.get("risks", []),
+                "assumptions": r.get("assumptions", []),
+            }
+        )
+    return out
+
+
+# =========================
+# KPI + HTML
+# =========================
+def compute_kpis(table_rows: list[dict]) -> dict:
+    total = len(table_rows)
+    new_cnt = up_cnt = down_cnt = same_cnt = 0
+
+    for r in table_rows:
+        d = r.get("rank_delta", None)
+        if d is None:
+            new_cnt += 1
+        elif d > 0:
+            up_cnt += 1
+        elif d < 0:
+            down_cnt += 1
+        else:
+            same_cnt += 1
+
+    scores = []
+    for r in table_rows:
+        s = r.get("scores", {})
+        if isinstance(s, dict):
+            scores.append(_to_float(s.get("total", r.get("total_score", 0.0))))
+        else:
+            scores.append(_to_float(r.get("total_score", 0.0)))
+
+    if scores:
+        mx = max(scores)
+        mn = min(scores)
+        avg = sum(scores) / len(scores)
+    else:
+        mx = mn = avg = 0.0
+
+    return {
+        "total": total,
+        "new": new_cnt,
+        "up": up_cnt,
+        "down": down_cnt,
+        "same": same_cnt,
+        "score_max": mx,
+        "score_min": mn,
+        "score_avg": avg,
+    }
+
+
 def build_html(table_rows: list[dict]) -> str:
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
-    
-    def fmt_list(items):
-        if not items:
-           return ""
-        # items가 list가 아니면 list로 변환
-        if not isinstance(items, list):
-           items = [items]
-        lis = []
-        for x in items[:10]:
-            # dict면 title/url 등 최대한 보기 좋게
-            if isinstance(x, dict):
-               title = _escape(str(x.get("title") or x.get("name") or ""))
-               url = x.get("url")
-               if url:
-                   url = _escape(str(url))
-                   lis.append(f'<li><a href="{url}" target="_blank" rel="noreferrer">{title or url}</a></li>')
-               else:
-                   lis.append(f"<li>{title}</li>")
-            else:
-                lis.append(f"<li>{_escape(str(x))}</li>")
-        return "\n".join(lis)
+    kpi = compute_kpis(table_rows)
 
-    def fmt_tags(tags):
-        if isinstance(tags, list):
-            return "".join(f'<span class="tag">{_escape(str(t))}</span>' for t in tags[:8])
-        if tags:
-            return f'<span class="tag">{_escape(str(tags))}</span>'
-        return ""
-
-    def fmt_trend(tr):
-        tr = (tr or "").strip()
-        if not tr:
-            return ""
-        # 흔한 값 가정: up/down/flat or ↑ ↓ →
-        m = tr.lower()
-        if m in ["up", "rising", "increase", "increasing"]:
-            return '<span class="trend up">↑</span>'
-        if m in ["down", "falling", "decrease", "decreasing"]:
-            return '<span class="trend down">↓</span>'
-        if m in ["flat", "same", "stable"]:
-            return '<span class="trend flat">→</span>'
-        return f'<span class="trend flat">{_escape(tr)}</span>'
-
-    def fmt_scores(scores):
-        if not isinstance(scores, dict) or not scores:
-            return ""
-     
-        total = scores.get("total", 0.0)
-        total_f = _to_float(total)
-
-        # badge 색상 (기존 스타일 유지)
-        badge_cls = "score mid"
-        if total_f >= 0.75:
-            badge_cls = "score high"
-        elif total_f >= 0.5:
-            badge_cls = "score mid"
-        else:
-            badge_cls = "score low"
-
-        # 2) breakdown (상위 2개만)
-        breakdown = scores.get("breakdown", {})
-        parts = []
-        if isinstance(breakdown, dict):
-            parts = sorted(
-                breakdown.items(),
-                key=lambda kv: _to_float(kv[1].get("contribution", 0)),
-                reverse=True
-            )[:2]
-
-        breakdown_html = "".join(
-            f"""
-            <div class="bd-item">
-              <b>{_escape(str(k))}</b>: {round(_to_float(v.get("contribution", 0)), 3)}
-              <span class="bd-why">{_escape(str(v.get("why", "")))}</span>
-            </div>
-            """
-            for k, v in parts
-        )
-
-        return f"""
-          <div class="{badge_cls} scoreline">Total: {round(total_f, 3)}</div>
-          <div class="breakdown-box">
-            {breakdown_html}
-          </div>
-        """.strip()
-       
-
-    trs = []
+    # tag 집계
+    tag_counts: dict[str, int] = {}
     for r in table_rows:
-        title = _escape(r["title"])
-        summary = _escape(str(r.get("summary", ""))[:220])
-        idea_id = _escape(str(r.get("idea_id", "")))
-        
-        delta = r.get("rank_delta", None)
+        tags = r.get("tags") or []
+        if not isinstance(tags, list):
+            tags = [tags]
+        for t in tags:
+            ts = str(t).strip()
+            if not ts:
+                continue
+            tag_counts[ts] = tag_counts.get(ts, 0) + 1
+    top_tags = sorted(tag_counts.items(), key=lambda kv: kv[1], reverse=True)[:24]
 
-        if delta is None:
-            delta_html = '<span class="delta new">NEW</span>'
-        elif delta > 0:
-            delta_html = f'<span class="delta up">↑ +{delta}</span>'
-        elif delta < 0:
-            delta_html = f'<span class="delta down">↓ {abs(delta)}</span>'
-        else:
-            delta_html = '<span class="delta same">–</span>'
-
-        detail_html = f"""
-        <div class="detail-grid">
-          <div>
-            <h4>Evidence</h4>
-            <ul>{fmt_list(r.get("evidence"))}</ul>
-          </div>
-          <div>
-            <h4>Risks</h4>
-            <ul>{fmt_list(r.get("risks"))}</ul>
-          </div>
-          <div>
-            <h4>Assumptions</h4>
-            <ul>{fmt_list(r.get("assumptions"))}</ul>
-          </div>
-        </div>
-        """.strip()
-
-        trs.append(
-           f"""
-           <tr>
-            <td class="rank">{r["rank"]} {delta_html}</td>
-            <td>
-              <div class="title-row">
-                <span class="title">{title}</span>
-                <span class="id">{idea_id}</span>
-             </div>
-             <div class="summary">{summary}</div>
-             <div class="tags">{fmt_tags(r.get("tags"))}</div>
-
-             <details>
-               <summary>Details</summary>
-               {detail_html}
-             </details>
-          </td>
-          <td class="scorecell">{round(_to_float(r.get("total_score", 0)), 2)}</td>
-          <td class="trendcell">{fmt_trend(r.get("trend"))}</td>
-          </tr>
-          """.strip()
-      )
-
-    trs_html = "\n".join(trs)
+    # ideas json
     ideas_json = json.dumps(table_rows, ensure_ascii=False)
     ideas_json_escaped = ideas_json.replace("</script>", "<\\/script>")
+
+    # 점수 스케일 감지
+    max_score = kpi.get("score_max", 0.0)
+    is_unit = max_score <= 1.5
+    slider_max = 1.0 if is_unit else 100.0
+    slider_step = 0.01 if is_unit else 1
 
     return f"""<!doctype html>
 <html lang="en">
@@ -278,398 +307,660 @@ def build_html(table_rows: list[dict]) -> str:
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Daily Idea Ranking</title>
+
   <style>
-    body {{ font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; }}
-    h1 {{ margin: 0 0 6px; }}
-    .meta {{ color: #666; margin-bottom: 16px; }}
-    table {{ border-collapse: collapse; width: 100%; }}
-    th, td {{ border: 1px solid #e5e5e5; padding: 12px; vertical-align: top; }}
-    th {{ background: #f7f7f7; text-align: left; }}
-    tr:hover {{ background: #fcfcfc; }}
+    :root {{
+      --bg: #0b0d12;
+      --panel: rgba(255,255,255,0.06);
+      --panel2: rgba(255,255,255,0.08);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.62);
+      --line: rgba(255,255,255,0.14);
+      --chip: rgba(255,255,255,0.10);
+      --shadow: 0 12px 44px rgba(0,0,0,0.45);
+      --radius: 22px;
+    }}
 
-    .rank {{ width: 60px; font-weight: 700; }}
-    .title-row {{ display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }}
-    .title {{ font-weight: 700; font-size: 15px; }}
-    .id {{ color: #888; font-size: 12px; }}
-    .summary {{ margin-top: 6px; color: #333; }}
-    .tags {{ margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }}
-    .tag {{ border: 1px solid #ddd; padding: 2px 8px; border-radius: 999px; font-size: 12px; color: #333; background: #fafafa; }}
-    .controls {{ display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 14px 0 10px; }}
-    .input {{ padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; min-width: 260px; }}
-    .select {{ padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; }}
-    .slider-wrap {{ display: flex; gap: 8px; align-items: center; }}
-    .btn {{ padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; background: #fafafa; cursor: pointer; }}
-    .btn:hover {{ background: #f2f2f2; }}
-   
-   
-    .delta {{ margin-left: 6px; font-weight: 800; font-size: 12px; }} 
-    .delta.up {{ color: #16a34a; }}
-    .delta.down {{ color: #dc2626; }}
-    .delta.new {{ color: #2563eb; }}
-    .delta.same {{ color: #6b7280; }}
-    
-    .scorecell {{ width: 140px; }}
-    .score {{ display: inline-block; padding: 6px 10px; border-radius: 10px; font-weight: 800; }}
-    .score.high {{ background: #eaffea; border: 1px solid #b8f0b8; }}
-    .score.mid {{ background: #fff7e6; border: 1px solid #ffe0a3; }}
-    .score.low {{ background: #ffecec; border: 1px solid #ffbdbd; }}
-    .small {{ font-size: 12px; color: #666; margin-top: 6px; }}
+    * {{ box-sizing: border-box; }}
+    body {{
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(900px 600px at 20% 10%, rgba(120,119,198,0.25), transparent 60%),
+        radial-gradient(900px 600px at 80% 0%, rgba(34,211,238,0.18), transparent 55%),
+        radial-gradient(900px 600px at 60% 90%, rgba(16,185,129,0.14), transparent 55%),
+        var(--bg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      letter-spacing: 0.2px;
+    }}
 
-    .trendcell {{ width: 90px; text-align: center; font-size: 18px; }}
-    .trend {{ display: inline-block; padding: 4px 8px; border-radius: 10px; border: 1px solid #e5e5e5; }}
-    .trend.up {{ background: #eaffea; }}
-    .trend.down {{ background: #ffecec; }}
-    .trend.flat {{ background: #f4f4f4; }}
+    a {{ color: inherit; }}
+    .wrap {{ max-width: 1180px; margin: 0 auto; padding: 26px 18px 64px; }}
 
-    details {{ margin-top: 10px; }}
-    summary {{ cursor: pointer; color: #333; }}
-    .detail-grid {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 12px; }}
-    .detail-grid h4 {{ margin: 0 0 6px; font-size: 13px; }}
-    ul {{ margin: 0; padding-left: 18px; }}
-    li {{ margin-bottom: 6px; }}
+    .topbar {{
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }}
+
+    .headline h1 {{
+      margin: 0;
+      font-size: 26px;
+      letter-spacing: -0.4px;
+    }}
+    .headline p {{
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }}
+
+    .actions {{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+    }}
+
+    .btn {{
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.06));
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 12px;
+      text-decoration: none;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.25);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select: none;
+    }}
+    .btn:hover {{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.25);
+      background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.07));
+    }}
+
+    .grid {{
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 14px;
+      margin-top: 12px;
+    }}
+    @media (max-width: 980px) {{
+      .grid {{ grid-template-columns: 1fr; }}
+    }}
+
+    .panel {{
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }}
+
+    .panel-head {{
+      padding: 14px 14px 12px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }}
+
+    .panel-title {{
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }}
+    .panel-title b {{ font-size: 14px; }}
+    .panel-title span {{
+      color: var(--muted);
+      font-size: 12px;
+    }}
+
+    .kpi {{
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      padding: 14px;
+    }}
+    @media (max-width: 980px) {{
+      .kpi {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+    }}
+
+    .kpi-card {{
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      border-radius: 18px;
+      padding: 12px;
+    }}
+    .kpi-label {{
+      color: var(--muted);
+      font-size: 12px;
+    }}
+    .kpi-value {{
+      margin-top: 5px;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.3px;
+    }}
+    .kpi-sub {{
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }}
+
+    .controls {{
+      padding: 12px 14px 14px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr 0.8fr;
+      gap: 10px;
+    }}
+    @media (max-width: 980px) {{
+      .controls {{ grid-template-columns: 1fr; }}
+    }}
+
+    .field {{
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 10px 12px;
+    }}
+    .field label {{
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }}
+    .field input[type="text"], .field select {{
+      width: 100%;
+      border: 0;
+      outline: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 13px;
+    }}
+    .field input[type="range"] {{
+      width: 100%;
+    }}
+    .field .row {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }}
+    .field .hint {{
+      font-size: 12px;
+      color: var(--muted);
+      min-width: 76px;
+      text-align: right;
+    }}
+
+    .tags {{
+      padding: 0 14px 14px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }}
+    .chip {{
+      border: 1px solid var(--line);
+      background: var(--chip);
+      color: var(--text);
+      font-size: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      user-select: none;
+      transition: transform .10s ease, border-color .12s ease, background .12s ease;
+    }}
+    .chip:hover {{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.14);
+    }}
+    .chip.active {{
+      border-color: rgba(34,211,238,0.55);
+      background: rgba(34,211,238,0.14);
+    }}
+    .chip small {{
+      color: var(--muted);
+      font-weight: 700;
+      margin-left: 6px;
+    }}
+
+    .list {{
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }}
+
+    .card {{
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      border-radius: 22px;
+      padding: 14px;
+      position: relative;
+      overflow: hidden;
+    }}
+
+    .card-head {{
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }}
+
+    .rank {{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 900;
+      font-size: 14px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      white-space: nowrap;
+    }}
+    .delta {{
+      font-size: 12px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+    }}
+    .delta.up {{ border-color: rgba(34,197,94,0.45); background: rgba(34,197,94,0.10); }}
+    .delta.down {{ border-color: rgba(239,68,68,0.45); background: rgba(239,68,68,0.10); }}
+    .delta.new {{ border-color: rgba(59,130,246,0.55); background: rgba(59,130,246,0.12); }}
+    .delta.same {{ color: var(--muted); }}
+
+    .title {{
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -0.2px;
+      margin: 2px 0 6px;
+    }}
+    .meta {{
+      color: var(--muted);
+      font-size: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }}
+    .id {{
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      color: var(--muted);
+    }}
+
+    .summary {{
+      margin-top: 10px;
+      color: rgba(255,255,255,0.82);
+      font-size: 13px;
+      line-height: 1.45;
+    }}
+
+    .pillrow {{
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }}
+    .pill {{
+      font-size: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      padding: 6px 9px;
+      border-radius: 999px;
+      color: var(--text);
+    }}
+    .pill.muted {{ color: var(--muted); }}
+
+    .scorebox {{
+      min-width: 210px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      border-radius: 18px;
+      padding: 12px;
+    }}
+
+    .score-top {{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }}
+    .score-val {{
+      font-size: 22px;
+      font-weight: 950;
+      letter-spacing: -0.4px;
+    }}
+    .score-badge {{
+      font-size: 12px;
+      font-weight: 900;
+      border-radius: 999px;
+      padding: 4px 8px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+    }}
+    .badge-high {{ border-color: rgba(34,197,94,0.45); background: rgba(34,197,94,0.10); }}
+    .badge-mid {{ border-color: rgba(245,158,11,0.45); background: rgba(245,158,11,0.10); }}
+    .badge-low {{ border-color: rgba(239,68,68,0.45); background: rgba(239,68,68,0.10); }}
+
+    .bar {{
+      margin-top: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }}
+    .bar > i {{
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(34,211,238,0.75), rgba(120,119,198,0.75));
+    }}
+
+    details {{
+      margin-top: 12px;
+      border-top: 1px dashed rgba(255,255,255,0.18);
+      padding-top: 10px;
+    }}
+    summary {{
+      cursor: pointer;
+      color: rgba(255,255,255,0.85);
+      font-weight: 800;
+      font-size: 13px;
+      user-select: none;
+    }}
+    .detail-grid {{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }}
     @media (max-width: 900px) {{
       .detail-grid {{ grid-template-columns: 1fr; }}
     }}
-    .scoreline {{ font-size: 13px; margin-bottom: 2px; }}
-    .breakdown-box {{ font-size: 11px; color: #444; }}
-    .bd-item {{ margin-top: 2px; line-height: 1.2; }}
-    .bd-why {{ color: #888; margin-left: 6px; }}
-
-
   </style>
 </head>
+
 <body>
-  <h1>Daily Idea Ranking</h1>
-  
-  <div class="meta">Generated: {now} · Source: data/reports/idea_cards.json · Showing Top {len(table_rows)}</div>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="headline">
+        <h1>Daily Idea Ranking</h1>
+        <p>
+          Generated: {now} · Source: data/reports/idea_cards.json ·
+          History: <a href="./history/index.html" style="text-decoration: underline;">open</a>
+        </p>
+      </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th style="width:60px;">Rank</th>
-        <th>Idea</th>
-        <th style="width:140px;">Score</th>
-        <th style="width:90px;">Trend</th>
-      </tr>
-    </thead>
-    <tbody>
-      {trs_html}
-    </tbody>
-  </table>
+      <div class="actions">
+        <a class="btn" href="./history/index.html">History</a>
+        <button class="btn" id="btnReset">Reset filters</button>
+      </div>
+    </div>
 
-  <p class="small">Next: auto-generate this page in GitHub Actions + add /history pages.</p>
-  
-  <p class="small">
-  History: <a href="./history/index.html">Open history</a>
-  </p>
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">
+          <b>Overview</b>
+          <span>Top {len(table_rows)} · KPI & trend movement</span>
+        </div>
+        <div class="panel-title">
+          <span>Score scale: {"0~1" if is_unit else "0~100"}</span>
+        </div>
+      </div>
+
+      <div class="kpi">
+        <div class="kpi-card">
+          <div class="kpi-label">Ideas</div>
+          <div class="kpi-value" id="kpiTotal">{kpi["total"]}</div>
+          <div class="kpi-sub">Cards rendered today</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">NEW</div>
+          <div class="kpi-value" id="kpiNew">{kpi["new"]}</div>
+          <div class="kpi-sub">Not in previous snapshot</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Up / Down</div>
+          <div class="kpi-value" id="kpiMove">{kpi["up"]} / {kpi["down"]}</div>
+          <div class="kpi-sub">Rank delta vs previous day</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Avg / Max</div>
+          <div class="kpi-value" id="kpiScore">{round(kpi["score_avg"], 3)} / {round(kpi["score_max"], 3)}</div>
+          <div class="kpi-sub">Score distribution</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="field">
+          <label>Search (title / summary / tags)</label>
+          <input id="q" type="text" placeholder="ex) security, rag, kubernetes..." />
+        </div>
+
+        <div class="field">
+          <label>Sort</label>
+          <select id="sort">
+            <option value="rank_asc">Rank (best first)</option>
+            <option value="score_desc">Score (high first)</option>
+            <option value="delta_desc">Movement (up first)</option>
+            <option value="evidence_desc">Evidence (many first)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Min Score</label>
+          <div class="row">
+            <input id="minScore" type="range" min="0" max="{slider_max}" step="{slider_step}" value="0" />
+            <div class="hint" id="minScoreLabel">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tags" id="tagChips">
+        <div class="chip active" data-tag="__all__">All</div>
+        {''.join([f'<div class="chip" data-tag="{_escape(t)}">{_escape(t)} <small>{c}</small></div>' for t, c in top_tags])}
+      </div>
+
+      <div class="list" id="list"></div>
+    </div>
+  </div>
+
+  <script>
+    const DATA = JSON.parse(`{ideas_json_escaped}`);
+    const isUnit = {str(is_unit).lower()};
+
+    const $list = document.getElementById("list");
+    const $q = document.getElementById("q");
+    const $sort = document.getElementById("sort");
+    const $minScore = document.getElementById("minScore");
+    const $minScoreLabel = document.getElementById("minScoreLabel");
+    const $tagChips = document.getElementById("tagChips");
+    const $btnReset = document.getElementById("btnReset");
+
+    let activeTag = "__all__";
+
+    function esc(s) {{
+      return (s ?? "").toString()
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;");
+    }}
+
+    function toNum(x, d=0) {{
+      const n = Number(x);
+      return Number.isFinite(n) ? n : d;
+    }}
+
+    function scoreOf(r) {{
+      const s = (r.scores && typeof r.scores === "object") ? r.scores.total : r.total_score;
+      return toNum(s, 0);
+    }}
+
+    function badgeClass(v) {{
+      if (isUnit) {{
+        if (v >= 0.75) return "badge-high";
+        if (v >= 0.50) return "badge-mid";
+        return "badge-low";
+      }}
+      if (v >= 75) return "badge-high";
+      if (v >= 50) return "badge-mid";
+      return "badge-low";
+    }}
+
+    function deltaSpan(d) {{
+      if (d === null || d === undefined) return '<span class="delta new">NEW</span>';
+      const n = toNum(d, 0);
+      if (n > 0) return `<span class="delta up">↑ +${{n}}</span>`;
+      if (n < 0) return `<span class="delta down">↓ ${{Math.abs(n)}}</span>`;
+      return '<span class="delta same">–</span>';
+    }}
+
+    function fmtTags(tags) {{
+      const arr = Array.isArray(tags) ? tags : (tags ? [tags] : []);
+      return arr.slice(0, 10).map(t => `<span class="pill">${{esc(String(t))}}</span>`).join("");
+    }}
+
+    function matches(r, q) {{
+      if (!q) return true;
+      const text = (r.title + " " + (r.summary || "") + " " + (Array.isArray(r.tags) ? r.tags.join(" ") : "")).toLowerCase();
+      return text.includes(q.toLowerCase());
+    }}
+
+    function tagOk(r) {{
+      if (activeTag === "__all__") return true;
+      const tags = Array.isArray(r.tags) ? r.tags : (r.tags ? [r.tags] : []);
+      return tags.map(String).includes(activeTag);
+    }}
+
+    function render() {{
+      const q = ($q.value || "").trim();
+      const minS = toNum($minScore.value, 0);
+
+      let rows = DATA.filter(r => matches(r, q) && tagOk(r) && scoreOf(r) >= minS);
+
+      const sort = $sort.value;
+      if (sort === "rank_asc") {{
+        rows.sort((a,b) => toNum(a.rank, 1e9) - toNum(b.rank, 1e9));
+      }} else if (sort === "score_desc") {{
+        rows.sort((a,b) => scoreOf(b) - scoreOf(a));
+      }} else if (sort === "delta_desc") {{
+        rows.sort((a,b) => {{
+          const da = (a.rank_delta === null || a.rank_delta === undefined) ? -9999 : toNum(a.rank_delta, 0);
+          const db = (b.rank_delta === null || b.rank_delta === undefined) ? -9999 : toNum(b.rank_delta, 0);
+          return db - da;
+        }});
+      }} else if (sort === "evidence_desc") {{
+        rows.sort((a,b) => toNum(b.evidence_count, 0) - toNum(a.evidence_count, 0));
+      }}
+
+      $list.innerHTML = rows.map(r => {{
+        const title = esc(r.title || "(untitled)");
+        const ideaId = esc(String(r.idea_id || ""));
+        const summary = esc(String(r.summary || "")).slice(0, 260);
+        const tags = fmtTags(r.tags);
+        const score = scoreOf(r);
+        const pct = isUnit ? Math.max(0, Math.min(100, score * 100)) : Math.max(0, Math.min(100, score));
+        const badge = badgeClass(score);
+        const delta = deltaSpan(r.rank_delta);
+        const evCount = toNum(r.evidence_count, 0);
+
+        return `
+          <div class="card">
+            <div class="card-head">
+              <div>
+                <div class="rank">#${{toNum(r.rank, 0)}} ${{delta}}</div>
+                <div class="title">${{title}}</div>
+                <div class="meta">
+                  <span class="id">${{ideaId || "no-id"}}</span>
+                  <span>Evidence: <b style="color: rgba(255,255,255,0.88);">${{evCount}}</b></span>
+                </div>
+                <div class="summary">${{summary}}</div>
+                <div class="pillrow">${{tags || '<span class="pill muted">no tags</span>'}}</div>
+              </div>
+
+              <div class="scorebox">
+                <div class="score-top">
+                  <div class="score-val">${{isUnit ? score.toFixed(3) : score.toFixed(1)}}</div>
+                  <div class="score-badge ${{badge}}">${{badge.replace("badge-","").toUpperCase()}}</div>
+                </div>
+                <div class="bar"><i style="width:${{pct}}%"></i></div>
+              </div>
+            </div>
+          </div>
+        `;
+      }}).join("");
+    }}
+
+    function setMinLabel() {{
+      const v = toNum($minScore.value, 0);
+      $minScoreLabel.textContent = isUnit ? v.toFixed(2) : String(Math.round(v));
+    }}
+
+    $q.addEventListener("input", render);
+    $sort.addEventListener("change", render);
+    $minScore.addEventListener("input", () => {{
+      setMinLabel();
+      render();
+    }});
+
+    $tagChips.addEventListener("click", (e) => {{
+      const el = e.target.closest(".chip");
+      if (!el) return;
+      const t = el.getAttribute("data-tag");
+      if (!t) return;
+
+      activeTag = t;
+      [...$tagChips.querySelectorAll(".chip")].forEach(x => x.classList.remove("active"));
+      el.classList.add("active");
+      render();
+    }});
+
+    $btnReset.addEventListener("click", () => {{
+      $q.value = "";
+      $sort.value = "rank_asc";
+      $minScore.value = 0;
+      setMinLabel();
+      activeTag = "__all__";
+      [...$tagChips.querySelectorAll(".chip")].forEach(x => {{
+        x.classList.toggle("active", x.getAttribute("data-tag") === "__all__");
+      }});
+      render();
+    }});
+
+    setMinLabel();
+    render();
+  </script>
 </body>
 </html>
 """
 
 
-def _today_slug() -> str:
-    return datetime.now().strftime("%Y-%m-%d")
-
-def write_history_index() -> Path:
-    history_dir = DOCS_DIR / "history"
-    history_dir.mkdir(parents=True, exist_ok=True)
-
-    files = sorted(history_dir.glob("*.html"), reverse=True)
-    links = "\n".join(
-        f'<li><a href="{f.name}">{f.stem}</a></li>'
-        for f in files
-        if f.name != "index.html"
-    )
-
-    html = f"""<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>History</title>
-  <style>
-    body {{ font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; }}
-    a {{ text-decoration: none; }}
-  </style>
-</head>
-<body>
-  <h1>History</h1>
-  <p><a href="../index.html">← Back to latest</a></p>
-  <ul>
-    {links}
-  </ul>
-</body>
-</html>
-"""
-    out = history_dir / "index.html"
-    out.write_text(html, encoding="utf-8")
-    return out
-
-
-def write_history_snapshot(html: str) -> Path:
-    """
-    Save today's snapshot into docs/history/YYYY-MM-DD.html
-    """
-    history_dir = DOCS_DIR / "history"
-    history_dir.mkdir(parents=True, exist_ok=True)
-
-    out = history_dir / f"{_today_slug()}.html"
-    out.write_text(html, encoding="utf-8")
-    return out
-
-def _ensure_history_data_dir() -> None:
-    HISTORY_DATA_DIR.mkdir(parents=True, exist_ok=True)
-
-
-def write_history_snapshot_json(table_rows: list[dict], top_n: int, day: str | None = None) -> Path:
-    """
-    Save today's snapshot into docs/history/data/YYYY-MM-DD.json
-    (idea_id 기준 rank/score/title/tags 저장)
-    """
-    _ensure_history_data_dir()
-    day = day or _today_slug()
-    
-    payload = {
-        "date": day,
-        "topn": top_n,
-        "items": [
-            {
-                "idea_id": r.get("idea_id", ""),
-                "rank": r.get("rank", None),
-                "title": r.get("title", ""),
-                "tags": r.get("tags", []),
-                "total_score": _to_float(
-                    r.get("total_score")
-                    or (r.get("scores") or {}).get("total")
-                    or (r.get("scores") or {}).get("total_score")
-                    or 0.0
-                ),
-            }
-            for r in table_rows
-            if r.get("idea_id")
-        ],
-    }
-
-    out = HISTORY_DATA_DIR / f"{day}.json"
-    out.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-
-    # index.json 업데이트
-    idx = {"dates": []}
-    if HISTORY_INDEX_JSON.exists():
-        try:
-            idx = json.loads(HISTORY_INDEX_JSON.read_text(encoding="utf-8"))
-        except Exception:
-            idx = {"dates": []}
-
-    dates = idx.get("dates", [])
-    if not isinstance(dates, list):
-        dates = []
-    if day not in dates:
-        dates.append(day)
-
-    idx["dates"] = sorted(set(dates))
-    HISTORY_INDEX_JSON.write_text(json.dumps(idx, ensure_ascii=False, indent=2), encoding="utf-8")
-
-    return out
-
-def load_history_snapshot_json(day: str) -> list[dict]:
-    """
-    Load docs/history/data/YYYY-MM-DD.json and convert to table_rows schema
-    that build_html() expects.
-    """
-    snap = HISTORY_DATA_DIR / f"{day}.json"
-    if not snap.exists():
-        raise FileNotFoundError(f"History snapshot json not found: {snap}")
-
-    data = json.loads(snap.read_text(encoding="utf-8"))
-    items = data.get("items", [])
-    if not isinstance(items, list):
-        items = []
-
-    table_rows = []
-    for it in items:
-        table_rows.append(
-            {
-                "rank": int(it.get("rank") or 0),
-                "idea_id": it.get("idea_id", ""),
-                "title": it.get("title", "(untitled)"),
-                "summary": "",           # 과거 스냅샷엔 없으니 빈 값
-                "tags": it.get("tags", []),
-                "trend": "",
-                "total_score": _to_float(it.get("total_score", 0.0)),
-                "scores": {"total": _to_float(it.get("total_score", 0.0))},  # 기존 fmt_scores 호환
-                "evidence": [],
-                "risks": [],
-                "assumptions": [],
-            }
-        )
-
-    # rank 오름차순 정렬 보정
-    table_rows = sorted(table_rows, key=lambda r: r.get("rank", 10**9))
-    return table_rows
-
-
-def write_history_snapshot_for_date(html: str, day: str) -> Path:
-    """
-    Save snapshot into docs/history/YYYY-MM-DD.html (for specific day)
-    """
-    history_dir = DOCS_DIR / "history"
-    history_dir.mkdir(parents=True, exist_ok=True)
-
-    out = history_dir / f"{day}.html"
-    out.write_text(html, encoding="utf-8")
-    return out
-
-
-
-
-def rebuild_history_pages() -> None:
-    """
-    Re-generate docs/history/YYYY-MM-DD.html for all dates in docs/history/data/index.json
-    """
-    if not HISTORY_INDEX_JSON.exists():
-        print("⚠️ No history index.json found. Nothing to rebuild.")
-        return
-
-    try:
-        idx = json.loads(HISTORY_INDEX_JSON.read_text(encoding="utf-8"))
-    except Exception:
-        print("⚠️ Failed to read history index.json. Nothing to rebuild.")
-        return
-
-    dates = idx.get("dates", [])
-    if not isinstance(dates, list) or not dates:
-        print("⚠️ No dates in history index.json. Nothing to rebuild.")
-        return
-
-    ok = 0
-    for day in sorted(dates):
-        try:
-            table_rows = load_history_snapshot_json(day)
-            html = build_html(table_rows)
-            out = write_history_snapshot_for_date(html, day)
-            ok += 1
-            print(f"✅ Rebuilt history page -> {out}")
-        except Exception as e:
-            print(f"❌ Failed to rebuild {day}: {e}")
-
-    # 링크 인덱스 다시 생성
-    hist_index = write_history_index()
-    print(f"📜 History index -> {hist_index} (rebuilt {ok} pages)")
-
-
-def load_prev_rank_map(today: str) -> dict[str, int]:
-    """
-    return: {idea_id: prev_rank}
-    """
-    if not HISTORY_INDEX_JSON.exists():
-        return {}
-
-    try:
-        idx = json.loads(HISTORY_INDEX_JSON.read_text(encoding="utf-8"))
-    except Exception:
-        return {}
-
-    dates = idx.get("dates", [])
-    if not isinstance(dates, list):
-        return {}
-
-    prev_candidates = [d for d in dates if isinstance(d, str) and d < today]
-    if not prev_candidates:
-        return {}
-
-    prev = prev_candidates[-1]
-    snap = HISTORY_DATA_DIR / f"{prev}.json"
-    if not snap.exists():
-        return {}
-
-    try:
-        data = json.loads(snap.read_text(encoding="utf-8"))
-    except Exception:
-        return {}
-
-    m = {}
-    for it in data.get("items", []):
-        idea_id = it.get("idea_id")
-        rank = it.get("rank")
-        if idea_id and isinstance(rank, int):
-            m[str(idea_id)] = rank
-    return m
-
-
-def _escape(s: str) -> str:
-    return (
-        (s or "")
-        .replace("&", "&amp;")
-        .replace("<", "&lt;")
-        .replace(">", "&gt;")
-        .replace('"', "&quot;")
-    )
-
-
-def _link_or_text(s: str) -> str:
-    s = (s or "").strip()
-    if s.startswith("http://") or s.startswith("https://"):
-        esc = _escape(s)
-        return f'<a href="{esc}" target="_blank" rel="noopener noreferrer">{esc}</a>'
-    return _escape(s)
-
+# =========================
+# Outputs
+# =========================
 def save_daily_run_json(day: str, rows: list[dict]) -> Path:
     outdir = ROOT / "reports" / "daily"
     outdir.mkdir(parents=True, exist_ok=True)
     out = outdir / f"{day}.json"
     out.write_text(json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8")
-    return out
-
-
-def backfill_snapshot_from_run(day: str, run_json_path: str, top_n: int = 15) -> Path:
-    """
-    reports/run-*/data.json → 과거 날짜 snapshot json 재생성
-    """
-    p = Path(run_json_path)
-    rows = _load_rows(p)
-
-    ranked = sorted(rows, key=lambda r: int(r.get("rank") or 10**9))[:top_n]
-
-    items = []
-    for i, r in enumerate(ranked, start=1):
-        idea_id = str(r.get("idea_id") or "")
-        if not idea_id:
-            continue
-
-        items.append(
-            {
-                "idea_id": idea_id,
-                "rank": int(r.get("rank") or i),
-                "title": str(r.get("title") or ""),
-                "tags": r.get("tags") if isinstance(r.get("tags"), list) else ([r.get("tags")] if r.get("tags") else []),
-                "total_score": _to_float(r.get("total_score", 0.0)),
-            }
-        )
-
-    out = HISTORY_DATA_DIR / f"{day}.json"
-    payload = {"date": day, "topn": len(items), "items": items}
-    out.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-
-    # index.json 업데이트
-    idx = {"dates": []}
-    if HISTORY_INDEX_JSON.exists():
-        try:
-            idx = json.loads(HISTORY_INDEX_JSON.read_text(encoding="utf-8"))
-        except Exception:
-            idx = {"dates": []}
-
-    dates = idx.get("dates", [])
-    if not isinstance(dates, list):
-        dates = []
-
-    if day not in dates:
-        dates.append(day)
-
-    idx["dates"] = sorted(set(dates))
-    HISTORY_INDEX_JSON.write_text(json.dumps(idx, ensure_ascii=False, indent=2), encoding="utf-8")
-
-    print(f"✅ Backfilled snapshot json -> {out} (src={p})")
     return out
 
 
@@ -679,75 +970,38 @@ def main(top_n: int = 15) -> None:
     src = _pick_latest_file()
     rows = _load_rows(src)
     top = render_top_n(rows, n=top_n)
-    
+
     today = _today_slug()
     daily_path = save_daily_run_json(today, top)
     print(f"🧷 Daily run saved -> {daily_path}")
-    
-    prev_rank = load_prev_rank_map(today)
 
+    # ✅ rank delta 계산 (전날 스냅샷 기준) - snapshots.py가 list/dict 포맷 방지 로직 갖고 있어야 안정적
+    prev_rank = load_prev_rank_map(today)
     for item in top:
         idea_id = item.get("idea_id") or ""
         prev = prev_rank.get(idea_id)
+        item["rank_delta"] = None if prev is None else (prev - item["rank"])
 
-        if prev is None:
-            item["rank_delta"] = None  # NEW
-        else:
-            item["rank_delta"] = prev - item["rank"]  # +면 상승
-            
     snap_json = write_history_snapshot_json(top, top_n=top_n)
-
     html = build_html(top)
 
-    # 1) 최신 index.html
+    # 최신 index.html
     out = DOCS_DIR / "index.html"
     out.write_text(html, encoding="utf-8")
 
-    # 2) 날짜별 스냅샷 저장
+    # 날짜별 스냅샷 저장 + history index
     hist = write_history_snapshot(html)
-
-    # 3) history/index.html 생성(링크 목록 페이지)
     hist_index = write_history_index()
 
-    # 로그
     print(f"✅ Rendered Top {top_n} -> {out}")
     print(f"🗂️ History snapshot -> {hist}")
     print(f"📜 History index -> {hist_index}")
     print(f"📥 Data source -> {src} (rows={len(rows)})")
     print(f"🧾 History data -> {snap_json}")
-    
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--topn", type=int, default=15, help="Top N to render for today")
-    parser.add_argument("--date", type=str, default=None, help="Re-render a specific history date (YYYY-MM-DD) from snapshot json")
-    parser.add_argument("--rebuild-history", action="store_true", help="Rebuild all history html pages from snapshot json index")
-    parser.add_argument("--backfill-date", type=str, default=None, help="Backfill snapshot json date (YYYY-MM-DD)")
-    parser.add_argument("--backfill-run", type=str, default=None, help="Backfill source run json path (reports/run-*/data.json)")
     args = parser.parse_args()
-
-    if args.rebuild_history:
-        rebuild_history_pages()
-    elif args.backfill_date and args.backfill_run:
-        day = args.backfill_date.strip()
-        backfill_snapshot_from_run(day, args.backfill_run, top_n=args.topn)
-        # backfill 했으면 그 날짜 HTML도 바로 재생성해주자(편의)
-        table_rows = load_history_snapshot_json(day)
-        html = build_html(table_rows)
-        out = write_history_snapshot_for_date(html, day)
-        hist_index = write_history_index()
-        print(f"✅ Rendered history date -> {out}")
-        print(f"📜 History index -> {hist_index}")
-    
-    elif args.date:
-        # 특정 날짜 재생성
-        day = args.date.strip()
-        table_rows = load_history_snapshot_json(day)
-        html = build_html(table_rows)
-        out = write_history_snapshot_for_date(html, day)
-        hist_index = write_history_index()
-        print(f"✅ Rendered history date -> {out}")
-        print(f"📜 History index -> {hist_index}")
-    else:
-        # 기존 동작(오늘 생성)
-        main(top_n=args.topn)
+    main(top_n=args.topn)

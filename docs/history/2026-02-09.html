@@ -391,121 +391,11 @@
     @media (max-width: 900px) {
       .detail-grid { grid-template-columns: 1fr; }
     }
-     .hero{
-       display:grid;
-       grid-template-columns: 1.2fr 0.8fr;
-       gap:14px;
-       margin-bottom: 14px;
-    }  
-    @media (max-width: 980px){ .hero{ grid-template-columns:1fr; } }
-
-    .brand{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      font-weight: 950;
-      letter-spacing:-0.6px;
-      font-size: 14px;
-      color: rgba(255,255,255,0.9);
-      padding: 6px 10px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      width: fit-content;
-      margin-bottom: 10px;
-    }
-
-    .hero-title{
-      margin: 0;
-      font-size: 34px;
-      letter-spacing:-0.9px;
-      line-height:1.05;
-    }
-    .hero-sub{
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height:1.45;
-      max-width: 58ch;
-    }
-    .hero-bullets{
-      margin-top: 12px;
-      display:flex;
-      flex-wrap:wrap;
-      gap: 8px 12px;
-      color: rgba(255,255,255,0.82);
-      font-size: 12px;
-    }
-
-    .today{
-      padding: 14px;
-      display:grid;
-      gap: 10px;
-    }
-    .today .t-rank{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      font-weight: 950;
-    }
-    .today .t-title{
-      font-size: 16px;
-      font-weight: 950;
-      letter-spacing:-0.2px;
-    }
-    .today .t-sub{
-      color: var(--muted);
-      font-size: 12px;
-      line-height:1.4;
-    }
-    .today .t-row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-    }
-    .decision{
-      font-size: 12px;
-      font-weight: 950;
-      border-radius: 999px;
-      padding: 5px 10px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.06);
-    }
-    .decision.go{ border-color: rgba(34,197,94,0.55); background: rgba(34,197,94,0.12); }
-    .decision.watch{ border-color: rgba(245,158,11,0.55); background: rgba(245,158,11,0.12); }
-    .decision.drop{ border-color: rgba(239,68,68,0.55); background: rgba(239,68,68,0.12); }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-   <div class="hero">
-    <div class="hero-left">
-     <div class="brand">SignalRank</div>
-     <h1 class="hero-title">AI Decision Engine for Meeting Ideas</h1>
-     <p class="hero-sub">
-       회의/브레인스토밍에서 나온 아이디어를 <b>뉴스·데이터 근거</b>로 검증해
-       <b>실행 가능한 것만</b> 남깁니다.
-     </p>
-
-     <div class="hero-bullets">
-       <div>✅ Evidence 기반 점수 산정</div>
-       <div>✅ Daily/Weekly 랭킹 변동 추적</div>
-       <div>✅ GitHub Actions로 자동 생성/배포</div>
-     </div>
-   </div>
-
-   <div class="hero-right panel">
-     <div class="panel-head">
-       <div class="panel-title">
-         <b>Today’s Decision</b>
-         <span id="todayMeta">Top 1 highlighted</span>
-       </div>
-     </div>
-     <div class="today" id="todayBox"></div>
-   </div>
- </div> 
     <div class="topbar">
       <div class="headline">
         <h1>Daily Idea Ranking</h1>
@@ -639,46 +529,6 @@
       if (n < 0) return `<span class="delta down">↓ ${Math.abs(n)}</span>`;
       return '<span class="delta same">–</span>';
     }
-    function decisionLabel(score) {
-      if (isUnit) {
-        if (score >= 0.70) return ["GO", "go"];
-        if (score >= 0.50) return ["WATCH", "watch"];
-        return ["DROP", "drop"];
-      }
-      if (score >= 75) return ["GO", "go"];
-      if (score >= 50) return ["WATCH", "watch"];
-      return ["DROP", "drop"];
-    }
-    
-
-    function renderToday(rows) {
-      const top = rows && rows.length ? rows[0] : (DATA && DATA.length ? DATA[0] : null);
-      const box = document.getElementById("todayBox");
-      if (!box || !top) return;
-
-      const title = esc(top.title || "(untitled)");
-      const score = scoreOf(top);
-      const [label, cls] = decisionLabel(score);
-      const delta = deltaSpan(top.rank_delta);
-      const evCount = toNum(top.evidence_count, 0);
-
-      const summary = esc(String(top.summary || "")).slice(0, 140) || "No summary yet — add a 1-line pitch to boost impact.";
-      const pct = isUnit ? Math.max(0, Math.min(100, score * 100)) : Math.max(0, Math.min(100, score));
-
-      box.innerHTML = `
-        <div class="t-row">
-          <div class="t-rank">#${toNum(top.rank, 1)} ${delta}</div>
-          <span class="decision ${cls}">${label}</span>
-       </div>
-       <div class="t-title">${title}</div>
-       <div class="t-sub">${summary}</div>
-       <div class="t-row" style="margin-top:6px;">
-         <div style="color:var(--muted); font-size:12px;">Evidence <b style="color:rgba(255,255,255,0.9)">${evCount}</b></div>
-         <div style="font-weight:950;">${isUnit ? score.toFixed(3) : score.toFixed(1)} / ${isUnit ? "1.0" : "100"}</div>
-       </div>
-       <div class="bar"><i style="width:${pct}%"></i></div>
-    `;
-  }
 
     function fmtTags(tags) {
       const arr = Array.isArray(tags) ? tags : (tags ? [tags] : []);
@@ -754,8 +604,6 @@
           </div>
         `;
       }).join("");
-
-      renderToday(rows);
     }
 
     function setMinLabel() {

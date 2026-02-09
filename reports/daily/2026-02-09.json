@@ -1,0 +1,286 @@
+[
+  {
+    "rank": 1,
+    "idea_id": "IDEA-003",
+    "title": "B2B Workflow Scoring",
+    "summary": "",
+    "tags": [
+      "b2b",
+      "workflow",
+      "compliance"
+    ],
+    "trend": "",
+    "total_score": 51.85,
+    "scores": {
+      "total": 51.85,
+      "breakdown": {
+        "base": {
+          "contribution": 51.85,
+          "why": "model/base total score"
+        }
+      }
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 2,
+    "idea_id": "IDEA-007",
+    "title": "Meeting Notes to Jira Tasks",
+    "summary": "",
+    "tags": [
+      "workflow",
+      "integration",
+      "automation"
+    ],
+    "trend": "",
+    "total_score": 47.65,
+    "scores": {
+      "total": 47.65,
+      "breakdown": {
+        "base": {
+          "contribution": 47.65,
+          "why": "model/base total score"
+        }
+      }
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 3,
+    "idea_id": "IDEA-008",
+    "title": "Security Policy Drift Monitor",
+    "summary": "",
+    "tags": [
+      "security",
+      "compliance",
+      "devops"
+    ],
+    "trend": "",
+    "total_score": 47.31,
+    "scores": {
+      "total": 47.31,
+      "breakdown": {
+        "base": {
+          "contribution": 47.25,
+          "why": "model/base total score"
+        },
+        "signal:security": {
+          "contribution": 0.06,
+          "why": "keyword match: security"
+        }
+      }
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 4,
+    "idea_id": "IDEA-010",
+    "title": "Privacy-safe Data Collector",
+    "summary": "",
+    "tags": [
+      "privacy",
+      "pii",
+      "compliance"
+    ],
+    "trend": "",
+    "total_score": 47.15,
+    "scores": {
+      "total": 47.15,
+      "breakdown": {
+        "base": {
+          "contribution": 47.12,
+          "why": "model/base total score"
+        },
+        "signal:data": {
+          "contribution": 0.03,
+          "why": "keyword match: data"
+        }
+      }
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 5,
+    "idea_id": "IDEA-006",
+    "title": "Customer Churn Early Warning",
+    "summary": "",
+    "tags": [
+      "retention",
+      "analytics",
+      "b2b"
+    ],
+    "trend": "",
+    "total_score": 46.93,
+    "scores": {
+      "total": 46.93,
+      "breakdown": {
+        "base": {
+          "contribution": 46.93,
+          "why": "model/base total score"
+        }
+      }
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 6,
+    "idea_id": "IDEA-005",
+    "title": "Cloud Cost Leak Detector",
+    "summary": "",
+    "tags": [
+      "cloud",
+      "cost",
+      "automation"
+    ],
+    "trend": "",
+    "total_score": 46.269999999999996,
+    "scores": {
+      "total": 46.269999999999996,
+      "breakdown": {
+        "base": {
+          "contribution": 46.23,
+          "why": "model/base total score"
+        },
+        "signal:cloud": {
+          "contribution": 0.04,
+          "why": "keyword match: cloud"
+        }
+      }
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 7,
+    "idea_id": "IDEA-002",
+    "title": "Ops Incident Playbook Generator",
+    "summary": "",
+    "tags": [
+      "devops",
+      "sre",
+      "automation"
+    ],
+    "trend": "",
+    "total_score": 45.94,
+    "scores": {
+      "total": 45.94,
+      "breakdown": {
+        "base": {
+          "contribution": 45.94,
+          "why": "model/base total score"
+        }
+      }
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 8,
+    "idea_id": "IDEA-009",
+    "title": "Real-time Multi-agent Research",
+    "summary": "",
+    "tags": [
+      "ai",
+      "multi-agent",
+      "real-time"
+    ],
+    "trend": "",
+    "total_score": 44.05,
+    "scores": {
+      "total": 44.05,
+      "breakdown": {
+        "base": {
+          "contribution": 43.94,
+          "why": "model/base total score"
+        },
+        "signal:ai": {
+          "contribution": 0.06,
+          "why": "keyword match: ai"
+        },
+        "signal:agent": {
+          "contribution": 0.05,
+          "why": "keyword match: agent"
+        }
+      }
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 9,
+    "idea_id": "IDEA-001",
+    "title": "Daily Trend Radar",
+    "summary": "",
+    "tags": [
+      "ai",
+      "news",
+      "dashboard"
+    ],
+    "trend": "",
+    "total_score": 42.910000000000004,
+    "scores": {
+      "total": 42.910000000000004,
+      "breakdown": {
+        "base": {
+          "contribution": 42.85,
+          "why": "model/base total score"
+        },
+        "signal:ai": {
+          "contribution": 0.06,
+          "why": "keyword match: ai"
+        }
+      }
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 10,
+    "idea_id": "IDEA-004",
+    "title": "Resume-to-Job Fit Matcher",
+    "summary": "",
+    "tags": [
+      "hr",
+      "recommendation",
+      "analytics"
+    ],
+    "trend": "",
+    "total_score": 42.14,
+    "scores": {
+      "total": 42.14,
+      "breakdown": {
+        "base": {
+          "contribution": 42.14,
+          "why": "model/base total score"
+        }
+      }
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  }
+]

@@ -14,6 +14,7 @@ from app.scoring.signals import build_corpus_counter, extract_signals
 from app.scoring.scorer import score_from_signals, seeded_jitter
 from app.matching.match_external import load_external_docs, match_evidence_for_idea, compute_market_signal
 from app.history.delta import apply_rank_and_delta, top_movers
+from app.presentation.render_topn_html import main as render_topn_html_main
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -364,6 +365,8 @@ def main():
     result["movers_up"] = up5
     result["movers_down"] = down5
     render(result)
+    
+    render_topn_html_main()
     hist_dir = ROOT / "docs" / "history" / "data"
     hist_dir.mkdir(parents=True, exist_ok=True)
     today_path = hist_dir / f"{today_str}.json"
@@ -371,6 +374,7 @@ def main():
     print("[HISTORY] saved:", today_path)
     
     render(result)
+    
     return
    
 if __name__ == "__main__":
