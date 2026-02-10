@@ -1,235 +1,257 @@
 [
   {
     "rank": 1,
-    "idea_id": "idea_22",
-    "title": "Launch HN: Hypercontext (YC S21) – Meeting notes, actions, and OKRs in one app",
-    "summary": "Launch HN: Hypercontext (YC S21) – Meeting notes, actions, and OKRs in one app",
-    "tags": [],
-    "trend": {},
-    "total_score": 1.0,
+    "idea_id": "IDEA-003",
+    "title": "B2B Workflow Scoring",
+    "summary": "Score internal proposals based on cost reduction, compliance, and feasibility.",
+    "tags": [
+      "b2b",
+      "workflow",
+      "compliance"
+    ],
+    "trend": "",
+    "total_score": 50.8,
     "scores": {
-      "feasibility": 0.0,
-      "evidence": 0.0,
-      "momentum": 1.0,
-      "novelty": 0.5,
-      "priority": 0.9655172413793104,
-      "confidence": 0.0,
-      "total": 1.0,
+      "total": 50.8,
       "breakdown": {
         "base": {
-          "contribution": 1.0,
+          "contribution": 50.8,
           "why": "model/base total score"
         }
       }
     },
+    "score_breakdown": {
+      "novelty": 0,
+      "feasibility": 0,
+      "trend": 0,
+      "risk": 0
+    },
     "evidence": [],
     "evidence_count": 0,
-    "risks": [
-      "-"
-    ],
+    "risks": [],
     "assumptions": []
   },
   {
     "rank": 2,
-    "idea_id": "idea_23",
-    "title": "How to take meeting notes",
-    "summary": "How to take meeting notes",
-    "tags": [],
-    "trend": {},
-    "total_score": 1.0,
+    "idea_id": "IDEA-006",
+    "title": "Customer Churn Early Warning",
+    "summary": "Predict churn risk and propose retention workflows for customer success.",
+    "tags": [
+      "retention",
+      "analytics",
+      "b2b"
+    ],
+    "trend": "",
+    "total_score": 47.69,
     "scores": {
-      "feasibility": 0.0,
-      "evidence": 0.0,
-      "momentum": 1.0,
-      "novelty": 0.5,
-      "priority": 0.9655172413793104,
-      "confidence": 0.0,
-      "total": 1.0,
+      "total": 47.69,
       "breakdown": {
         "base": {
-          "contribution": 1.0,
+          "contribution": 47.69,
           "why": "model/base total score"
         }
       }
     },
+    "score_breakdown": {
+      "novelty": 0,
+      "feasibility": 0,
+      "trend": 0,
+      "risk": 0
+    },
     "evidence": [],
     "evidence_count": 0,
-    "risks": [
-      "cost_explosion",
-      "privacy"
-    ],
+    "risks": [],
     "assumptions": []
   },
   {
     "rank": 3,
-    "idea_id": "idea_28",
-    "title": "First C# 7 Design Meeting Notes",
-    "summary": "First C# 7 Design Meeting Notes",
-    "tags": [],
-    "trend": {},
-    "total_score": 1.0,
+    "idea_id": "IDEA-007",
+    "title": "Meeting Notes to Jira Tasks",
+    "summary": "Convert meeting notes into structured Jira tickets with priority scoring.",
+    "tags": [
+      "workflow",
+      "integration",
+      "automation"
+    ],
+    "trend": "",
+    "total_score": 47.49,
     "scores": {
-      "feasibility": 0.0,
-      "evidence": 0.0,
-      "momentum": 1.0,
-      "novelty": 0.5,
-      "priority": 0.9655172413793104,
-      "confidence": 0.0,
-      "total": 1.0,
+      "total": 47.49,
       "breakdown": {
         "base": {
-          "contribution": 1.0,
+          "contribution": 47.49,
           "why": "model/base total score"
         }
       }
     },
+    "score_breakdown": {
+      "novelty": 0,
+      "feasibility": 0,
+      "trend": 0,
+      "risk": 0
+    },
     "evidence": [],
     "evidence_count": 0,
-    "risks": [
-      "latency",
-      "hallucination"
-    ],
+    "risks": [],
     "assumptions": []
   },
   {
     "rank": 4,
-    "idea_id": "idea_29",
-    "title": "A CEO's Sequoia Meeting Notes",
-    "summary": "A CEO's Sequoia Meeting Notes",
-    "tags": [],
-    "trend": {},
-    "total_score": 0.92,
+    "idea_id": "IDEA-005",
+    "title": "Cloud Cost Leak Detector",
+    "summary": "Detect cost anomalies from billing exports and recommend savings actions.",
+    "tags": [
+      "cloud",
+      "cost",
+      "automation"
+    ],
+    "trend": "",
+    "total_score": 47.15,
     "scores": {
-      "feasibility": 0.0,
-      "evidence": 0.0,
-      "momentum": 0.92,
-      "novelty": 0.5,
-      "priority": 0.896551724137931,
-      "confidence": 0.0,
-      "total": 0.92,
+      "total": 47.15,
       "breakdown": {
         "base": {
-          "contribution": 0.92,
+          "contribution": 47.11,
           "why": "model/base total score"
+        },
+        "signal:cloud": {
+          "contribution": 0.04,
+          "why": "keyword match: cloud"
         }
       }
     },
+    "score_breakdown": {
+      "novelty": 0,
+      "feasibility": 0,
+      "trend": 0,
+      "risk": 0
+    },
     "evidence": [],
     "evidence_count": 0,
-    "risks": [
-      "hallucination"
-    ],
+    "risks": [],
     "assumptions": []
   },
   {
     "rank": 5,
-    "idea_id": "idea_27",
-    "title": "Open-RethinkDB meeting notes",
-    "summary": "Open-RethinkDB meeting notes",
-    "tags": [],
-    "trend": {},
-    "total_score": 0.91,
+    "idea_id": "IDEA-010",
+    "title": "Privacy-safe Data Collector",
+    "summary": "Collect user feedback with privacy constraints and PII redaction built-in.",
+    "tags": [
+      "privacy",
+      "pii",
+      "compliance"
+    ],
+    "trend": "",
+    "total_score": 46.72,
     "scores": {
-      "feasibility": 0.0,
-      "evidence": 0.0,
-      "momentum": 0.91,
-      "novelty": 0.5,
-      "priority": 0.8620689655172413,
-      "confidence": 0.0,
-      "total": 0.91,
+      "total": 46.72,
       "breakdown": {
         "base": {
-          "contribution": 0.91,
+          "contribution": 46.69,
           "why": "model/base total score"
+        },
+        "signal:data": {
+          "contribution": 0.03,
+          "why": "keyword match: data"
         }
       }
     },
+    "score_breakdown": {
+      "novelty": 0,
+      "feasibility": 0,
+      "trend": 0,
+      "risk": 0
+    },
     "evidence": [],
     "evidence_count": 0,
-    "risks": [
-      "-"
-    ],
+    "risks": [],
     "assumptions": []
   },
   {
     "rank": 6,
-    "idea_id": "idea_25",
-    "title": "A Starter's Guide to Writing Effective Meeting Notes",
-    "summary": "A Starter's Guide to Writing Effective Meeting Notes",
-    "tags": [],
-    "trend": {},
-    "total_score": 0.905,
+    "idea_id": "IDEA-008",
+    "title": "Security Policy Drift Monitor",
+    "summary": "Monitor infra configs and alert when security baselines drift.",
+    "tags": [
+      "security",
+      "compliance",
+      "devops"
+    ],
+    "trend": "",
+    "total_score": 46.34,
     "scores": {
-      "feasibility": 0.0,
-      "evidence": 0.0,
-      "momentum": 0.905,
-      "novelty": 0.5,
-      "priority": 0.8275862068965517,
-      "confidence": 0.0,
-      "total": 0.905,
+      "total": 46.34,
       "breakdown": {
         "base": {
-          "contribution": 0.905,
+          "contribution": 46.28,
           "why": "model/base total score"
+        },
+        "signal:security": {
+          "contribution": 0.06,
+          "why": "keyword match: security"
         }
       }
     },
+    "score_breakdown": {
+      "novelty": 0,
+      "feasibility": 0,
+      "trend": 0,
+      "risk": 0
+    },
     "evidence": [],
     "evidence_count": 0,
-    "risks": [
-      "hallucination"
-    ],
+    "risks": [],
     "assumptions": []
   },
   {
     "rank": 7,
-    "idea_id": "idea_26",
-    "title": "Open-RethinkDB meeting notes #4",
-    "summary": "Open-RethinkDB meeting notes #4",
-    "tags": [],
-    "trend": {},
-    "total_score": 0.86,
+    "idea_id": "IDEA-002",
+    "title": "Ops Incident Playbook Generator",
+    "summary": "Generate incident response playbooks from past tickets and postmortems.",
+    "tags": [
+      "devops",
+      "sre",
+      "automation"
+    ],
+    "trend": "",
+    "total_score": 45.49,
     "scores": {
-      "feasibility": 0.0,
-      "evidence": 0.0,
-      "momentum": 0.86,
-      "novelty": 0.5,
-      "priority": 0.7931034482758621,
-      "confidence": 0.0,
-      "total": 0.86,
+      "total": 45.49,
       "breakdown": {
         "base": {
-          "contribution": 0.86,
+          "contribution": 45.49,
           "why": "model/base total score"
         }
       }
     },
+    "score_breakdown": {
+      "novelty": 0,
+      "feasibility": 0,
+      "trend": 0,
+      "risk": 0
+    },
     "evidence": [],
     "evidence_count": 0,
-    "risks": [
-      "-"
-    ],
+    "risks": [],
     "assumptions": []
   },
   {
     "rank": 8,
-    "idea_id": "idea_17",
-    "title": "Jamie: AI assistant that creates meeting summaries",
-    "summary": "Jamie: AI assistant that creates meeting summaries",
-    "tags": [],
-    "trend": {},
-    "total_score": 0.7841379310344827,
+    "idea_id": "IDEA-001",
+    "title": "Daily Trend Radar",
+    "summary": "Collect daily tech news, summarize, and rank trends for product planning.",
+    "tags": [
+      "ai",
+      "news",
+      "dashboard"
+    ],
+    "trend": "",
+    "total_score": 43.14,
     "scores": {
-      "feasibility": 0.0,
-      "evidence": 0.0,
-      "momentum": 0.51,
-      "novelty": 0.5,
-      "priority": 0.7241379310344828,
-      "confidence": 0.0,
-      "total": 0.7841379310344827,
+      "total": 43.14,
       "breakdown": {
         "base": {
-          "contribution": 0.7241379310344828,
+          "contribution": 43.08,
           "why": "model/base total score"
         },
         "signal:ai": {
@@ -238,229 +260,87 @@
         }
       }
     },
+    "score_breakdown": {
+      "novelty": 0,
+      "feasibility": 0,
+      "trend": 0,
+      "risk": 0
+    },
     "evidence": [],
     "evidence_count": 0,
-    "risks": [
-      "hallucination"
-    ],
+    "risks": [],
     "assumptions": []
   },
   {
     "rank": 9,
-    "idea_id": "idea_5",
-    "title": "Meeting notes between Forgejo and the Dutch government via Git commits",
-    "summary": "Meeting notes between Forgejo and the Dutch government via Git commits",
-    "tags": [],
-    "trend": {},
-    "total_score": 0.76,
+    "idea_id": "IDEA-004",
+    "title": "Resume-to-Job Fit Matcher",
+    "summary": "Match resumes to job posts using embeddings and show gaps as action items.",
+    "tags": [
+      "hr",
+      "recommendation",
+      "analytics"
+    ],
+    "trend": "",
+    "total_score": 42.82,
     "scores": {
-      "feasibility": 0.0,
-      "evidence": 0.0,
-      "momentum": 0.76,
-      "novelty": 0.5,
-      "priority": 0.7586206896551724,
-      "confidence": 0.0,
-      "total": 0.76,
+      "total": 42.82,
       "breakdown": {
         "base": {
-          "contribution": 0.76,
+          "contribution": 42.82,
           "why": "model/base total score"
         }
       }
     },
+    "score_breakdown": {
+      "novelty": 0,
+      "feasibility": 0,
+      "trend": 0,
+      "risk": 0
+    },
     "evidence": [],
     "evidence_count": 0,
-    "risks": [
-      "hallucination"
-    ],
+    "risks": [],
     "assumptions": []
   },
   {
     "rank": 10,
-    "idea_id": "idea_21",
-    "title": "Meeting notes lose value the moment you finish writing them",
-    "summary": "Meeting notes lose value the moment you finish writing them",
-    "tags": [],
-    "trend": {},
-    "total_score": 0.6896551724137931,
-    "scores": {
-      "feasibility": 0.0,
-      "evidence": 0.0,
-      "momentum": 0.175,
-      "novelty": 0.5,
-      "priority": 0.6896551724137931,
-      "confidence": 0.0,
-      "total": 0.6896551724137931,
-      "breakdown": {
-        "base": {
-          "contribution": 0.6896551724137931,
-          "why": "model/base total score"
-        }
-      }
-    },
-    "evidence": [],
-    "evidence_count": 0,
-    "risks": [
-      "hallucination"
+    "idea_id": "IDEA-009",
+    "title": "Real-time Multi-agent Research",
+    "summary": "Use multiple agents to research markets in real-time with continuous updates.",
+    "tags": [
+      "ai",
+      "multi-agent",
+      "real-time"
     ],
-    "assumptions": []
-  },
-  {
-    "rank": 11,
-    "idea_id": "idea_7",
-    "title": "Open-source granola (meetings summary)",
-    "summary": "Open-source granola (meetings summary)",
-    "tags": [],
-    "trend": {},
-    "total_score": 0.6551724137931034,
+    "trend": "",
+    "total_score": 42.78,
     "scores": {
-      "feasibility": 0.0,
-      "evidence": 0.0,
-      "momentum": 0.17,
-      "novelty": 0.5,
-      "priority": 0.6551724137931034,
-      "confidence": 0.0,
-      "total": 0.6551724137931034,
+      "total": 42.78,
       "breakdown": {
         "base": {
-          "contribution": 0.6551724137931034,
-          "why": "model/base total score"
-        }
-      }
-    },
-    "evidence": [],
-    "evidence_count": 0,
-    "risks": [
-      "-"
-    ],
-    "assumptions": []
-  },
-  {
-    "rank": 12,
-    "idea_id": "idea_10",
-    "title": "Show HN: Hyprnote – VSCode for Meeting Notes (Open-Source and Local-First)",
-    "summary": "Show HN: Hyprnote – VSCode for Meeting Notes (Open-Source and Local-First)",
-    "tags": [],
-    "trend": {},
-    "total_score": 0.6206896551724138,
-    "scores": {
-      "feasibility": 0.0,
-      "evidence": 0.0,
-      "momentum": 0.1,
-      "novelty": 0.5,
-      "priority": 0.6206896551724138,
-      "confidence": 0.0,
-      "total": 0.6206896551724138,
-      "breakdown": {
-        "base": {
-          "contribution": 0.6206896551724138,
-          "why": "model/base total score"
-        }
-      }
-    },
-    "evidence": [],
-    "evidence_count": 0,
-    "risks": [
-      "-"
-    ],
-    "assumptions": []
-  },
-  {
-    "rank": 13,
-    "idea_id": "idea_15",
-    "title": "Show HN: Inkdrop (Techstars ’22) AI assistant that reduces meeting time",
-    "summary": "Show HN: Inkdrop (Techstars ’22) AI assistant that reduces meeting time",
-    "tags": [],
-    "trend": {},
-    "total_score": 0.6117241379310345,
-    "scores": {
-      "feasibility": 0.0,
-      "evidence": 0.0,
-      "momentum": 0.025,
-      "novelty": 0.5,
-      "priority": 0.5517241379310345,
-      "confidence": 0.0,
-      "total": 0.6117241379310345,
-      "breakdown": {
-        "base": {
-          "contribution": 0.5517241379310345,
+          "contribution": 42.67,
           "why": "model/base total score"
         },
         "signal:ai": {
           "contribution": 0.06,
           "why": "keyword match: ai"
-        }
-      }
-    },
-    "evidence": [],
-    "evidence_count": 0,
-    "risks": [
-      "-"
-    ],
-    "assumptions": []
-  },
-  {
-    "rank": 14,
-    "idea_id": "idea_6",
-    "title": "Show HN: Gamma API- Auto-generate decks, docs and carousels from raw input",
-    "summary": "Show HN: Gamma API- Auto-generate decks, docs and carousels from raw input",
-    "tags": [],
-    "trend": {},
-    "total_score": 0.5862068965517241,
-    "scores": {
-      "feasibility": 0.0,
-      "evidence": 0.0,
-      "momentum": 0.09,
-      "novelty": 0.5,
-      "priority": 0.5862068965517241,
-      "confidence": 0.0,
-      "total": 0.5862068965517241,
-      "breakdown": {
-        "base": {
-          "contribution": 0.5862068965517241,
-          "why": "model/base total score"
-        }
-      }
-    },
-    "evidence": [],
-    "evidence_count": 0,
-    "risks": [
-      "-"
-    ],
-    "assumptions": []
-  },
-  {
-    "rank": 15,
-    "idea_id": "idea_9",
-    "title": "Show HN: Weaved – Voice recordings become tasks and notes via AI",
-    "summary": "Show HN: Weaved – Voice recordings become tasks and notes via AI",
-    "tags": [],
-    "trend": {},
-    "total_score": 0.56,
-    "scores": {
-      "feasibility": 0.0,
-      "evidence": 0.0,
-      "momentum": 0.02,
-      "novelty": 0.5,
-      "priority": 0.4827586206896552,
-      "confidence": 0.0,
-      "total": 0.56,
-      "breakdown": {
-        "base": {
-          "contribution": 0.5,
-          "why": "model/base total score"
         },
-        "signal:ai": {
-          "contribution": 0.06,
-          "why": "keyword match: ai"
+        "signal:agent": {
+          "contribution": 0.05,
+          "why": "keyword match: agent"
         }
       }
     },
+    "score_breakdown": {
+      "novelty": 0,
+      "feasibility": 0,
+      "trend": 0,
+      "risk": 0
+    },
     "evidence": [],
     "evidence_count": 0,
-    "risks": [
-      "-"
-    ],
+    "risks": [],
     "assumptions": []
   }
 ]

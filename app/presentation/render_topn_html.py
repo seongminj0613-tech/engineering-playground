@@ -220,6 +220,7 @@ def render_top_n(rows: list[dict], n: int = 15) -> list[dict]:
                 "trend": r.get("trend", ""),
                 "total_score": total_score,
                 "scores": scores,
+                "score_breakdown": r.get("score_breakdown", {}),
                 "evidence": evidence,
                 "evidence_count": len(evidence) if isinstance(evidence, list) else 0,
                 "risks": r.get("risks", []),
@@ -617,6 +618,34 @@ def build_html(table_rows: list[dict]) -> str:
       gap: 8px;
       flex-wrap: wrap;
     }}
+    
+    .breakdown{{
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      font-size: 12px;
+    }}
+    
+    .breakdown-title{{
+      font-weight: 900;
+      opacity: 0.85;
+      margin-bottom: 6px;
+    }}
+    
+    .breakdown-row{{
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 2px 0;
+      opacity: 0.92;
+    }}
+    
+    .breakdown-row b{{
+      font-variant-numeric: tabular-nums;
+    }}
+    
     .pill {{
       font-size: 12px;
       border: 1px solid var(--line);
@@ -881,6 +910,22 @@ def build_html(table_rows: list[dict]) -> str:
         const badge = badgeClass(score);
         const delta = deltaSpan(r.rank_delta);
         const evCount = toNum(r.evidence_count, 0);
+        const bd = (r.score_breakdown && typeof r.score_breakdown === "object") ? r.score_breakdown : {{}};
+        const bdKeys = Object.keys(bd);
+
+        let bdHtml = "";
+        if (bdKeys.length) {{
+          bdHtml += '<div class="breakdown">';
+          bdHtml += '<div class="breakdown-title">score breakdown</div>';
+          for (const k of bdKeys) {{
+            const kk = esc(String(k));
+            const vv = toNum(bd[k], 0);
+            bdHtml += '<div class="breakdown-row"><span>' + kk + '</span><b>' + (isUnit ? vv.toFixed(3) : vv.toFixed(2)) + '</b></div>';
+          }}
+          bdHtml += "</div>";
+        }}
+       
+        
 
         return `
           <div class="card">
@@ -894,6 +939,7 @@ def build_html(table_rows: list[dict]) -> str:
                 </div>
                 <div class="summary">${{summary}}</div>
                 <div class="pillrow">${{tags || '<span class="pill muted">no tags</span>'}}</div>
+                ${{bdHtml}}
               </div>
 
               <div class="scorebox">

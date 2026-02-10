@@ -258,7 +258,11 @@ def score_ideas_v2_from_ideas_only(ideas: list) -> list:
         market_signal = compute_market_signal(evidence)
         # score_breakdown 형태로 남기고 싶으면(추천)
         sb = it.get("score_breakdown") or {}
-        sb["market_signal"] = market_signal
+        sb["novelty"] = it.get("novelty_score", 0)
+        sb["feasibility"] = it.get("feasibility_score", 0)
+        sb["trend"] = it.get("trend_score", 0)
+        sb["risk"] = it.get("risk_score", 0)
+
         it["score_breakdown"] = sb
         
 
