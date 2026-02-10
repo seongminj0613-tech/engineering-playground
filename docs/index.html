@@ -395,6 +395,41 @@
 </head>
 
 <body>
+  <section id="last-run" style="border:1px solid #ddd; padding:12px; border-radius:12px; margin:12px 0;">
+    <h2 style="margin:0 0 8px 0;">Last Run</h2>
+    <div id="last-run-content">Loading…</div>
+  </section>
+
+  <script>
+  (async function () {
+    try {
+      const res = await fetch("./run_latest.json", { cache: "no-store" });
+      const data = await res.json();
+
+      const el = document.getElementById("last-run-content");
+      if (!data.ok) {
+        el.textContent = "No run data yet.";
+        return;
+      }
+
+      const dur = (data.duration_sec ?? "").toString();
+      el.innerHTML = `
+        <div><b>run_id</b>: ${data.run_id}</div>
+        <div><b>date</b>: ${data.date}</div>
+        <div><b>duration</b>: ${dur ? dur + "s" : "-"}</div>
+        <div><b>ingested</b>: ${data.ingested ?? "-"}</div>
+        <div><b>ranked</b>: ${data.ranked ?? "-"}</div>
+        <div><b>errors</b>: ${data.errors ?? "-"}</div>
+        <div style="margin-top:8px; opacity:0.8;">
+        <small>source: ${data.source_file ?? "-"}</small>
+        </div>
+      `;
+    } catch (e) {
+      const el = document.getElementById("last-run-content");
+      if (el) el.textContent = "Failed to load run_latest.json";
+    }
+  })();
+  </script>
   <div class="wrap">
     <div class="topbar">
       <div class="headline">

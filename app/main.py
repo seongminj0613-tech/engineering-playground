@@ -1,9 +1,11 @@
 from __future__ import annotations
-import json
 from pathlib import Path
 import csv
+import json
 
-
+from app.core.config import load_config
+from app.core.logging import setup_logger
+from app.core.run_summary import RunTimer
 
 from app.presentation.idea_card import IdeaCard, EvidenceItem
 from app.presentation.export import export_cards_json
@@ -12,6 +14,8 @@ from app.ingestion.hn_fetch import main as hn_fetch_main
 from app.presentation.plot_daily import main as plot_daily_main
 from app.presentation.plot_graph import main as plot_graph_main
 from app.presentation.plot_idea_rank import plot_idea_rank
+
+from app.presentation.publish_run_latest import main as publish_run_latest_main
 
 REPORT_PATH = Path("data/reports/idea_cards.json")
 
@@ -188,22 +192,41 @@ def to_cards(raw_results):
     cards.sort(key=lambda c: c.scores.priority, reverse=True)
     return cards
 
-def main():
-    raw = load_hn_results()
-    cards = to_cards(raw)
+def main() -> int:
+    cfg = load_config()
+    logger = setup_logger(cfg.log_level, cfg.log_json)
 
-    raw_ps = [c.scores.priority for c in cards]
-    norm_ps = apply_priority_normalization(raw_ps)
+    timer = RunTimer(cfg.run_dir)
+    logger.info(f"run_start run_id={timer.summary.run_id} top_k={cfg.top_k}")
 
-    for c, p in zip(cards, norm_ps):
-        c.scores.priority = p
-    
+    try:
+        raw = load_hn_results()
+        timer.summary.ingested = len(raw)
 
-    out = export_cards_json(cards, str(REPORT_PATH))
-    print(f"[OK] Exported {len(cards)} cards -> {out}")
+        cards = to_cards(raw)
+        timer.summary.ranked = len(cards)
 
-    plot_idea_rank(cards)
+        raw_ps = [c.scores.priority for c in cards]
+        norm_ps = apply_priority_normalization(raw_ps)
+        for c, p in zip(cards, norm_ps):
+            c.scores.priority = p
+
+        out = export_cards_json(cards, str(REPORT_PATH))
+        timer.summary.rendered = True
+
+        plot_idea_rank(cards)
+        
+        summary_path = timer.save()
+        publish_run_latest_main()
+        logger.info(f"run_done run_id={timer.summary.run_id} out={out} summary={summary_path.as_posix()}")
+        return 0
+
+    except Exception:
+        timer.summary.errors += 1
+        summary_path = timer.save()
+        logger.exception(f"run_fail run_id={timer.summary.run_id} summary={summary_path.as_posix()}")
+        return 1
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

@@ -40,8 +40,8 @@ jobs:
 
       - name: Render HTML (index + history)
         run: |
-          python -m app.presentation.render_topn_html 25
-          
+          python -m app.presentation.render_topn_html --topn 25
+
 
       - name: Publish run_latest.json to docs
         run: |

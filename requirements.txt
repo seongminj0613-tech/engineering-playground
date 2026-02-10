@@ -64,3 +64,5 @@ urllib3==2.6.3
 watchdog==6.0.0
 Werkzeug==3.1.5
 pydantic>=2.0,<3
+ruff>=0.0.241,<1.0.0
+python-dotenv >=1.0.0,<2.0.0

@@ -1,0 +1,12 @@
+{
+  "run_id": "a6c1b547",
+  "date": "2026-02-10",
+  "started_at": "2026-02-10T04:33:26.624892+00:00",
+  "finished_at": "2026-02-10T04:34:03.077669+00:00",
+  "duration_sec": 36.453,
+  "ingested": 30,
+  "ranked": 30,
+  "rendered": true,
+  "errors": 0,
+  "notes": null
+}

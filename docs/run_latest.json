@@ -1,0 +1,14 @@
+{
+  "run_id": "db68e7da",
+  "date": "2026-02-10",
+  "started_at": "2026-02-10T04:51:01.827751+00:00",
+  "finished_at": "2026-02-10T04:51:36.623866+00:00",
+  "duration_sec": 34.796,
+  "ingested": 30,
+  "ranked": 30,
+  "rendered": true,
+  "errors": 0,
+  "notes": null,
+  "ok": true,
+  "source_file": "reports/runs/2026-02-10_db68e7da.json"
+}

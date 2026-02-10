@@ -1,312 +1,844 @@
 [
   {
-    "idea_id": "IDEA-001",
-    "title": "Daily Trend Radar",
-    "content": "Collect daily tech news, summarize, and rank trends for product planning.",
-    "tags": [
-      "ai",
-      "news",
-      "dashboard"
+    "idea_id": "idea_22",
+    "title": "Launch HN: Hypercontext (YC S21) – Meeting notes, actions, and OKRs in one app",
+    "summary": "Launch HN: Hypercontext (YC S21) – Meeting notes, actions, and OKRs in one app",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 1.0,
+      "novelty": 0.5,
+      "priority": 0.9655172413793104,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
     ],
-    "source": "meeting",
-    "created_at": "2026-01-29T09:10:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "market_signal": 0.0
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 145.0,
+      "comments": 60.0
     },
-    "signals": {
-      "novelty": 0.5533673727996529,
-      "specificity": 0.33924363123418283,
-      "feasibility": 0.6035461787405098,
-      "market_pull": 0.3775406687981454,
-      "evidence": 0.05,
-      "clarity": 0.7,
-      "trend_boost": 0.4,
-      "freshness": 0.4
-    },
-    "total_score": 42.91,
-    "summary": "Collect daily tech news, summarize, and rank trends for product planning.",
-    "rank": 10,
-    "rank_delta": 0,
-    "evidence_count": 0
+    "created_at": "2026-02-10T04:51:36.238250+00:00"
   },
   {
-    "idea_id": "IDEA-002",
-    "title": "Ops Incident Playbook Generator",
-    "content": "Generate incident response playbooks from past tickets and postmortems.",
-    "tags": [
-      "devops",
-      "sre",
-      "automation"
+    "idea_id": "idea_23",
+    "title": "How to take meeting notes",
+    "summary": "How to take meeting notes",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 1.0,
+      "novelty": 0.5,
+      "priority": 0.9655172413793104,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "cost_explosion",
+      "privacy"
     ],
-    "source": "meeting",
-    "created_at": "2026-01-29T09:12:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "market_signal": 0.0
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 229.0,
+      "comments": 126.0
     },
-    "signals": {
-      "novelty": 0.5383858565626407,
-      "specificity": 0.33924363123418283,
-      "feasibility": 0.6035461787405098,
-      "market_pull": 0.5,
-      "evidence": 0.05,
-      "clarity": 0.7,
-      "trend_boost": 0.6,
-      "freshness": 0.4
-    },
-    "total_score": 45.83,
-    "summary": "Generate incident response playbooks from past tickets and postmortems.",
-    "rank": 7,
-    "rank_delta": 0,
-    "evidence_count": 0
+    "created_at": "2026-02-10T04:51:36.238287+00:00"
   },
   {
-    "idea_id": "IDEA-003",
-    "title": "B2B Workflow Scoring",
-    "content": "Score internal proposals based on cost reduction, compliance, and feasibility.",
-    "tags": [
-      "b2b",
-      "workflow",
-      "compliance"
+    "idea_id": "idea_28",
+    "title": "First C# 7 Design Meeting Notes",
+    "summary": "First C# 7 Design Meeting Notes",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 1.0,
+      "novelty": 0.5,
+      "priority": 0.9655172413793104,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "latency",
+      "hallucination"
     ],
-    "source": "memo",
-    "created_at": "2026-01-29T09:15:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "market_signal": 0.0
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 154.0,
+      "comments": 80.0
     },
-    "signals": {
-      "novelty": 0.48611468225399523,
-      "specificity": 0.3775406687981454,
-      "feasibility": 0.6265244012788873,
-      "market_pull": 0.8175744761936437,
-      "evidence": 0.05,
-      "clarity": 0.7,
-      "trend_boost": 0.7,
-      "freshness": 0.4
-    },
-    "total_score": 52.2,
-    "summary": "Score internal proposals based on cost reduction, compliance, and feasibility.",
-    "rank": 1,
-    "rank_delta": 0,
-    "evidence_count": 0
+    "created_at": "2026-02-10T04:51:36.238454+00:00"
   },
   {
-    "idea_id": "IDEA-004",
-    "title": "Resume-to-Job Fit Matcher",
-    "content": "Match resumes to job posts using embeddings and show gaps as action items.",
-    "tags": [
-      "hr",
-      "recommendation",
-      "analytics"
+    "idea_id": "idea_29",
+    "title": "A CEO's Sequoia Meeting Notes",
+    "summary": "A CEO's Sequoia Meeting Notes",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.92,
+      "novelty": 0.5,
+      "priority": 0.896551724137931,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "hallucination"
     ],
-    "source": "meeting",
-    "created_at": "2026-01-29T09:18:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "market_signal": 0.0
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 123.0,
+      "comments": 61.0
     },
-    "signals": {
-      "novelty": 0.5763218799074524,
-      "specificity": 0.33924363123418283,
-      "feasibility": 0.6035461787405098,
-      "market_pull": 0.3775406687981454,
-      "evidence": 0.05,
-      "clarity": 0.7,
-      "trend_boost": 0.4,
-      "freshness": 0.4
-    },
-    "total_score": 43.46,
-    "summary": "Match resumes to job posts using embeddings and show gaps as action items.",
-    "rank": 9,
-    "rank_delta": 0,
-    "evidence_count": 0
+    "created_at": "2026-02-10T04:51:36.238494+00:00"
   },
   {
-    "idea_id": "IDEA-005",
-    "title": "Cloud Cost Leak Detector",
-    "content": "Detect cost anomalies from billing exports and recommend savings actions.",
-    "tags": [
-      "cloud",
-      "cost",
-      "automation"
+    "idea_id": "idea_27",
+    "title": "Open-RethinkDB meeting notes",
+    "summary": "Open-RethinkDB meeting notes",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.91,
+      "novelty": 0.5,
+      "priority": 0.8620689655172413,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
     ],
-    "source": "meeting",
-    "created_at": "2026-01-29T09:20:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "market_signal": 0.0
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 158.0,
+      "comments": 24.0
     },
-    "signals": {
-      "novelty": 0.5104151598873646,
-      "specificity": 0.33924363123418283,
-      "feasibility": 0.6035461787405098,
-      "market_pull": 0.6224593312018546,
-      "evidence": 0.05,
-      "clarity": 0.7,
-      "trend_boost": 0.5,
-      "freshness": 0.4
-    },
-    "total_score": 47.27,
-    "summary": "Detect cost anomalies from billing exports and recommend savings actions.",
-    "rank": 3,
-    "rank_delta": 0,
-    "evidence_count": 0
+    "created_at": "2026-02-10T04:51:36.238417+00:00"
   },
   {
-    "idea_id": "IDEA-006",
-    "title": "Customer Churn Early Warning",
-    "content": "Predict churn risk and propose retention workflows for customer success.",
-    "tags": [
-      "retention",
-      "analytics",
-      "b2b"
+    "idea_id": "idea_25",
+    "title": "A Starter's Guide to Writing Effective Meeting Notes",
+    "summary": "A Starter's Guide to Writing Effective Meeting Notes",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.905,
+      "novelty": 0.5,
+      "priority": 0.8275862068965517,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "hallucination"
     ],
-    "source": "memo",
-    "created_at": "2026-01-29T09:25:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "market_signal": 0.0
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 145.0,
+      "comments": 36.0
     },
-    "signals": {
-      "novelty": 0.5415704832167998,
-      "specificity": 0.358165954911269,
-      "feasibility": 0.6148995729467615,
-      "market_pull": 0.6224593312018546,
-      "evidence": 0.05,
-      "clarity": 0.7,
-      "trend_boost": 0.5,
-      "freshness": 0.4
-    },
-    "total_score": 47.64,
-    "summary": "Predict churn risk and propose retention workflows for customer success.",
-    "rank": 2,
-    "rank_delta": 0,
-    "evidence_count": 0
+    "created_at": "2026-02-10T04:51:36.238354+00:00"
   },
   {
-    "idea_id": "IDEA-007",
-    "title": "Meeting Notes to Jira Tasks",
-    "content": "Convert meeting notes into structured Jira tickets with priority scoring.",
-    "tags": [
-      "workflow",
-      "integration",
-      "automation"
+    "idea_id": "idea_26",
+    "title": "Open-RethinkDB meeting notes #4",
+    "summary": "Open-RethinkDB meeting notes #4",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.86,
+      "novelty": 0.5,
+      "priority": 0.7931034482758621,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
     ],
-    "source": "meeting",
-    "created_at": "2026-01-29T09:30:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "market_signal": 0.0
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 137.0,
+      "comments": 35.0
     },
-    "signals": {
-      "novelty": 0.5147016433692061,
-      "specificity": 0.33924363123418283,
-      "feasibility": 0.6035461787405098,
-      "market_pull": 0.6224593312018546,
-      "evidence": 0.05,
-      "clarity": 0.7,
-      "trend_boost": 0.6,
-      "freshness": 0.4
-    },
-    "total_score": 47.2,
-    "summary": "Convert meeting notes into structured Jira tickets with priority scoring.",
-    "rank": 5,
-    "rank_delta": 0,
-    "evidence_count": 0
+    "created_at": "2026-02-10T04:51:36.238386+00:00"
   },
   {
-    "idea_id": "IDEA-008",
-    "title": "Security Policy Drift Monitor",
-    "content": "Monitor infra configs and alert when security baselines drift.",
-    "tags": [
-      "security",
-      "compliance",
-      "devops"
+    "idea_id": "idea_5",
+    "title": "Meeting notes between Forgejo and the Dutch government via Git commits",
+    "summary": "Meeting notes between Forgejo and the Dutch government via Git commits",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.76,
+      "novelty": 0.5,
+      "priority": 0.7586206896551724,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "hallucination"
     ],
-    "source": "meeting",
-    "created_at": "2026-01-29T09:35:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "market_signal": 0.0
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 107.0,
+      "comments": 45.0
     },
-    "signals": {
-      "novelty": 0.5055553269431596,
-      "specificity": 0.33924363123418283,
-      "feasibility": 0.6035461787405098,
-      "market_pull": 0.6224593312018546,
-      "evidence": 0.05,
-      "clarity": 0.7,
-      "trend_boost": 0.6,
-      "freshness": 0.4
-    },
-    "total_score": 47.25,
-    "summary": "Monitor infra configs and alert when security baselines drift.",
-    "rank": 4,
-    "rank_delta": 0,
-    "evidence_count": 0
+    "created_at": "2026-02-10T04:51:36.237680+00:00"
   },
   {
-    "idea_id": "IDEA-009",
-    "title": "Real-time Multi-agent Research",
-    "content": "Use multiple agents to research markets in real-time with continuous updates.",
-    "tags": [
-      "ai",
-      "multi-agent",
-      "real-time"
+    "idea_id": "idea_17",
+    "title": "Jamie: AI assistant that creates meeting summaries",
+    "summary": "Jamie: AI assistant that creates meeting summaries",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.51,
+      "novelty": 0.5,
+      "priority": 0.7241379310344828,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "hallucination"
     ],
-    "source": "memo",
-    "created_at": "2026-01-29T09:38:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "market_signal": 0.0
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 43.0,
+      "comments": 59.0
     },
-    "signals": {
-      "novelty": 0.49074179903855786,
-      "specificity": 0.401312339887548,
-      "feasibility": 0.6407874039325288,
-      "market_pull": 0.3775406687981454,
-      "evidence": 0.05,
-      "clarity": 0.7,
-      "trend_boost": 0.4,
-      "freshness": 0.4
-    },
-    "total_score": 44.0,
-    "summary": "Use multiple agents to research markets in real-time with continuous updates.",
-    "rank": 8,
-    "rank_delta": 0,
-    "evidence_count": 0
+    "created_at": "2026-02-10T04:51:36.238077+00:00"
   },
   {
-    "idea_id": "IDEA-010",
-    "title": "Privacy-safe Data Collector",
-    "content": "Collect user feedback with privacy constraints and PII redaction built-in.",
-    "tags": [
-      "privacy",
-      "pii",
-      "compliance"
+    "idea_id": "idea_21",
+    "title": "Meeting notes lose value the moment you finish writing them",
+    "summary": "Meeting notes lose value the moment you finish writing them",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.175,
+      "novelty": 0.5,
+      "priority": 0.6896551724137931,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "hallucination"
     ],
-    "source": "meeting",
-    "created_at": "2026-01-29T09:40:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "market_signal": 0.0
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 26.0,
+      "comments": 9.0
     },
-    "signals": {
-      "novelty": 0.5119025128376735,
-      "specificity": 0.33924363123418283,
-      "feasibility": 0.6035461787405098,
-      "market_pull": 0.5,
-      "evidence": 0.2,
-      "clarity": 0.7,
-      "trend_boost": 0.5,
-      "freshness": 0.4
+    "created_at": "2026-02-10T04:51:36.238216+00:00"
+  },
+  {
+    "idea_id": "idea_7",
+    "title": "Open-source granola (meetings summary)",
+    "summary": "Open-source granola (meetings summary)",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.17,
+      "novelty": 0.5,
+      "priority": 0.6551724137931034,
+      "confidence": 0.0
     },
-    "total_score": 45.95,
-    "summary": "Collect user feedback with privacy constraints and PII redaction built-in.",
-    "rank": 6,
-    "rank_delta": 0,
-    "evidence_count": 0
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 28.0,
+      "comments": 6.0
+    },
+    "created_at": "2026-02-10T04:51:36.237747+00:00"
+  },
+  {
+    "idea_id": "idea_10",
+    "title": "Show HN: Hyprnote – VSCode for Meeting Notes (Open-Source and Local-First)",
+    "summary": "Show HN: Hyprnote – VSCode for Meeting Notes (Open-Source and Local-First)",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.1,
+      "novelty": 0.5,
+      "priority": 0.6206896551724138,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 18.0,
+      "comments": 2.0
+    },
+    "created_at": "2026-02-10T04:51:36.237843+00:00"
+  },
+  {
+    "idea_id": "idea_6",
+    "title": "Show HN: Gamma API- Auto-generate decks, docs and carousels from raw input",
+    "summary": "Show HN: Gamma API- Auto-generate decks, docs and carousels from raw input",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.09,
+      "novelty": 0.5,
+      "priority": 0.5862068965517241,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 15.0,
+      "comments": 3.0
+    },
+    "created_at": "2026-02-10T04:51:36.237714+00:00"
+  },
+  {
+    "idea_id": "idea_15",
+    "title": "Show HN: Inkdrop (Techstars ’22) AI assistant that reduces meeting time",
+    "summary": "Show HN: Inkdrop (Techstars ’22) AI assistant that reduces meeting time",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.025,
+      "novelty": 0.5,
+      "priority": 0.5517241379310345,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 2.0,
+      "comments": 3.0
+    },
+    "created_at": "2026-02-10T04:51:36.238007+00:00"
+  },
+  {
+    "idea_id": "idea_9",
+    "title": "Show HN: Weaved – Voice recordings become tasks and notes via AI",
+    "summary": "Show HN: Weaved – Voice recordings become tasks and notes via AI",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.02,
+      "novelty": 0.5,
+      "priority": 0.4827586206896552,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 4.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-10T04:51:36.237810+00:00"
+  },
+  {
+    "idea_id": "idea_18",
+    "title": "GPT3 Generated Meeting Summaries and Action Items",
+    "summary": "GPT3 Generated Meeting Summaries and Action Items",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.02,
+      "novelty": 0.5,
+      "priority": 0.4827586206896552,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 4.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-10T04:51:36.238112+00:00"
+  },
+  {
+    "idea_id": "idea_24",
+    "title": "Montana VC investment per capita goes from $3 to $79 in 2 years",
+    "summary": "Montana VC investment per capita goes from $3 to $79 in 2 years",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.02,
+      "novelty": 0.5,
+      "priority": 0.4827586206896552,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "cost_explosion"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 3.0,
+      "comments": 1.0
+    },
+    "created_at": "2026-02-10T04:51:36.238321+00:00"
+  },
+  {
+    "idea_id": "idea_11",
+    "title": "An enhanced daily meeting summary across all your calendars",
+    "summary": "An enhanced daily meeting summary across all your calendars",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.015,
+      "novelty": 0.5,
+      "priority": 0.41379310344827586,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 2.0,
+      "comments": 1.0
+    },
+    "created_at": "2026-02-10T04:51:36.237874+00:00"
+  },
+  {
+    "idea_id": "idea_0",
+    "title": "Show HN: Claude Code prompts to turn voice AI exports to a personal knowledge",
+    "summary": "Show HN: Claude Code prompts to turn voice AI exports to a personal knowledge",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.01,
+      "novelty": 0.5,
+      "priority": 0.29310344827586204,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "cost_explosion"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 1.0,
+      "comments": 1.0
+    },
+    "created_at": "2026-02-10T04:51:36.237454+00:00"
+  },
+  {
+    "idea_id": "idea_1",
+    "title": "Show HN: Turn meetings into presentation-ready slides",
+    "summary": "Show HN: Turn meetings into presentation-ready slides",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.01,
+      "novelty": 0.5,
+      "priority": 0.29310344827586204,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 2.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-10T04:51:36.237537+00:00"
+  },
+  {
+    "idea_id": "idea_8",
+    "title": "Show HN: Traction – Gong but for team meetings = Team Intelligence",
+    "summary": "Show HN: Traction – Gong but for team meetings = Team Intelligence",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.01,
+      "novelty": 0.5,
+      "priority": 0.29310344827586204,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 2.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-10T04:51:36.237779+00:00"
+  },
+  {
+    "idea_id": "idea_13",
+    "title": "D Language Foundation March 2023 Monthly Meeting Summary",
+    "summary": "D Language Foundation March 2023 Monthly Meeting Summary",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.01,
+      "novelty": 0.5,
+      "priority": 0.29310344827586204,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 2.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-10T04:51:36.237944+00:00"
+  },
+  {
+    "idea_id": "idea_16",
+    "title": "Vowel launches AI-powered meeting summaries",
+    "summary": "Vowel launches AI-powered meeting summaries",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.01,
+      "novelty": 0.5,
+      "priority": 0.29310344827586204,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 2.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-10T04:51:36.238040+00:00"
+  },
+  {
+    "idea_id": "idea_19",
+    "title": "Automating Meeting Summaaries",
+    "summary": "Automating Meeting Summaaries",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.01,
+      "novelty": 0.5,
+      "priority": 0.29310344827586204,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 1.0,
+      "comments": 1.0
+    },
+    "created_at": "2026-02-10T04:51:36.238141+00:00"
+  },
+  {
+    "idea_id": "idea_2",
+    "title": "Show HN: Turn meetings into summaries, presentations, and an AI to ask questions",
+    "summary": "Show HN: Turn meetings into summaries, presentations, and an AI to ask questions",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.005,
+      "novelty": 0.5,
+      "priority": 0.08620689655172414,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 1.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-10T04:51:36.237578+00:00"
+  },
+  {
+    "idea_id": "idea_3",
+    "title": "Show HN: ClearNoteLab – Turn meeting notes into client-ready PDFs in 30 seconds",
+    "summary": "Show HN: ClearNoteLab – Turn meeting notes into client-ready PDFs in 30 seconds",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.005,
+      "novelty": 0.5,
+      "priority": 0.08620689655172414,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 1.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-10T04:51:36.237613+00:00"
+  },
+  {
+    "idea_id": "idea_4",
+    "title": "Show HN: macOS local meeting recorder with Whisper transcription/ Claude notes",
+    "summary": "Show HN: macOS local meeting recorder with Whisper transcription/ Claude notes",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.005,
+      "novelty": 0.5,
+      "priority": 0.08620689655172414,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "cost_explosion"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 1.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-10T04:51:36.237643+00:00"
+  },
+  {
+    "idea_id": "idea_12",
+    "title": "Show HN: Mavis AI – Get meeting summary and transcript",
+    "summary": "Show HN: Mavis AI – Get meeting summary and transcript",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.005,
+      "novelty": 0.5,
+      "priority": 0.08620689655172414,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 1.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-10T04:51:36.237907+00:00"
+  },
+  {
+    "idea_id": "idea_14",
+    "title": "Show HN: Bringing AI to Calendar Workflows",
+    "summary": "Show HN: Bringing AI to Calendar Workflows",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.005,
+      "novelty": 0.5,
+      "priority": 0.08620689655172414,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 1.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-10T04:51:36.237977+00:00"
+  },
+  {
+    "idea_id": "idea_20",
+    "title": "C++ Annotated September–October 2022",
+    "summary": "C++ Annotated September–October 2022",
+    "tags": [],
+    "cluster_id": null,
+    "scores": {
+      "feasibility": 0.0,
+      "evidence": 0.0,
+      "momentum": 0.005,
+      "novelty": 0.5,
+      "priority": 0.08620689655172414,
+      "confidence": 0.0
+    },
+    "drivers": [],
+    "risks": [
+      "-"
+    ],
+    "assumptions": [],
+    "evidence": [],
+    "trend": {},
+    "meta": {
+      "mentions": 0.0,
+      "points": 1.0,
+      "comments": 0.0
+    },
+    "created_at": "2026-02-10T04:51:36.238176+00:00"
   }
 ]

@@ -1,0 +1,11 @@
+scoring:
+  top_k: 15
+
+paths:
+  run_dir: "reports/runs"
+  daily_dir: "reports/daily"
+  docs_dir: "docs"
+
+logging:
+  level: "INFO"
+  json: true
