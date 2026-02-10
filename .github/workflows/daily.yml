@@ -41,6 +41,12 @@ jobs:
       - name: Render HTML (index + history)
         run: |
           python -m app.presentation.render_topn_html 25
+          
+
+      - name: Publish run_latest.json to docs
+        run: |
+          python -m app.presentation.publish_run_latest
+
 
       - name: Commit & push docs
         run: |
@@ -51,3 +57,16 @@ jobs:
           git status
           git commit -m "chore: update daily idea pages" || echo "No changes to commit"
           git push
+
+
+      - name: Job Summary (latest run)
+        run: |
+          echo "## SignalRank Daily Run" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f "docs/run_latest.json" ]; then
+            echo "\`\`\`json" >> $GITHUB_STEP_SUMMARY
+            cat docs/run_latest.json >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No run_latest.json found." >> $GITHUB_STEP_SUMMARY
+          fi
