@@ -1,31 +1,106 @@
-# AI Idea Ranking & Tracking System
+# SignalRank — AI 기반 아이디어 우선순위 분석 시스템
 
-실시간 아이디어 랭킹 + 변화 추적 자동화 시스템
+실시간 데이터와 아이디어를 기반으로  
+실행 가능성과 시장성을 점수화하여  
+아이디어를 자동으로 랭킹화하고 변화 추이를 추적하는  
+운영형 데이터 파이프라인 프로젝트
 
-## 🚀 Features
-- Daily idea scoring pipeline
-- Ranking history tracking
-- Rank change diff visualization
-- GitHub Actions automated run
-- Web dashboard (GitHub Pages)
+👉 Live Dashboard  
+https://seongminj0613-tech.github.io/engineering-playground/
 
-## 🧠 Purpose
-브레인스토밍/뉴스/아이디어 데이터를  
-자동 수집 → 점수화 → 랭킹 → 변화 추적
+---
 
-아이디어의 객관화와  
-시장성 판단을 위한 실험 프로젝트
+## 📌 프로젝트 개요
 
-## ⚙️ Tech Stack
-- Python
-- GitHub Actions (CI/CD)
-- JSON data pipeline
-- Static Web dashboard
+브레인스토밍과 회의에서는 많은 아이디어가 나오지만  
+객관적인 기준 없이 사라지는 경우가 많다.
+
+SignalRank는  
+뉴스·기술 트렌드·아이디어 데이터를 수집하고  
+정량적 기준으로 점수화하여  
+
+**실행 가능성 있는 아이디어를 자동으로 선별하고  
+변화 흐름까지 추적하는 시스템**을 목표로 한다.
+
+단순 시각화 프로젝트가 아니라  
+실제 운영 가능한 자동화 데이터 파이프라인 구축을 중심으로 설계하였다.
+
+---
+
+## 🏗️ System Architecture
+
+Data Ingestion  
+→ Idea scoring pipeline  
+→ Ranking system  
+→ Daily snapshot 저장  
+→ Ranking 변화 추적  
+→ GitHub Pages 자동 배포  
+
+GitHub Actions를 통해  
+데이터 수집부터 결과 배포까지  
+완전 자동 실행 구조로 구성됨
+
+---
+
+## ⚙️ Core Features
+
+### 1. Daily Idea Scoring Pipeline
+- 뉴스/아이디어 데이터 수집
+- 실행 가능성/시장성 기반 점수 계산
+- 자동 랭킹 생성
+
+### 2. Ranking History Tracking
+- 날짜별 랭킹 스냅샷 저장
+- 순위 변화 추적
+- 히스토리 페이지 자동 생성
+
+### 3. Diff Visualization
+- 전일 대비 랭킹 상승/하락 분석
+- 아이디어 트렌드 흐름 파악
+
+### 4. Automated Pipeline
+- GitHub Actions daily run
+- 데이터 → 점수화 → 랭킹 → 페이지 배포 자동화
+- 완전 무인 운영 구조
+
+---
+
+## 🧠 Tech Stack
+
+- Python (Data pipeline)
+- GitHub Actions (CI/CD 자동 실행)
+- JSON 기반 데이터 구조 설계
+- Static Web Dashboard (GitHub Pages)
 - Git version history tracking
 
-## 📊 Live Dashboard
+---
+
+## 📊 Live Result
+
+Daily ranking dashboard  
+Ranking history tracking  
+자동 실행 파이프라인 운영 중
+
 👉 https://seongminj0613-tech.github.io/engineering-playground/
 
-## 📈 Key Point
-단순 시각화 프로젝트가 아니라  
-자동 실행 + 기록 + 변화 추적까지 포함된 운영형 데이터 파이프라인
+---
+
+## 🎯 What I Focused On
+
+이 프로젝트는  
+단순한 시각화나 크롤링 프로젝트가 아니라
+
+데이터 수집 → 점수화 → 랭킹 → 기록 → 자동배포까지 이어지는  
+**운영형 데이터 파이프라인 설계 경험**을 목표로 제작되었다.
+
+DevOps/Cloud 환경에서  
+자동 실행되는 분석 시스템 구축을 중점으로 발전시키고 있다.
+
+---
+
+## 🚀 Next Step (Planned)
+
+- Docker 기반 실행 환경 구성
+- AWS 배포 확장
+- Vector DB 기반 신호 분석
+- AI 기반 아이디어 평가 모델 고도화
