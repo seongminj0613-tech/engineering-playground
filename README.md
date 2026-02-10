@@ -7,6 +7,9 @@
 
 👉 Live Dashboard  
 https://seongminj0613-tech.github.io/engineering-playground/
+- Workflow (GitHub Actions): `Actions` 탭에서 daily run 로그 확인 가능
+- History snapshots: `/docs/history/` 에 날짜별 기록 페이지 자동 생성
+- History data: `/docs/history/data/` 에 날짜별 JSON 스냅샷 저장
 
 ---
 
@@ -74,6 +77,18 @@ GitHub Actions를 통해
 - Git version history tracking
 
 ---
+## ▶️ How to Run (Local)
+
+```bash
+# 1) install
+pip install -r requirements.txt
+
+# 2) run pipeline (example)
+python app/pipeline.py
+
+# 3) render dashboard
+python app/presentation/render_topn_html.
+
 
 ## 📊 Live Result
 
@@ -115,3 +130,15 @@ DevOps/Cloud 환경에서
 
 단순 기능 구현이 아니라  
 "운영되는 시스템" 구축을 목표로 개발
+
+## 💡 Why This Project Matters
+
+단순한 CRUD나 시각화 프로젝트가 아니라  
+"자동으로 실행되는 데이터 기반 의사결정 시스템"을  
+직접 설계하고 구현해보고 싶었다.
+
+데이터 수집 → 분석 → 랭킹 → 기록 → 자동 배포까지  
+전체 흐름을 하나의 시스템으로 구성하면서  
+
+DevOps/Cloud 환경에서  
+운영되는 서비스 구조를 이해하는 것을 목표로 했다.
