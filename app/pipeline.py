@@ -325,6 +325,8 @@ def main():
         if not title:
            continue
         bootstrap_docs.append({
+            "doc_id": f"bootstrap_{it.get('idea_id','')}",
+            "idea_id": it.get("idea_id",""),
             "source": "bootstrap",
             "title": f"Trend signal about: {title}",
             "url": f"https://example.local/{it.get('idea_id','')}",
@@ -341,7 +343,21 @@ def main():
         render(result)
         return
 
-    scored_rows = score_ideas_v2_from_ideas_only(ideas)   # ✅ C: 여기서 signals+score 생성
+    scored_rows = score_ideas_v2_from_ideas_only(ideas)
+    idea_map = { (i.get("idea_id") or ""): i for i in ideas }
+
+    for r in scored_rows:
+        iid = r.get("idea_id") or ""
+        src = idea_map.get(iid, {})
+        # evidence merge
+        if "evidence" not in r or not r.get("evidence"):
+            r["evidence"] = src.get("evidence", [])
+        # evidence_count sync
+        ev = r.get("evidence") or []
+        if ev and not isinstance(ev, list):
+            ev = [ev]
+            r["evidence"] = ev
+        r["evidence_count"] = len(ev) if isinstance(ev, list) else 0
   
    
     print("DEBUG ideas:", len(ideas), "scored_rows:", len(scored_rows))
@@ -396,6 +412,60 @@ def main():
         # evidence_count도 render에서 쓰면 좋음 (없으면 0)
         ev = idea.get("external_evidence") or idea.get("evidence") or []
         idea["evidence_count"] = len(ev) if isinstance(ev, list) else 0
+    # === FORCE ATTACH EXTERNAL EVIDENCE (취업용 안정버전) ===
+    import json
+
+    ext_map = {}
+    try:
+        EXTERNAL_PATH = ROOT / "data" / "external" / "external_docs.jsonl"
+        if EXTERNAL_PATH.exists():
+            for line in EXTERNAL_PATH.read_text(encoding="utf-8").splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    d = json.loads(line)
+                except Exception:
+                    continue
+
+                iid = (d.get("idea_id") or "").strip()
+                if not iid:
+                    continue
+
+                ext_map.setdefault(iid, []).append(d)
+    except Exception:
+        ext_map = {}
+
+    # ideas 리스트에 강제 attach
+    for r in ideas:
+        iid = (r.get("idea_id") or "").strip()
+
+        ev = r.get("evidence") or []
+        if ev and not isinstance(ev, list):
+            ev = [ev]
+
+        extra = ext_map.get(iid, [])
+
+        if extra:
+            seen = set()
+            merged = []
+
+            for x in (ev + extra):
+                if isinstance(x, dict):
+                       key = x.get("doc_id") or (x.get("title"), x.get("url"))
+                else:
+                    key = str(x)
+
+                if key in seen:
+                    continue
+                seen.add(key)
+                merged.append(x)
+
+            r["evidence"] = merged
+        else:
+            r["evidence"] = ev
+
+        r["evidence_count"] = len(r["evidence"]) if isinstance(r.get("evidence"), list) else 0
     out_path = ROOT / "data" / "reports" / "idea_cards.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:

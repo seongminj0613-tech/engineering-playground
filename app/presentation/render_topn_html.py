@@ -910,6 +910,16 @@ def build_html(table_rows: list[dict]) -> str:
         const badge = badgeClass(score);
         const delta = deltaSpan(r.rank_delta);
         const evCount = toNum(r.evidence_count, 0);
+        let evHtml = "";
+        if (Array.isArray(r.evidence) && r.evidence.length){{
+           evHtml += '<div class="breakdown">';
+           evHtml += '<div class="breakdown-title">evidence</div>';
+           for(const e of r.evidence.slice(0,3)){{
+             const txt = typeof e === "string" ? e : (e.title || JSON.stringify(e));
+             evHtml += '<div class="breakdown-row">• ' + esc(txt) + '</div>';
+           }}
+           evHtml += "</div>";
+        }}
         const bd = (r.score_breakdown && typeof r.score_breakdown === "object") ? r.score_breakdown : {{}};
         const bdKeys = Object.keys(bd);
 
@@ -940,6 +950,7 @@ def build_html(table_rows: list[dict]) -> str:
                 <div class="summary">${{summary}}</div>
                 <div class="pillrow">${{tags || '<span class="pill muted">no tags</span>'}}</div>
                 ${{bdHtml}}
+                ${{evHtml}}
               </div>
 
               <div class="scorebox">

@@ -26,12 +26,12 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
-    "evidence_count": 0,
     "rank": 1,
-    "rank_prev": 0,
+    "rank_prev": 1,
     "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 50.8
+    "score_prev": 52.2,
+    "score_delta": -1.4,
+    "title": "B2B Workflow Scoring"
   },
   {
     "idea_id": "IDEA-006",
@@ -60,12 +60,12 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
-    "evidence_count": 0,
     "rank": 2,
-    "rank_prev": 0,
+    "rank_prev": 2,
     "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 47.69
+    "score_prev": 47.64,
+    "score_delta": 0.05,
+    "title": "Customer Churn Early Warning"
   },
   {
     "idea_id": "IDEA-007",
@@ -94,12 +94,12 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
-    "evidence_count": 0,
     "rank": 3,
-    "rank_prev": 0,
-    "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 47.49
+    "rank_prev": 5,
+    "rank_delta": 2,
+    "score_prev": 47.2,
+    "score_delta": 0.29,
+    "title": "Meeting Notes to Jira Tasks"
   },
   {
     "idea_id": "IDEA-005",
@@ -128,12 +128,12 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
-    "evidence_count": 0,
     "rank": 4,
-    "rank_prev": 0,
-    "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 47.11
+    "rank_prev": 3,
+    "rank_delta": -1,
+    "score_prev": 47.27,
+    "score_delta": -0.16,
+    "title": "Cloud Cost Leak Detector"
   },
   {
     "idea_id": "IDEA-010",
@@ -162,12 +162,12 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
-    "evidence_count": 0,
     "rank": 5,
-    "rank_prev": 0,
-    "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 46.69
+    "rank_prev": 6,
+    "rank_delta": 1,
+    "score_prev": 45.95,
+    "score_delta": 0.74,
+    "title": "Privacy-safe Data Collector"
   },
   {
     "idea_id": "IDEA-008",
@@ -196,12 +196,12 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
-    "evidence_count": 0,
     "rank": 6,
-    "rank_prev": 0,
-    "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 46.28
+    "rank_prev": 4,
+    "rank_delta": -2,
+    "score_prev": 47.25,
+    "score_delta": -0.97,
+    "title": "Security Policy Drift Monitor"
   },
   {
     "idea_id": "IDEA-002",
@@ -230,12 +230,12 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
-    "evidence_count": 0,
     "rank": 7,
-    "rank_prev": 0,
+    "rank_prev": 7,
     "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 45.49
+    "score_prev": 45.83,
+    "score_delta": -0.34,
+    "title": "Ops Incident Playbook Generator"
   },
   {
     "idea_id": "IDEA-001",
@@ -264,12 +264,12 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
-    "evidence_count": 0,
     "rank": 8,
-    "rank_prev": 0,
-    "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 43.08
+    "rank_prev": 10,
+    "rank_delta": 2,
+    "score_prev": 42.91,
+    "score_delta": 0.17,
+    "title": "Daily Trend Radar"
   },
   {
     "idea_id": "IDEA-004",
@@ -298,12 +298,12 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
-    "evidence_count": 0,
     "rank": 9,
-    "rank_prev": 0,
+    "rank_prev": 9,
     "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 42.82
+    "score_prev": 43.46,
+    "score_delta": -0.64,
+    "title": "Resume-to-Job Fit Matcher"
   },
   {
     "idea_id": "IDEA-009",
@@ -332,11 +332,11 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
-    "evidence_count": 0,
     "rank": 10,
-    "rank_prev": 0,
-    "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 42.67
+    "rank_prev": 8,
+    "rank_delta": -2,
+    "score_prev": 44.0,
+    "score_delta": -1.33,
+    "title": "Real-time Multi-agent Research"
   }
 ]
