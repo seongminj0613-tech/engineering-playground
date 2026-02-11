@@ -19,3 +19,4 @@ data/reports/*
 !data/
 !data/reports/
 !data/reports/**
+reports/run-*/
