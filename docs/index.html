@@ -419,6 +419,8 @@
     @media (max-width: 900px) {
       .detail-grid { grid-template-columns: 1fr; }
     }
+    .breakdown-row.total { font-weight: 700; border-top: 1px dashed #ddd; padding-top: 6px; margin-top: 6px; }
+    .warn { margin-left: 6px; font-weight: 700; }
   </style>
 </head>
 
@@ -428,7 +430,7 @@
       <div class="headline">
         <h1>Daily Idea Ranking</h1>
         <p>
-          Generated: 2026-02-11 13:48 · Source: data/reports/idea_cards.json ·
+          Generated: 2026-02-11 17:55 · Source: data/reports/idea_cards.json ·
           History: <a href="./history/index.html" style="text-decoration: underline;">open</a>
         </p>
       </div>
@@ -508,7 +510,7 @@
   </div>
 
   <script>
-    const DATA = JSON.parse(`[{"rank": 1, "idea_id": "IDEA-003", "title": "(untitled)", "summary": "", "tags": ["b2b", "workflow", "compliance"], "trend": "", "total_score": 2.630213559726526, "scores": {"total": 2.630213559726526, "breakdown": {"base": {"contribution": 2.630213559726526, "why": "model/base total score"}}}, "score_breakdown": {"novelty": 0.48611468225399523, "feasibility": 0.6265244012788873, "trend": 1.5175744761936436, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_delta": 0}, {"rank": 2, "idea_id": "IDEA-007", "title": "(untitled)", "summary": "", "tags": ["workflow", "integration", "automation"], "trend": "", "total_score": 2.3407071533115706, "scores": {"total": 2.3407071533115706, "breakdown": {"base": {"contribution": 2.3407071533115706, "why": "model/base total score"}}}, "score_breakdown": {"novelty": 0.5147016433692061, "feasibility": 0.6035461787405098, "trend": 1.2224593312018546, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_delta": 1}, {"rank": 3, "idea_id": "IDEA-008", "title": "(untitled)", "summary": "", "tags": ["security", "compliance", "devops"], "trend": "", "total_score": 2.331560836885524, "scores": {"total": 2.331560836885524, "breakdown": {"base": {"contribution": 2.331560836885524, "why": "model/base total score"}, "signal:security": {"contribution": 0.06, "why": "keyword match: security"}}}, "score_breakdown": {"novelty": 0.5055553269431596, "feasibility": 0.6035461787405098, "trend": 1.2224593312018546, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_delta": 3}, {"rank": 4, "idea_id": "IDEA-006", "title": "(untitled)", "summary": "", "tags": ["retention", "analytics", "b2b"], "trend": "", "total_score": 2.278929387365416, "scores": {"total": 2.278929387365416, "breakdown": {"base": {"contribution": 2.278929387365416, "why": "model/base total score"}}}, "score_breakdown": {"novelty": 0.5415704832167998, "feasibility": 0.6148995729467615, "trend": 1.1224593312018545, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_delta": -2}, {"rank": 5, "idea_id": "IDEA-002", "title": "(untitled)", "summary": "", "tags": ["devops", "sre", "automation"], "trend": "", "total_score": 2.2419320353031504, "scores": {"total": 2.2419320353031504, "breakdown": {"base": {"contribution": 2.2419320353031504, "why": "model/base total score"}}}, "score_breakdown": {"novelty": 0.5383858565626407, "feasibility": 0.6035461787405098, "trend": 1.1, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_delta": 2}, {"rank": 6, "idea_id": "IDEA-005", "title": "(untitled)", "summary": "", "tags": ["cloud", "cost", "automation"], "trend": "", "total_score": 2.236420669829729, "scores": {"total": 2.236420669829729, "breakdown": {"base": {"contribution": 2.236420669829729, "why": "model/base total score"}, "signal:cloud": {"contribution": 0.04, "why": "keyword match: cloud"}}}, "score_breakdown": {"novelty": 0.5104151598873646, "feasibility": 0.6035461787405098, "trend": 1.1224593312018545, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_delta": -2}, {"rank": 7, "idea_id": "IDEA-010", "title": "(untitled)", "summary": "", "tags": ["privacy", "pii", "compliance"], "trend": "", "total_score": 2.1154486915781834, "scores": {"total": 2.1154486915781834, "breakdown": {"base": {"contribution": 2.1154486915781834, "why": "model/base total score"}}}, "score_breakdown": {"novelty": 0.5119025128376735, "feasibility": 0.6035461787405098, "trend": 1.0, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_delta": -2}, {"rank": 8, "idea_id": "IDEA-004", "title": "(untitled)", "summary": "", "tags": ["hr", "recommendation", "analytics"], "trend": "", "total_score": 1.9574087274461076, "scores": {"total": 1.9574087274461076, "breakdown": {"base": {"contribution": 1.9574087274461076, "why": "model/base total score"}}}, "score_breakdown": {"novelty": 0.5763218799074524, "feasibility": 0.6035461787405098, "trend": 0.7775406687981454, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_delta": 1}, {"rank": 9, "idea_id": "IDEA-001", "title": "(untitled)", "summary": "", "tags": ["ai", "news", "dashboard"], "trend": "", "total_score": 1.9344542203383082, "scores": {"total": 1.9344542203383082, "breakdown": {"base": {"contribution": 1.9344542203383082, "why": "model/base total score"}, "signal:ai": {"contribution": 0.06, "why": "keyword match: ai"}}}, "score_breakdown": {"novelty": 0.5533673727996529, "feasibility": 0.6035461787405098, "trend": 0.7775406687981454, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_delta": -1}, {"rank": 10, "idea_id": "IDEA-009", "title": "(untitled)", "summary": "", "tags": ["ai", "multi-agent", "real-time"], "trend": "", "total_score": 1.909069871769232, "scores": {"total": 1.909069871769232, "breakdown": {"base": {"contribution": 1.909069871769232, "why": "model/base total score"}, "signal:ai": {"contribution": 0.06, "why": "keyword match: ai"}, "signal:agent": {"contribution": 0.05, "why": "keyword match: agent"}}}, "score_breakdown": {"novelty": 0.49074179903855786, "feasibility": 0.6407874039325288, "trend": 0.7775406687981454, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_delta": 0}]`);
+    const DATA = JSON.parse(`[{"rank": 1, "idea_id": "IDEA-003", "title": "(untitled)", "summary": "", "tags": ["b2b", "workflow", "compliance"], "trend": "", "total_score": 2.630213559726526, "scores": {"total": 2.630213559726526, "breakdown": {"base": {"contribution": 2.630213559726526, "why": "model/base total score"}}}, "score_breakdown": {"novelty": 0.48611468225399523, "feasibility": 0.6265244012788873, "trend": 1.5175744761936436, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_prev": 1, "rank_delta": 0, "score_prev": 50.8, "score_delta": -48.1698}, {"rank": 2, "idea_id": "IDEA-007", "title": "(untitled)", "summary": "", "tags": ["workflow", "integration", "automation"], "trend": "", "total_score": 2.3407071533115706, "scores": {"total": 2.3407071533115706, "breakdown": {"base": {"contribution": 2.3407071533115706, "why": "model/base total score"}}}, "score_breakdown": {"novelty": 0.5147016433692061, "feasibility": 0.6035461787405098, "trend": 1.2224593312018546, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_prev": 3, "rank_delta": 1, "score_prev": 47.49, "score_delta": -45.1493}, {"rank": 3, "idea_id": "IDEA-008", "title": "(untitled)", "summary": "", "tags": ["security", "compliance", "devops"], "trend": "", "total_score": 2.331560836885524, "scores": {"total": 2.331560836885524, "breakdown": {"base": {"contribution": 2.331560836885524, "why": "model/base total score"}, "signal:security": {"contribution": 0.06, "why": "keyword match: security"}}}, "score_breakdown": {"novelty": 0.5055553269431596, "feasibility": 0.6035461787405098, "trend": 1.2224593312018546, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_prev": 6, "rank_delta": 3, "score_prev": 46.28, "score_delta": -43.9484}, {"rank": 4, "idea_id": "IDEA-006", "title": "(untitled)", "summary": "", "tags": ["retention", "analytics", "b2b"], "trend": "", "total_score": 2.278929387365416, "scores": {"total": 2.278929387365416, "breakdown": {"base": {"contribution": 2.278929387365416, "why": "model/base total score"}}}, "score_breakdown": {"novelty": 0.5415704832167998, "feasibility": 0.6148995729467615, "trend": 1.1224593312018545, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_prev": 2, "rank_delta": -2, "score_prev": 47.69, "score_delta": -45.4111}, {"rank": 5, "idea_id": "IDEA-002", "title": "(untitled)", "summary": "", "tags": ["devops", "sre", "automation"], "trend": "", "total_score": 2.2419320353031504, "scores": {"total": 2.2419320353031504, "breakdown": {"base": {"contribution": 2.2419320353031504, "why": "model/base total score"}}}, "score_breakdown": {"novelty": 0.5383858565626407, "feasibility": 0.6035461787405098, "trend": 1.1, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_prev": 7, "rank_delta": 2, "score_prev": 45.49, "score_delta": -43.2481}, {"rank": 6, "idea_id": "IDEA-005", "title": "(untitled)", "summary": "", "tags": ["cloud", "cost", "automation"], "trend": "", "total_score": 2.236420669829729, "scores": {"total": 2.236420669829729, "breakdown": {"base": {"contribution": 2.236420669829729, "why": "model/base total score"}, "signal:cloud": {"contribution": 0.04, "why": "keyword match: cloud"}}}, "score_breakdown": {"novelty": 0.5104151598873646, "feasibility": 0.6035461787405098, "trend": 1.1224593312018545, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_prev": 4, "rank_delta": -2, "score_prev": 47.11, "score_delta": -44.8736}, {"rank": 7, "idea_id": "IDEA-010", "title": "(untitled)", "summary": "", "tags": ["privacy", "pii", "compliance"], "trend": "", "total_score": 2.1154486915781834, "scores": {"total": 2.1154486915781834, "breakdown": {"base": {"contribution": 2.1154486915781834, "why": "model/base total score"}}}, "score_breakdown": {"novelty": 0.5119025128376735, "feasibility": 0.6035461787405098, "trend": 1.0, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_prev": 5, "rank_delta": -2, "score_prev": 46.69, "score_delta": -44.5746}, {"rank": 8, "idea_id": "IDEA-004", "title": "(untitled)", "summary": "", "tags": ["hr", "recommendation", "analytics"], "trend": "", "total_score": 1.9574087274461076, "scores": {"total": 1.9574087274461076, "breakdown": {"base": {"contribution": 1.9574087274461076, "why": "model/base total score"}}}, "score_breakdown": {"novelty": 0.5763218799074524, "feasibility": 0.6035461787405098, "trend": 0.7775406687981454, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_prev": 9, "rank_delta": 1, "score_prev": 42.82, "score_delta": -40.8626}, {"rank": 9, "idea_id": "IDEA-001", "title": "(untitled)", "summary": "", "tags": ["ai", "news", "dashboard"], "trend": "", "total_score": 1.9344542203383082, "scores": {"total": 1.9344542203383082, "breakdown": {"base": {"contribution": 1.9344542203383082, "why": "model/base total score"}, "signal:ai": {"contribution": 0.06, "why": "keyword match: ai"}}}, "score_breakdown": {"novelty": 0.5533673727996529, "feasibility": 0.6035461787405098, "trend": 0.7775406687981454, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_prev": 8, "rank_delta": -1, "score_prev": 43.08, "score_delta": -41.1455}, {"rank": 10, "idea_id": "IDEA-009", "title": "(untitled)", "summary": "", "tags": ["ai", "multi-agent", "real-time"], "trend": "", "total_score": 1.909069871769232, "scores": {"total": 1.909069871769232, "breakdown": {"base": {"contribution": 1.909069871769232, "why": "model/base total score"}, "signal:ai": {"contribution": 0.06, "why": "keyword match: ai"}, "signal:agent": {"contribution": 0.05, "why": "keyword match: agent"}}}, "score_breakdown": {"novelty": 0.49074179903855786, "feasibility": 0.6407874039325288, "trend": 0.7775406687981454, "risk": 0.0}, "evidence": [], "evidence_count": 0, "risks": [], "assumptions": [], "rank_prev": 10, "rank_delta": 0, "score_prev": 42.67, "score_delta": -40.7609}]`);
     const isUnit = false;
 
     const $list = document.getElementById("list");
@@ -597,16 +599,48 @@
       }
 
       $list.innerHTML = rows.map(r => {
-        const rawTitle = (r.title ?? "").toString().trim();
-        const title = esc((!rawTitle || rawTitle === "(untitled)") ? (r.idea_id || "(untitled)") : rawTitle);
+        const title = esc(r.title || "(untitled)");
         const ideaId = esc(String(r.idea_id || ""));
-        const rawSummary = (r.summary ?? "").toString().trim();
-        const summary = esc(rawSummary || `tags: ${(Array.isArray(r.tags) ? r.tags.join(", ") : "")}`).slice(0, 260);
+        const summary = esc(String(r.summary || "")).slice(0, 260);
         const tags = fmtTags(r.tags);
         const score = scoreOf(r);
+        const bdObj = (r.score_breakdown && typeof r.score_breakdown === "object")
+          ? r.score_breakdown
+          : ((r.scores && typeof r.scores === "object") ? r.scores : {});
+
+        const bdEntries = Object.entries(bdObj).filter(([k, v]) => typeof v === "number");
+        
+        let warn = "";
+        if (bdEntries && bdEntries.length) {
+          const bdSum = bdEntries.reduce((acc, [,v]) => acc + v, 0);
+          if (Math.abs(bdSum - score) > (isUnit ? 0.01 : 0.1)) {
+            warn = '<span class="warn">⚠︎</span>';
+          }
+        }
+        
         const pct = isUnit ? Math.max(0, Math.min(100, score * 100)) : Math.max(0, Math.min(100, score));
         const badge = badgeClass(score);
-        const delta = deltaSpan(r.rank_delta);
+        const rd = (r.rank_delta === undefined ? null : r.rank_delta);
+        const sd = (r.score_delta === undefined ? null : r.score_delta);
+
+        const rankDeltaClass = (rd === null) ? "new" : (rd > 0 ? "up" : (rd < 0 ? "down" : "same"));
+
+        const rankDeltaText =
+          (rd === null) ? "NEW" :
+          (rd > 0) ? `▲${rd}` :
+          (rd < 0) ? `▼${Math.abs(rd)}` :
+          "-";
+
+        const scoreDeltaText =
+          (sd === null) ? "NEW" :
+          (Number(sd) > 0) ? `+${Number(sd).toFixed(2)}` :
+          (Number(sd) < 0) ? `${Number(sd).toFixed(2)}` :
+          "0.00";
+        
+        const delta = `
+          <span class="delta ${rankDeltaClass}">${rankDeltaText}</span>
+          <span class="delta">${scoreDeltaText}</span>
+        `;
         const evCount = toNum(r.evidence_count, 0);
         let evHtml = "";
         if (Array.isArray(r.evidence) && r.evidence.length){
@@ -618,20 +652,31 @@
            }
            evHtml += "</div>";
         }
-        const bd = (r.score_breakdown && typeof r.score_breakdown === "object") ? r.score_breakdown : {};
-        const bdKeys = Object.keys(bd);
-
+        const bd = (r.score_breakdown && typeof r.score_breakdown === "object") 
+          ? r.score_breakdown 
+          : {};
+        const bdEntries = Object.entries(bd)
+          .map(([k,v]) => [String(k), toNum(v, 0)])
+          .sort((a,b) => b[1] - a[1]);
+ 
         let bdHtml = "";
-        if (bdKeys.length) {
+        if (bdEntries.length) {
+          const bdSum = bdEntries.reduce((acc, [,v]) => acc + v, 0);
+
           bdHtml += '<div class="breakdown">';
           bdHtml += '<div class="breakdown-title">score breakdown</div>';
-          for (const k of bdKeys) {
-            const kk = esc(String(k));
-            const vv = toNum(bd[k], 0);
-            bdHtml += '<div class="breakdown-row"><span>' + kk + '</span><b>' + (isUnit ? vv.toFixed(3) : vv.toFixed(2)) + '</b></div>';
+
+          // ✅ Total = sum(breakdown) 보이게
+          bdHtml += '<div class="breakdown-row total"><span>Total</span><b>' +
+            (isUnit ? bdSum.toFixed(3) : bdSum.toFixed(2)) + '</b></div>';
+
+          for (const [k, vv] of bdEntries) {
+             const kk = esc(k);
+             bdHtml += '<div class="breakdown-row"><span>' + kk + '</span><b>' +
+               (isUnit ? vv.toFixed(3) : vv.toFixed(2)) + '</b></div>';
           }
           bdHtml += "</div>";
-        }
+        } 
        
         
 
@@ -642,11 +687,11 @@
                 <div class="rank">#${toNum(r.rank, 0)} ${delta}</div>
                 <div class="title">${title}</div>
                 <div class="meta">
-                  <span class="id">${ideaId || "no-id"}</span>
+                  <span class="id">${ideaId | "no-id"}</span>
                   <span>Evidence: <b style="color: rgba(255,255,255,0.88);">${evCount}</b></span>
                 </div>
                 <div class="summary">${summary}</div>
-                <div class="pillrow">${tags || '<span class="pill muted">no tags</span>'}</div>
+                <div class="pillrow">${tags | '<span class="pill muted">no tags</span>'}</div>
                 ${bdHtml}
                 ${evHtml}
               </div>

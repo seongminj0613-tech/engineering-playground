@@ -1022,7 +1022,9 @@ def build_html(table_rows: list[dict]) -> str:
            }}
            evHtml += "</div>";
         }}
-        const bd = (r.score_breakdown && typeof r.score_breakdown === "object") ? r.score_breakdown : ;{}}
+        const bd = (r.score_breakdown && typeof r.score_breakdown === "object") 
+          ? r.score_breakdown 
+          : {{}};
         const bdEntries = Object.entries(bd)
           .map(([k,v]) => [String(k), toNum(v, 0)])
           .sort((a,b) => b[1] - a[1]);
