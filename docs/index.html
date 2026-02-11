@@ -430,7 +430,7 @@
       <div class="headline">
         <h1>Daily Idea Ranking</h1>
         <p>
-          Generated: 2026-02-11 18:25 · Source: data/reports/idea_cards.json ·
+          Generated: 2026-02-11 18:35 · Source: data/reports/idea_cards.json ·
           History: <a href="./history/index.html" style="text-decoration: underline;">open</a>
         </p>
       </div>
@@ -608,11 +608,11 @@
           ? r.score_breakdown
           : ((r.scores && typeof r.scores === "object") ? r.scores : {});
 
-        const bdEntriesRaw = Object.entries(bdObj).filter(([k, v]) => typeof v === "number");
+        const bdEntries = Object.entries(bdObj).filter(([k, v]) => typeof v === "number");
+        
         let warn = "";
-
-        if (bdEntriesRaw && bdEntriesRaw.length) {
-          const bdSum = bdEntriesRaw.reduce((acc, [,v]) => acc + v, 0);
+        if (bdEntries && bdEntries.length) {
+          const bdSum = bdEntries.reduce((acc, [,v]) => acc + v, 0);
           if (Math.abs(bdSum - score) > (isUnit ? 0.01 : 0.1)) {
             warn = '<span class="warn">⚠︎</span>';
           }
@@ -684,14 +684,14 @@
           <div class="card">
             <div class="card-head">
               <div>
-                <div class="rank">#${toNum(r.rank, 0)} ${delta} ${warn}</div>
+                <div class="rank">#${toNum(r.rank, 0)} ${delta}</div>
                 <div class="title">${title}</div>
                 <div class="meta">
-                  <span class="id">${ideaId || "no-id"}</span>
+                  <span class="id">${ideaId | "no-id"}</span>
                   <span>Evidence: <b style="color: rgba(255,255,255,0.88);">${evCount}</b></span>
                 </div>
                 <div class="summary">${summary}</div>
-                <div class="pillrow">${tags || '<span class="pill muted">no tags</span>'}</div>
+                <div class="pillrow">${tags | '<span class="pill muted">no tags</span>'}</div>
                 ${bdHtml}
                 ${evHtml}
               </div>
