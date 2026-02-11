@@ -289,7 +289,10 @@ def score_ideas_v2_from_ideas_only(ideas: list) -> list:
             "impact": it.get("impact") or "unknown",
             "confidence": it.get("confidence") or "unknown",
             "market": it.get("market") or "unknown",
-            "feasibility": it.get("feasibility") or "unknown",            
+            "feasibility": it.get("feasibility") or "unknown",
+            "title": (it.get("title") or it.get("name") or it.get("idea") or str(iid_raw) or iid),
+            "summary": (it.get("summary") or build_summary_from_idea(it)),
+            "tags": it.get("tags") or [],            
         })
 
   
@@ -544,6 +547,33 @@ def main():
 
 
     ext_map = {}
+    
+    idea_map_norm = {norm_idea_id(i.get("idea_id")): i for i in ideas}
+
+    for r in ranked_top:
+        src = idea_map_norm.get(norm_idea_id(r.get("idea_id")), {}) or {}
+
+        # title 강제
+        r["title"] = (
+            r.get("title")
+            or src.get("title")
+            or src.get("name")
+            or src.get("idea")
+            or r.get("idea_id")
+            or "(untitled)"
+        )
+
+        # summary 강제
+        if not r.get("summary"):
+            if src:
+                r["summary"] = build_summary_from_idea(src)
+            else:
+                r["summary"] = ""
+
+        # tags 강제
+        if not r.get("tags"):
+            r["tags"] = src.get("tags") or []
+    
     try:
         EXTERNAL_PATH = ROOT / "data" / "external" / "external_docs.jsonl"
         if EXTERNAL_PATH.exists():

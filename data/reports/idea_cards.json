@@ -26,6 +26,8 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
+    "title": "B2B Workflow Scoring",
+    "summary": "Score internal proposals based on cost reduction, compliance, and feasibility.",
     "score_breakdown": {
       "novelty": 0.48611468225399523,
       "feasibility": 0.6265244012788873,
@@ -66,6 +68,8 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
+    "title": "Meeting Notes to Jira Tasks",
+    "summary": "Convert meeting notes into structured Jira tickets with priority scoring.",
     "score_breakdown": {
       "novelty": 0.5147016433692061,
       "feasibility": 0.6035461787405098,
@@ -106,6 +110,8 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
+    "title": "Security Policy Drift Monitor",
+    "summary": "Monitor infra configs and alert when security baselines drift.",
     "score_breakdown": {
       "novelty": 0.5055553269431596,
       "feasibility": 0.6035461787405098,
@@ -146,6 +152,8 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
+    "title": "Customer Churn Early Warning",
+    "summary": "Predict churn risk and propose retention workflows for customer success.",
     "score_breakdown": {
       "novelty": 0.5415704832167998,
       "feasibility": 0.6148995729467615,
@@ -186,6 +194,8 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
+    "title": "Ops Incident Playbook Generator",
+    "summary": "Generate incident response playbooks from past tickets and postmortems.",
     "score_breakdown": {
       "novelty": 0.5383858565626407,
       "feasibility": 0.6035461787405098,
@@ -226,6 +236,8 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
+    "title": "Cloud Cost Leak Detector",
+    "summary": "Detect cost anomalies from billing exports and recommend savings actions.",
     "score_breakdown": {
       "novelty": 0.5104151598873646,
       "feasibility": 0.6035461787405098,
@@ -266,6 +278,8 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
+    "title": "Privacy-safe Data Collector",
+    "summary": "Collect user feedback with privacy constraints and PII redaction built-in.",
     "score_breakdown": {
       "novelty": 0.5119025128376735,
       "feasibility": 0.6035461787405098,
@@ -306,6 +320,8 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
+    "title": "Resume-to-Job Fit Matcher",
+    "summary": "Match resumes to job posts using embeddings and show gaps as action items.",
     "score_breakdown": {
       "novelty": 0.5763218799074524,
       "feasibility": 0.6035461787405098,
@@ -346,6 +362,8 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
+    "title": "Daily Trend Radar",
+    "summary": "Collect daily tech news, summarize, and rank trends for product planning.",
     "score_breakdown": {
       "novelty": 0.5533673727996529,
       "feasibility": 0.6035461787405098,
@@ -386,6 +404,8 @@
     "confidence": "unknown",
     "market": "unknown",
     "feasibility": "unknown",
+    "title": "Real-time Multi-agent Research",
+    "summary": "Use multiple agents to research markets in real-time with continuous updates.",
     "score_breakdown": {
       "novelty": 0.49074179903855786,
       "feasibility": 0.6407874039325288,

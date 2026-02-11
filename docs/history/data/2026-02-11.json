@@ -5,7 +5,7 @@
     {
       "idea_id": "IDEA-003",
       "rank": 1,
-      "title": "(untitled)",
+      "title": "B2B Workflow Scoring",
       "tags": [
         "b2b",
         "workflow",
@@ -16,7 +16,7 @@
     {
       "idea_id": "IDEA-007",
       "rank": 2,
-      "title": "(untitled)",
+      "title": "Meeting Notes to Jira Tasks",
       "tags": [
         "workflow",
         "integration",
@@ -27,7 +27,7 @@
     {
       "idea_id": "IDEA-008",
       "rank": 3,
-      "title": "(untitled)",
+      "title": "Security Policy Drift Monitor",
       "tags": [
         "security",
         "compliance",
@@ -38,7 +38,7 @@
     {
       "idea_id": "IDEA-006",
       "rank": 4,
-      "title": "(untitled)",
+      "title": "Customer Churn Early Warning",
       "tags": [
         "retention",
         "analytics",
@@ -49,7 +49,7 @@
     {
       "idea_id": "IDEA-002",
       "rank": 5,
-      "title": "(untitled)",
+      "title": "Ops Incident Playbook Generator",
       "tags": [
         "devops",
         "sre",
@@ -60,7 +60,7 @@
     {
       "idea_id": "IDEA-005",
       "rank": 6,
-      "title": "(untitled)",
+      "title": "Cloud Cost Leak Detector",
       "tags": [
         "cloud",
         "cost",
@@ -71,7 +71,7 @@
     {
       "idea_id": "IDEA-010",
       "rank": 7,
-      "title": "(untitled)",
+      "title": "Privacy-safe Data Collector",
       "tags": [
         "privacy",
         "pii",
@@ -82,7 +82,7 @@
     {
       "idea_id": "IDEA-004",
       "rank": 8,
-      "title": "(untitled)",
+      "title": "Resume-to-Job Fit Matcher",
       "tags": [
         "hr",
         "recommendation",
@@ -93,7 +93,7 @@
     {
       "idea_id": "IDEA-001",
       "rank": 9,
-      "title": "(untitled)",
+      "title": "Daily Trend Radar",
       "tags": [
         "ai",
         "news",
@@ -104,7 +104,7 @@
     {
       "idea_id": "IDEA-009",
       "rank": 10,
-      "title": "(untitled)",
+      "title": "Real-time Multi-agent Research",
       "tags": [
         "ai",
         "multi-agent",
