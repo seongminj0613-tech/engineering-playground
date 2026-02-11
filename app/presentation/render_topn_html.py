@@ -981,8 +981,8 @@ def build_html(table_rows: list[dict]) -> str:
         const bdEntriesRaw = Object.entries(bdObj).filter(([k, v]) => typeof v === "number");
         
         let warn = "";
-        if (bdEntries && bdEntries.length) {{
-          const bdSum = bdEntries.reduce((acc, [,v]) => acc + v, 0);
+        if (bdEntriesRaw && bdEntriesRaw.length) {{
+          const bdSum = bdEntriesRaw.reduce((acc, [,v]) => acc + v, 0);
           if (Math.abs(bdSum - score) > (isUnit ? 0.01 : 0.1)) {{
             warn = '<span class="warn">⚠︎</span>';
           }}
@@ -1025,13 +1025,13 @@ def build_html(table_rows: list[dict]) -> str:
         const bd = (r.score_breakdown && typeof r.score_breakdown === "object") 
           ? r.score_breakdown 
           : {{}};
-        const bdEntries = Object.entries(bd)
+        const bdEntriesBreakdown = Object.entries(bd)
           .map(([k,v]) => [String(k), toNum(v, 0)])
           .sort((a,b) => b[1] - a[1]);
  
         let bdHtml = "";
-        if (bdEntries.length) {{
-          const bdSum = bdEntries.reduce((acc, [,v]) => acc + v, 0);
+        if (bdEntriesBreakdown.length) {{
+          const bdSum = bdEntriesBreakdown.reduce((acc, [,v]) => acc + v, 0);
 
           bdHtml += '<div class="breakdown">';
           bdHtml += '<div class="breakdown-title">score breakdown</div>';
@@ -1040,7 +1040,7 @@ def build_html(table_rows: list[dict]) -> str:
           bdHtml += '<div class="breakdown-row total"><span>Total</span><b>' +
             (isUnit ? bdSum.toFixed(3) : bdSum.toFixed(2)) + '</b></div>';
 
-          for (const [k, vv] of bdEntries) {{
+          for (const [k, vv] of bdEntriesBreakdown) {{
              const kk = esc(k);
              bdHtml += '<div class="breakdown-row"><span>' + kk + '</span><b>' +
                (isUnit ? vv.toFixed(3) : vv.toFixed(2)) + '</b></div>';
