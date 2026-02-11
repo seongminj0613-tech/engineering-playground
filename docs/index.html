@@ -430,7 +430,7 @@
       <div class="headline">
         <h1>Daily Idea Ranking</h1>
         <p>
-          Generated: 2026-02-11 18:35 · Source: data/reports/idea_cards.json ·
+          Generated: 2026-02-11 18:51 · Source: data/reports/idea_cards.json ·
           History: <a href="./history/index.html" style="text-decoration: underline;">open</a>
         </p>
       </div>
@@ -611,8 +611,8 @@
         const bdEntriesRaw = Object.entries(bdObj).filter(([k, v]) => typeof v === "number");
         
         let warn = "";
-        if (bdEntriesRaw && bdEntriesRaw.length) {
-          const bdSum = bdEntriesRaw.reduce((acc, [,v]) => acc + v, 0);
+        if (bdEntries && bdEntries.length) {
+          const bdSum = bdEntries.reduce((acc, [,v]) => acc + v, 0);
           if (Math.abs(bdSum - score) > (isUnit ? 0.01 : 0.1)) {
             warn = '<span class="warn">⚠︎</span>';
           }

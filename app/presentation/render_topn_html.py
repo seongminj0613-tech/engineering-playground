@@ -978,7 +978,7 @@ def build_html(table_rows: list[dict]) -> str:
           ? r.score_breakdown
           : ((r.scores && typeof r.scores === "object") ? r.scores : {{}});
 
-        const bdEntries = Object.entries(bdObj).filter(([k, v]) => typeof v === "number");
+        const bdEntriesRaw = Object.entries(bdObj).filter(([k, v]) => typeof v === "number");
         
         let warn = "";
         if (bdEntries && bdEntries.length) {{
