@@ -93,24 +93,21 @@ def _escape(s: str) -> str:
 # Scoring
 # =========================
 def pick_total_score(r: dict) -> float:
-    # 1) top-level 우선
-    for k in ["total_score", "total", "final", "final_score", "score"]:
-        if k in r:
-            return _to_float(r.get(k))
-
-    # 2) nested(scores)도 지원
-    s = r.get("scores") or r.get("score") or {}
-    if isinstance(s, dict):
-        for k in ["total", "total_score", "final", "final_score", "score"]:
-            if k in s:
-                return _to_float(s.get(k))
-
-        nums = [v for v in s.values() if isinstance(v, (int, float))]
+    """
+    취업용 표준:
+    - score_breakdown이 있으면 그 합을 total_score로 사용 (가장 신뢰)
+    - 없으면 total_score만 fallback으로 인정
+    """
+    breakdown = r.get("score_breakdown")
+    if isinstance(breakdown, dict) and breakdown:
+        nums = [v for v in breakdown.values() if isinstance(v, (int, float))]
         if nums:
-            return float(max(nums))
+            return float(sum(nums))
+
+    if "total_score" in r:
+        return _to_float(r.get("total_score"))
 
     return 0.0
-
 
 KEYWORD_BOOST = {
     "ai": 0.06,
@@ -197,36 +194,52 @@ def render_top_n(rows: list[dict], n: int = 15) -> list[dict]:
 
     out: list[dict] = []
     for i, r in enumerate(ranked, start=1):
-        total_score = pick_total_score(r)
+        # breakdown 먼저 확정
+        breakdown = r.get("score_breakdown", {})
+        if breakdown and not isinstance(breakdown, dict):
+            breakdown = {}
 
-        scores = r.get("scores", {}) if isinstance(r.get("scores", {}), dict) else {}
-        scores.setdefault("total", total_score)
+        # total_score는 breakdown 합으로 강제 (취업용 신뢰성)
+        if breakdown:
+            nums = [v for v in breakdown.values() if isinstance(v, (int, float))]
+            total_score = float(sum(nums)) if nums else 0.0
+        else:
+            total_score = pick_total_score(r)
 
+        # scores(dict) 안전 처리 + total 동기화
+        scores = r.get("scores", {})
+        if not isinstance(scores, dict):
+            scores = {}
+        scores["total"] = total_score  # setdefault 말고 강제 동기화
+
+        # evidence list 안전 처리
         evidence = r.get("evidence", [])
         if evidence and not isinstance(evidence, list):
             evidence = [evidence]
 
+        # tags list 안전 처리
         tags = r.get("tags", [])
         if tags and not isinstance(tags, list):
             tags = [tags]
 
         out.append(
-            {
-                "rank": i,
-                "idea_id": r.get("idea_id", ""),
-                "title": r.get("title", "(untitled)"),
-                "summary": r.get("summary", ""),
-                "tags": tags,
-                "trend": r.get("trend", ""),
-                "total_score": total_score,
-                "scores": scores,
-                "score_breakdown": r.get("score_breakdown", {}),
-                "evidence": evidence,
-                "evidence_count": len(evidence) if isinstance(evidence, list) else 0,
-                "risks": r.get("risks", []),
-                "assumptions": r.get("assumptions", []),
-            }
+           {
+               "rank": i,
+               "idea_id": r.get("idea_id", ""),
+               "title": r.get("title", "(untitled)"),
+               "summary": r.get("summary", ""),
+               "tags": tags,
+               "trend": r.get("trend", ""),
+               "total_score": total_score,
+               "scores": scores,
+               "score_breakdown": breakdown,
+               "evidence": evidence,
+               "evidence_count": len(evidence) if isinstance(evidence, list) else 0,
+               "risks": r.get("risks", []),
+               "assumptions": r.get("assumptions", []),
+           }
         )
+
     return out
 
 

@@ -1,134 +1,8 @@
 [
   {
-    "idea_id": "IDEA-001",
-    "title": "Daily Trend Radar",
-    "content": "Collect daily tech news, summarize, and rank trends for product planning.",
-    "tags": [
-      "ai",
-      "news",
-      "dashboard"
-    ],
-    "source": "meeting",
-    "created_at": "2026-01-29T09:10:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "novelty": 0,
-      "feasibility": 0,
-      "trend": 0,
-      "risk": 0
-    },
-    "signals": {
-      "novelty": 0.5533673727996529,
-      "specificity": 0.33924363123418283,
-      "feasibility": 0.6035461787405098,
-      "market_pull": 0.3775406687981454,
-      "evidence": 0.05,
-      "clarity": 0.7,
-      "trend_boost": 0.4,
-      "freshness": 0.4
-    },
-    "total_score": 43.08,
-    "summary": "Collect daily tech news, summarize, and rank trends for product planning.",
-    "rank": 8,
-    "rank_delta": 0,
-    "evidence_count": 2,
-    "evidence": [
-      {
-        "doc_id": "hn_1",
-        "idea_id": "IDEA-001",
-        "title": "Nvidia releases new AI chip",
-        "url": "https://...",
-        "source": "hn",
-        "published_at": "2026-02-06",
-        "tags": [
-          "ai",
-          "gpu"
-        ],
-        "snippet": "New GPU for AI training"
-      },
-      {
-        "doc_id": "hn_2",
-        "idea_id": "IDEA-001",
-        "title": "Open source vector DB rising",
-        "url": "https://...",
-        "source": "hn",
-        "published_at": "2026-02-06",
-        "tags": [
-          "ai",
-          "vector"
-        ],
-        "snippet": "Vector database trend"
-      }
-    ]
-  },
-  {
-    "idea_id": "IDEA-002",
-    "title": "Ops Incident Playbook Generator",
-    "content": "Generate incident response playbooks from past tickets and postmortems.",
-    "tags": [
-      "devops",
-      "sre",
-      "automation"
-    ],
-    "source": "meeting",
-    "created_at": "2026-01-29T09:12:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "novelty": 0,
-      "feasibility": 0,
-      "trend": 0,
-      "risk": 0
-    },
-    "signals": {
-      "novelty": 0.5383858565626407,
-      "specificity": 0.33924363123418283,
-      "feasibility": 0.6035461787405098,
-      "market_pull": 0.5,
-      "evidence": 0.05,
-      "clarity": 0.7,
-      "trend_boost": 0.6,
-      "freshness": 0.4
-    },
-    "total_score": 45.49,
-    "summary": "Generate incident response playbooks from past tickets and postmortems.",
-    "rank": 7,
-    "rank_delta": 0,
-    "evidence_count": 1,
-    "evidence": [
-      {
-        "doc_id": "bootstrap_c492ce9e30b8",
-        "idea_id": "IDEA-002",
-        "source": "bootstrap",
-        "title": "Trend signal about: Ops Incident Playbook Generator",
-        "url": "https://example.local/IDEA-002",
-        "snippet": "IDEA-002 Generate incident response playbooks from past tickets and postmortems.",
-        "tags": [
-          "devops",
-          "sre",
-          "automation"
-        ],
-        "published_at": "2026-02-06"
-      }
-    ]
-  },
-  {
     "idea_id": "IDEA-003",
-    "title": "B2B Workflow Scoring",
-    "content": "Score internal proposals based on cost reduction, compliance, and feasibility.",
-    "tags": [
-      "b2b",
-      "workflow",
-      "compliance"
-    ],
-    "source": "memo",
-    "created_at": "2026-01-29T09:15:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "novelty": 0,
-      "feasibility": 0,
-      "trend": 0,
-      "risk": 0
-    },
+    "idea_id_raw": "IDEA-003",
+    "total_score": 2.63,
     "signals": {
       "novelty": 0.48611468225399523,
       "specificity": 0.3775406687981454,
@@ -139,196 +13,36 @@
       "trend_boost": 0.7,
       "freshness": 0.4
     },
-    "total_score": 50.8,
-    "summary": "Score internal proposals based on cost reduction, compliance, and feasibility.",
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "b2b",
+      "workflow",
+      "compliance"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.48611468225399523,
+      "feasibility": 0.6265244012788873,
+      "trend": 1.5175744761936436,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
     "rank": 1,
+    "rank_prev": 0,
     "rank_delta": 0,
-    "evidence_count": 1,
-    "evidence": [
-      {
-        "doc_id": "bootstrap_b780c5595ee4",
-        "idea_id": "IDEA-003",
-        "source": "bootstrap",
-        "title": "Trend signal about: B2B Workflow Scoring",
-        "url": "https://example.local/IDEA-003",
-        "snippet": "IDEA-003 Score internal proposals based on cost reduction, compliance, and feasibility.",
-        "tags": [
-          "b2b",
-          "workflow",
-          "compliance"
-        ],
-        "published_at": "2026-02-06"
-      }
-    ]
-  },
-  {
-    "idea_id": "IDEA-004",
-    "title": "Resume-to-Job Fit Matcher",
-    "content": "Match resumes to job posts using embeddings and show gaps as action items.",
-    "tags": [
-      "hr",
-      "recommendation",
-      "analytics"
-    ],
-    "source": "meeting",
-    "created_at": "2026-01-29T09:18:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "novelty": 0,
-      "feasibility": 0,
-      "trend": 0,
-      "risk": 0
-    },
-    "signals": {
-      "novelty": 0.5763218799074524,
-      "specificity": 0.33924363123418283,
-      "feasibility": 0.6035461787405098,
-      "market_pull": 0.3775406687981454,
-      "evidence": 0.05,
-      "clarity": 0.7,
-      "trend_boost": 0.4,
-      "freshness": 0.4
-    },
-    "total_score": 42.82,
-    "summary": "Match resumes to job posts using embeddings and show gaps as action items.",
-    "rank": 9,
-    "rank_delta": 0,
-    "evidence_count": 1,
-    "evidence": [
-      {
-        "doc_id": "bootstrap_9fd2622ab5e2",
-        "idea_id": "IDEA-004",
-        "source": "bootstrap",
-        "title": "Trend signal about: Resume-to-Job Fit Matcher",
-        "url": "https://example.local/IDEA-004",
-        "snippet": "IDEA-004 Match resumes to job posts using embeddings and show gaps as action items.",
-        "tags": [
-          "hr",
-          "recommendation",
-          "analytics"
-        ],
-        "published_at": "2026-02-06"
-      }
-    ]
-  },
-  {
-    "idea_id": "IDEA-005",
-    "title": "Cloud Cost Leak Detector",
-    "content": "Detect cost anomalies from billing exports and recommend savings actions.",
-    "tags": [
-      "cloud",
-      "cost",
-      "automation"
-    ],
-    "source": "meeting",
-    "created_at": "2026-01-29T09:20:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "novelty": 0,
-      "feasibility": 0,
-      "trend": 0,
-      "risk": 0
-    },
-    "signals": {
-      "novelty": 0.5104151598873646,
-      "specificity": 0.33924363123418283,
-      "feasibility": 0.6035461787405098,
-      "market_pull": 0.6224593312018546,
-      "evidence": 0.05,
-      "clarity": 0.7,
-      "trend_boost": 0.5,
-      "freshness": 0.4
-    },
-    "total_score": 47.11,
-    "summary": "Detect cost anomalies from billing exports and recommend savings actions.",
-    "rank": 4,
-    "rank_delta": 0,
-    "evidence_count": 1,
-    "evidence": [
-      {
-        "doc_id": "bootstrap_9f5a0a0ff355",
-        "idea_id": "IDEA-005",
-        "source": "bootstrap",
-        "title": "Trend signal about: Cloud Cost Leak Detector",
-        "url": "https://example.local/IDEA-005",
-        "snippet": "IDEA-005 Detect cost anomalies from billing exports and recommend savings actions.",
-        "tags": [
-          "cloud",
-          "cost",
-          "automation"
-        ],
-        "published_at": "2026-02-06"
-      }
-    ]
-  },
-  {
-    "idea_id": "IDEA-006",
-    "title": "Customer Churn Early Warning",
-    "content": "Predict churn risk and propose retention workflows for customer success.",
-    "tags": [
-      "retention",
-      "analytics",
-      "b2b"
-    ],
-    "source": "memo",
-    "created_at": "2026-01-29T09:25:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "novelty": 0,
-      "feasibility": 0,
-      "trend": 0,
-      "risk": 0
-    },
-    "signals": {
-      "novelty": 0.5415704832167998,
-      "specificity": 0.358165954911269,
-      "feasibility": 0.6148995729467615,
-      "market_pull": 0.6224593312018546,
-      "evidence": 0.05,
-      "clarity": 0.7,
-      "trend_boost": 0.5,
-      "freshness": 0.4
-    },
-    "total_score": 47.69,
-    "summary": "Predict churn risk and propose retention workflows for customer success.",
-    "rank": 2,
-    "rank_delta": 0,
-    "evidence_count": 1,
-    "evidence": [
-      {
-        "doc_id": "bootstrap_784c6f4e2e8c",
-        "idea_id": "IDEA-006",
-        "source": "bootstrap",
-        "title": "Trend signal about: Customer Churn Early Warning",
-        "url": "https://example.local/IDEA-006",
-        "snippet": "IDEA-006 Predict churn risk and propose retention workflows for customer success.",
-        "tags": [
-          "retention",
-          "analytics",
-          "b2b"
-        ],
-        "published_at": "2026-02-06"
-      }
-    ]
+    "score_prev": 0.0,
+    "score_delta": 65.76
   },
   {
     "idea_id": "IDEA-007",
-    "title": "Meeting Notes to Jira Tasks",
-    "content": "Convert meeting notes into structured Jira tickets with priority scoring.",
-    "tags": [
-      "workflow",
-      "integration",
-      "automation"
-    ],
-    "source": "meeting",
-    "created_at": "2026-01-29T09:30:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "novelty": 0,
-      "feasibility": 0,
-      "trend": 0,
-      "risk": 0
-    },
+    "idea_id_raw": "IDEA-007",
+    "total_score": 2.34,
     "signals": {
       "novelty": 0.5147016433692061,
       "specificity": 0.33924363123418283,
@@ -339,46 +53,36 @@
       "trend_boost": 0.6,
       "freshness": 0.4
     },
-    "total_score": 47.49,
-    "summary": "Convert meeting notes into structured Jira tickets with priority scoring.",
-    "rank": 3,
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "workflow",
+      "integration",
+      "automation"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.5147016433692061,
+      "feasibility": 0.6035461787405098,
+      "trend": 1.2224593312018546,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 2,
+    "rank_prev": 0,
     "rank_delta": 0,
-    "evidence_count": 1,
-    "evidence": [
-      {
-        "doc_id": "bootstrap_6bb0e8f741ef",
-        "idea_id": "IDEA-007",
-        "source": "bootstrap",
-        "title": "Trend signal about: Meeting Notes to Jira Tasks",
-        "url": "https://example.local/IDEA-007",
-        "snippet": "IDEA-007 Convert meeting notes into structured Jira tickets with priority scoring.",
-        "tags": [
-          "workflow",
-          "integration",
-          "automation"
-        ],
-        "published_at": "2026-02-06"
-      }
-    ]
+    "score_prev": 0.0,
+    "score_delta": 58.52
   },
   {
     "idea_id": "IDEA-008",
-    "title": "Security Policy Drift Monitor",
-    "content": "Monitor infra configs and alert when security baselines drift.",
-    "tags": [
-      "security",
-      "compliance",
-      "devops"
-    ],
-    "source": "meeting",
-    "created_at": "2026-01-29T09:35:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "novelty": 0,
-      "feasibility": 0,
-      "trend": 0,
-      "risk": 0
-    },
+    "idea_id_raw": "IDEA-008",
+    "total_score": 2.33,
     "signals": {
       "novelty": 0.5055553269431596,
       "specificity": 0.33924363123418283,
@@ -389,96 +93,156 @@
       "trend_boost": 0.6,
       "freshness": 0.4
     },
-    "total_score": 46.28,
-    "summary": "Monitor infra configs and alert when security baselines drift.",
-    "rank": 6,
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "security",
+      "compliance",
+      "devops"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.5055553269431596,
+      "feasibility": 0.6035461787405098,
+      "trend": 1.2224593312018546,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 3,
+    "rank_prev": 0,
     "rank_delta": 0,
-    "evidence_count": 1,
-    "evidence": [
-      {
-        "doc_id": "bootstrap_137d22c6ad3a",
-        "idea_id": "IDEA-008",
-        "source": "bootstrap",
-        "title": "Trend signal about: Security Policy Drift Monitor",
-        "url": "https://example.local/IDEA-008",
-        "snippet": "IDEA-008 Monitor infra configs and alert when security baselines drift.",
-        "tags": [
-          "security",
-          "compliance",
-          "devops"
-        ],
-        "published_at": "2026-02-06"
-      }
-    ]
+    "score_prev": 0.0,
+    "score_delta": 58.29
   },
   {
-    "idea_id": "IDEA-009",
-    "title": "Real-time Multi-agent Research",
-    "content": "Use multiple agents to research markets in real-time with continuous updates.",
-    "tags": [
-      "ai",
-      "multi-agent",
-      "real-time"
-    ],
-    "source": "memo",
-    "created_at": "2026-01-29T09:38:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "novelty": 0,
-      "feasibility": 0,
-      "trend": 0,
-      "risk": 0
-    },
+    "idea_id": "IDEA-006",
+    "idea_id_raw": "IDEA-006",
+    "total_score": 2.28,
     "signals": {
-      "novelty": 0.49074179903855786,
-      "specificity": 0.401312339887548,
-      "feasibility": 0.6407874039325288,
-      "market_pull": 0.3775406687981454,
+      "novelty": 0.5415704832167998,
+      "specificity": 0.358165954911269,
+      "feasibility": 0.6148995729467615,
+      "market_pull": 0.6224593312018546,
       "evidence": 0.05,
       "clarity": 0.7,
-      "trend_boost": 0.4,
+      "trend_boost": 0.5,
       "freshness": 0.4
     },
-    "total_score": 42.67,
-    "summary": "Use multiple agents to research markets in real-time with continuous updates.",
-    "rank": 10,
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "retention",
+      "analytics",
+      "b2b"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.5415704832167998,
+      "feasibility": 0.6148995729467615,
+      "trend": 1.1224593312018545,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 4,
+    "rank_prev": 0,
     "rank_delta": 0,
-    "evidence_count": 1,
-    "evidence": [
-      {
-        "doc_id": "bootstrap_092e1e2886a5",
-        "idea_id": "IDEA-009",
-        "source": "bootstrap",
-        "title": "Trend signal about: Real-time Multi-agent Research",
-        "url": "https://example.local/IDEA-009",
-        "snippet": "IDEA-009 Use multiple agents to research markets in real-time with continuous updates.",
-        "tags": [
-          "ai",
-          "multi-agent",
-          "real-time"
-        ],
-        "published_at": "2026-02-06"
-      }
-    ]
+    "score_prev": 0.0,
+    "score_delta": 56.97
+  },
+  {
+    "idea_id": "IDEA-002",
+    "idea_id_raw": "IDEA-002",
+    "total_score": 2.24,
+    "signals": {
+      "novelty": 0.5383858565626407,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.5,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.6,
+      "freshness": 0.4
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "devops",
+      "sre",
+      "automation"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.5383858565626407,
+      "feasibility": 0.6035461787405098,
+      "trend": 1.1,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 5,
+    "rank_prev": 0,
+    "rank_delta": 0,
+    "score_prev": 0.0,
+    "score_delta": 56.05
+  },
+  {
+    "idea_id": "IDEA-005",
+    "idea_id_raw": "IDEA-005",
+    "total_score": 2.24,
+    "signals": {
+      "novelty": 0.5104151598873646,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.6224593312018546,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.5,
+      "freshness": 0.4
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "cloud",
+      "cost",
+      "automation"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.5104151598873646,
+      "feasibility": 0.6035461787405098,
+      "trend": 1.1224593312018545,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 6,
+    "rank_prev": 0,
+    "rank_delta": 0,
+    "score_prev": 0.0,
+    "score_delta": 55.91
   },
   {
     "idea_id": "IDEA-010",
-    "title": "Privacy-safe Data Collector",
-    "content": "Collect user feedback with privacy constraints and PII redaction built-in.",
-    "tags": [
-      "privacy",
-      "pii",
-      "compliance"
-    ],
-    "source": "meeting",
-    "created_at": "2026-01-29T09:40:00+09:00",
-    "external_evidence": null,
-    "score_breakdown": {
-      "novelty": 0,
-      "feasibility": 0,
-      "trend": 0,
-      "risk": 0
-    },
+    "idea_id_raw": "IDEA-010",
+    "total_score": 2.12,
     "signals": {
       "novelty": 0.5119025128376735,
       "specificity": 0.33924363123418283,
@@ -489,26 +253,150 @@
       "trend_boost": 0.5,
       "freshness": 0.4
     },
-    "total_score": 46.69,
-    "summary": "Collect user feedback with privacy constraints and PII redaction built-in.",
-    "rank": 5,
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "privacy",
+      "pii",
+      "compliance"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.5119025128376735,
+      "feasibility": 0.6035461787405098,
+      "trend": 1.0,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 7,
+    "rank_prev": 0,
     "rank_delta": 0,
-    "evidence_count": 1,
-    "evidence": [
-      {
-        "doc_id": "bootstrap_4d11b062dd27",
-        "idea_id": "IDEA-010",
-        "source": "bootstrap",
-        "title": "Trend signal about: Privacy-safe Data Collector",
-        "url": "https://example.local/IDEA-010",
-        "snippet": "IDEA-010 Collect user feedback with privacy constraints and PII redaction built-in.",
-        "tags": [
-          "privacy",
-          "pii",
-          "compliance"
-        ],
-        "published_at": "2026-02-06"
-      }
-    ]
+    "score_prev": 0.0,
+    "score_delta": 52.89
+  },
+  {
+    "idea_id": "IDEA-004",
+    "idea_id_raw": "IDEA-004",
+    "total_score": 1.96,
+    "signals": {
+      "novelty": 0.5763218799074524,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.3775406687981454,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.4,
+      "freshness": 0.4
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "hr",
+      "recommendation",
+      "analytics"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.5763218799074524,
+      "feasibility": 0.6035461787405098,
+      "trend": 0.7775406687981454,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 8,
+    "rank_prev": 0,
+    "rank_delta": 0,
+    "score_prev": 0.0,
+    "score_delta": 48.94
+  },
+  {
+    "idea_id": "IDEA-001",
+    "idea_id_raw": "IDEA-001",
+    "total_score": 1.93,
+    "signals": {
+      "novelty": 0.5533673727996529,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.3775406687981454,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.4,
+      "freshness": 0.4
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "ai",
+      "news",
+      "dashboard"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.5533673727996529,
+      "feasibility": 0.6035461787405098,
+      "trend": 0.7775406687981454,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 9,
+    "rank_prev": 0,
+    "rank_delta": 0,
+    "score_prev": 0.0,
+    "score_delta": 48.36
+  },
+  {
+    "idea_id": "IDEA-009",
+    "idea_id_raw": "IDEA-009",
+    "total_score": 1.91,
+    "signals": {
+      "novelty": 0.49074179903855786,
+      "specificity": 0.401312339887548,
+      "feasibility": 0.6407874039325288,
+      "market_pull": 0.3775406687981454,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.4,
+      "freshness": 0.4
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "ai",
+      "multi-agent",
+      "real-time"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.49074179903855786,
+      "feasibility": 0.6407874039325288,
+      "trend": 0.7775406687981454,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 10,
+    "rank_prev": 0,
+    "rank_delta": 0,
+    "score_prev": 0.0,
+    "score_delta": 47.73
   }
 ]

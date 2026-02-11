@@ -301,6 +301,90 @@ def score_ideas_v2_from_ideas_only(ideas: list) -> list:
   
     
     return scored_rows
+def _to_float(x) -> float:
+    try:
+        if x is None:
+            return 0.0
+        if isinstance(x, (int, float)):
+            return float(x)
+        s = str(x).strip()
+        if not s:
+            return 0.0
+        return float(s)
+    except Exception:
+        return 0.0
+
+
+def build_breakdown_from_signals(signals: dict) -> dict:
+    """
+    signals(특성값)을 면접/포폴용 breakdown(설명 가능한 점수 항목)으로 변환.
+    - 입력: novelty, specificity, feasibility, market_pull, evidence, clarity, trend_boost, freshness
+    - 출력: 5개 breakdown 항목
+    """
+    s = {k: _to_float(v) for k, v in (signals or {}).items()}
+
+    breakdown = {
+        # 문제/설명 명확성
+        "problem_clarity": 0.5 * s.get("specificity", 0.0) + 0.5 * s.get("clarity", 0.0),
+
+        # 구현 가능성
+        "feasibility": s.get("feasibility", 0.0),
+
+        # 시장/트렌드 신호
+        "market_signal": 0.5 * s.get("market_pull", 0.0)
+                       + 0.3 * s.get("trend_boost", 0.0)
+                       + 0.2 * s.get("freshness", 0.0),
+
+        # 증거 강도
+        "evidence_strength": s.get("evidence", 0.0),
+
+        # 새로움/차별성
+        "novelty": s.get("novelty", 0.0),
+    }
+
+    # 보기 좋게 라운딩(선택)
+    breakdown = {k: round(v, 2) for k, v in breakdown.items()}
+    return breakdown
+
+
+def ensure_breakdown_and_total(row: dict) -> dict:
+    """
+    score_breakdown을 항상 '의미 있게' 채우고,
+    total_score는 breakdown 합으로 강제.
+    - breakdown이 없거나
+    - breakdown이 전부 0이면
+      => signals 기반으로 breakdown 재생성
+    """
+    signals = row.get("signals") or {}
+
+    bd = row.get("score_breakdown") or {}
+    if not isinstance(bd, dict):
+        bd = {}
+
+    # ✅ breakdown이 "사실상 비어있는지" 판정 (없거나 / 전부 0)
+    def _is_empty_breakdown(d: dict) -> bool:
+        if not d:
+            return True
+        vals = [v for v in d.values() if isinstance(v, (int, float))]
+        if not vals:
+            return True
+        return all(float(v) == 0.0 for v in vals)
+
+    # ✅ signals가 있으면, breakdown이 의미없을 때 강제 재생성
+    if isinstance(signals, dict) and signals and _is_empty_breakdown(bd):
+        bd = build_breakdown_from_signals(signals)
+
+    # ✅ total_score는 breakdown 합으로 강제 (항상)
+    total = round(sum(float(v) for v in bd.values() if isinstance(v, (int, float))), 2)
+
+    row["score_breakdown"] = bd
+    row["total_score"] = total
+
+    # scores(dict)가 있으면 total 동기화(선택)
+    if isinstance(row.get("scores"), dict):
+        row["scores"]["total"] = total
+
+    return row
 
 
 def main():
@@ -344,6 +428,37 @@ def main():
         return
 
     scored_rows = score_ideas_v2_from_ideas_only(ideas)
+
+    # 🔥 signals → breakdown 강제 생성 + total 재계산
+    def _to_float(x):
+       try:
+           return float(x)
+       except:
+           return 0.0
+
+    for row in scored_rows:
+        sig = row.get("signals") or {}
+
+        # breakdown 새로 생성 (signals 기반)
+        breakdown = {
+            "novelty": _to_float(sig.get("novelty")),
+            "feasibility": _to_float(sig.get("feasibility")),
+            "trend": _to_float(sig.get("trend_boost")) + _to_float(sig.get("market_pull")),
+            "risk": 0.0,  # 지금 risk signal 없으니까 0 유지
+        }
+
+        # total_score = breakdown 합 * 스케일
+        total = sum(breakdown.values()) * 25   # 🔥 스케일링 (지금 total 40~50 맞추기)
+        total = round(total, 2)
+
+        row["score_breakdown"] = breakdown
+        row["total_score"] = total
+
+        if isinstance(row.get("scores"), dict):
+           row["scores"]["total"] = total
+      
+    print("DEBUG ideas:", len(ideas), "scored_rows:", len(scored_rows))
+
     idea_map = { (i.get("idea_id") or ""): i for i in ideas }
 
     for r in scored_rows:
@@ -468,8 +583,14 @@ def main():
         r["evidence_count"] = len(r["evidence"]) if isinstance(r.get("evidence"), list) else 0
     out_path = ROOT / "data" / "reports" / "idea_cards.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    
+    for row in ranked_top:
+        bd = row.get("score_breakdown") or {}
+        if isinstance(bd, dict) and bd:
+            row["total_score"] = round(sum(float(v) for v in bd.values()), 2)
+    
     with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(ideas, f, ensure_ascii=False, indent=2)
+        json.dump(ranked_top, f, ensure_ascii=False, indent=2)
     print(f"✅ idea_cards.json updated → {out_path}")
     
     result = package_result(ideas, ranked_top)

@@ -1,0 +1,342 @@
+[
+  {
+    "rank": 1,
+    "idea_id": "IDEA-003",
+    "title": "(untitled)",
+    "summary": "",
+    "tags": [
+      "b2b",
+      "workflow",
+      "compliance"
+    ],
+    "trend": "",
+    "total_score": 2.630213559726526,
+    "scores": {
+      "total": 2.630213559726526,
+      "breakdown": {
+        "base": {
+          "contribution": 2.630213559726526,
+          "why": "model/base total score"
+        }
+      }
+    },
+    "score_breakdown": {
+      "novelty": 0.48611468225399523,
+      "feasibility": 0.6265244012788873,
+      "trend": 1.5175744761936436,
+      "risk": 0.0
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 2,
+    "idea_id": "IDEA-007",
+    "title": "(untitled)",
+    "summary": "",
+    "tags": [
+      "workflow",
+      "integration",
+      "automation"
+    ],
+    "trend": "",
+    "total_score": 2.3407071533115706,
+    "scores": {
+      "total": 2.3407071533115706,
+      "breakdown": {
+        "base": {
+          "contribution": 2.3407071533115706,
+          "why": "model/base total score"
+        }
+      }
+    },
+    "score_breakdown": {
+      "novelty": 0.5147016433692061,
+      "feasibility": 0.6035461787405098,
+      "trend": 1.2224593312018546,
+      "risk": 0.0
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 3,
+    "idea_id": "IDEA-008",
+    "title": "(untitled)",
+    "summary": "",
+    "tags": [
+      "security",
+      "compliance",
+      "devops"
+    ],
+    "trend": "",
+    "total_score": 2.331560836885524,
+    "scores": {
+      "total": 2.331560836885524,
+      "breakdown": {
+        "base": {
+          "contribution": 2.331560836885524,
+          "why": "model/base total score"
+        },
+        "signal:security": {
+          "contribution": 0.06,
+          "why": "keyword match: security"
+        }
+      }
+    },
+    "score_breakdown": {
+      "novelty": 0.5055553269431596,
+      "feasibility": 0.6035461787405098,
+      "trend": 1.2224593312018546,
+      "risk": 0.0
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 4,
+    "idea_id": "IDEA-006",
+    "title": "(untitled)",
+    "summary": "",
+    "tags": [
+      "retention",
+      "analytics",
+      "b2b"
+    ],
+    "trend": "",
+    "total_score": 2.278929387365416,
+    "scores": {
+      "total": 2.278929387365416,
+      "breakdown": {
+        "base": {
+          "contribution": 2.278929387365416,
+          "why": "model/base total score"
+        }
+      }
+    },
+    "score_breakdown": {
+      "novelty": 0.5415704832167998,
+      "feasibility": 0.6148995729467615,
+      "trend": 1.1224593312018545,
+      "risk": 0.0
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 5,
+    "idea_id": "IDEA-002",
+    "title": "(untitled)",
+    "summary": "",
+    "tags": [
+      "devops",
+      "sre",
+      "automation"
+    ],
+    "trend": "",
+    "total_score": 2.2419320353031504,
+    "scores": {
+      "total": 2.2419320353031504,
+      "breakdown": {
+        "base": {
+          "contribution": 2.2419320353031504,
+          "why": "model/base total score"
+        }
+      }
+    },
+    "score_breakdown": {
+      "novelty": 0.5383858565626407,
+      "feasibility": 0.6035461787405098,
+      "trend": 1.1,
+      "risk": 0.0
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 6,
+    "idea_id": "IDEA-005",
+    "title": "(untitled)",
+    "summary": "",
+    "tags": [
+      "cloud",
+      "cost",
+      "automation"
+    ],
+    "trend": "",
+    "total_score": 2.236420669829729,
+    "scores": {
+      "total": 2.236420669829729,
+      "breakdown": {
+        "base": {
+          "contribution": 2.236420669829729,
+          "why": "model/base total score"
+        },
+        "signal:cloud": {
+          "contribution": 0.04,
+          "why": "keyword match: cloud"
+        }
+      }
+    },
+    "score_breakdown": {
+      "novelty": 0.5104151598873646,
+      "feasibility": 0.6035461787405098,
+      "trend": 1.1224593312018545,
+      "risk": 0.0
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 7,
+    "idea_id": "IDEA-010",
+    "title": "(untitled)",
+    "summary": "",
+    "tags": [
+      "privacy",
+      "pii",
+      "compliance"
+    ],
+    "trend": "",
+    "total_score": 2.1154486915781834,
+    "scores": {
+      "total": 2.1154486915781834,
+      "breakdown": {
+        "base": {
+          "contribution": 2.1154486915781834,
+          "why": "model/base total score"
+        }
+      }
+    },
+    "score_breakdown": {
+      "novelty": 0.5119025128376735,
+      "feasibility": 0.6035461787405098,
+      "trend": 1.0,
+      "risk": 0.0
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 8,
+    "idea_id": "IDEA-004",
+    "title": "(untitled)",
+    "summary": "",
+    "tags": [
+      "hr",
+      "recommendation",
+      "analytics"
+    ],
+    "trend": "",
+    "total_score": 1.9574087274461076,
+    "scores": {
+      "total": 1.9574087274461076,
+      "breakdown": {
+        "base": {
+          "contribution": 1.9574087274461076,
+          "why": "model/base total score"
+        }
+      }
+    },
+    "score_breakdown": {
+      "novelty": 0.5763218799074524,
+      "feasibility": 0.6035461787405098,
+      "trend": 0.7775406687981454,
+      "risk": 0.0
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 9,
+    "idea_id": "IDEA-001",
+    "title": "(untitled)",
+    "summary": "",
+    "tags": [
+      "ai",
+      "news",
+      "dashboard"
+    ],
+    "trend": "",
+    "total_score": 1.9344542203383082,
+    "scores": {
+      "total": 1.9344542203383082,
+      "breakdown": {
+        "base": {
+          "contribution": 1.9344542203383082,
+          "why": "model/base total score"
+        },
+        "signal:ai": {
+          "contribution": 0.06,
+          "why": "keyword match: ai"
+        }
+      }
+    },
+    "score_breakdown": {
+      "novelty": 0.5533673727996529,
+      "feasibility": 0.6035461787405098,
+      "trend": 0.7775406687981454,
+      "risk": 0.0
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  },
+  {
+    "rank": 10,
+    "idea_id": "IDEA-009",
+    "title": "(untitled)",
+    "summary": "",
+    "tags": [
+      "ai",
+      "multi-agent",
+      "real-time"
+    ],
+    "trend": "",
+    "total_score": 1.909069871769232,
+    "scores": {
+      "total": 1.909069871769232,
+      "breakdown": {
+        "base": {
+          "contribution": 1.909069871769232,
+          "why": "model/base total score"
+        },
+        "signal:ai": {
+          "contribution": 0.06,
+          "why": "keyword match: ai"
+        },
+        "signal:agent": {
+          "contribution": 0.05,
+          "why": "keyword match: agent"
+        }
+      }
+    },
+    "score_breakdown": {
+      "novelty": 0.49074179903855786,
+      "feasibility": 0.6407874039325288,
+      "trend": 0.7775406687981454,
+      "risk": 0.0
+    },
+    "evidence": [],
+    "evidence_count": 0,
+    "risks": [],
+    "assumptions": []
+  }
+]
