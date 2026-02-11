@@ -608,11 +608,11 @@
           ? r.score_breakdown
           : ((r.scores && typeof r.scores === "object") ? r.scores : {});
 
-        const bdEntries = Object.entries(bdObj).filter(([k, v]) => typeof v === "number");
+        const bdEntriesRaw = Object.entries(bdObj).filter(([k, v]) => typeof v === "number");
         
         let warn = "";
-        if (bdEntries && bdEntries.length) {
-          const bdSum = bdEntries.reduce((acc, [,v]) => acc + v, 0);
+        if (bdEntriesRaw && bdEntriesRaw.length) {
+          const bdSum = bdEntriesRaw.reduce((acc, [,v]) => acc + v, 0);
           if (Math.abs(bdSum - score) > (isUnit ? 0.01 : 0.1)) {
             warn = '<span class="warn">⚠︎</span>';
           }
