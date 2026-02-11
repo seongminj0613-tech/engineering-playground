@@ -1,116 +1,521 @@
+<<<<<<< HEAD
 {
   "date": "2026-02-11",
-  "topn": 15,
+  "topn": 25,
   "items": [
     {
       "idea_id": "IDEA-003",
       "rank": 1,
-      "title": "(untitled)",
+      "title": "B2B Workflow Scoring",
       "tags": [
         "b2b",
         "workflow",
         "compliance"
       ],
-      "total_score": 2.630213559726526
-    },
-    {
-      "idea_id": "IDEA-007",
-      "rank": 2,
-      "title": "(untitled)",
-      "tags": [
-        "workflow",
-        "integration",
-        "automation"
-      ],
-      "total_score": 2.3407071533115706
-    },
-    {
-      "idea_id": "IDEA-008",
-      "rank": 3,
-      "title": "(untitled)",
-      "tags": [
-        "security",
-        "compliance",
-        "devops"
-      ],
-      "total_score": 2.331560836885524
+      "total_score": 50.8
     },
     {
       "idea_id": "IDEA-006",
-      "rank": 4,
-      "title": "(untitled)",
+      "rank": 2,
+      "title": "Customer Churn Early Warning",
       "tags": [
         "retention",
         "analytics",
         "b2b"
       ],
-      "total_score": 2.278929387365416
+      "total_score": 47.69
     },
     {
-      "idea_id": "IDEA-002",
-      "rank": 5,
-      "title": "(untitled)",
+      "idea_id": "IDEA-007",
+      "rank": 3,
+      "title": "Meeting Notes to Jira Tasks",
       "tags": [
-        "devops",
-        "sre",
+        "workflow",
+        "integration",
         "automation"
       ],
-      "total_score": 2.2419320353031504
+      "total_score": 47.49
     },
     {
       "idea_id": "IDEA-005",
-      "rank": 6,
-      "title": "(untitled)",
+      "rank": 4,
+      "title": "Cloud Cost Leak Detector",
       "tags": [
         "cloud",
         "cost",
         "automation"
       ],
-      "total_score": 2.236420669829729
+      "total_score": 47.15
     },
     {
       "idea_id": "IDEA-010",
-      "rank": 7,
-      "title": "(untitled)",
+      "rank": 5,
+      "title": "Privacy-safe Data Collector",
       "tags": [
         "privacy",
         "pii",
         "compliance"
       ],
-      "total_score": 2.1154486915781834
+      "total_score": 46.72
     },
     {
-      "idea_id": "IDEA-004",
-      "rank": 8,
-      "title": "(untitled)",
+      "idea_id": "IDEA-008",
+      "rank": 6,
+      "title": "Security Policy Drift Monitor",
       "tags": [
-        "hr",
-        "recommendation",
-        "analytics"
+        "security",
+        "compliance",
+        "devops"
       ],
-      "total_score": 1.9574087274461076
+      "total_score": 46.34
+    },
+    {
+      "idea_id": "IDEA-002",
+      "rank": 7,
+      "title": "Ops Incident Playbook Generator",
+      "tags": [
+        "devops",
+        "sre",
+        "automation"
+      ],
+      "total_score": 45.49
     },
     {
       "idea_id": "IDEA-001",
-      "rank": 9,
-      "title": "(untitled)",
+      "rank": 8,
+      "title": "Daily Trend Radar",
       "tags": [
         "ai",
         "news",
         "dashboard"
       ],
-      "total_score": 1.9344542203383082
+      "total_score": 43.14
+    },
+    {
+      "idea_id": "IDEA-004",
+      "rank": 9,
+      "title": "Resume-to-Job Fit Matcher",
+      "tags": [
+        "hr",
+        "recommendation",
+        "analytics"
+      ],
+      "total_score": 42.82
     },
     {
       "idea_id": "IDEA-009",
       "rank": 10,
-      "title": "(untitled)",
+      "title": "Real-time Multi-agent Research",
       "tags": [
         "ai",
         "multi-agent",
         "real-time"
       ],
-      "total_score": 1.909069871769232
+      "total_score": 42.78
     }
   ]
 }
+=======
+[
+  {
+    "idea_id": "IDEA-003",
+    "idea_id_raw": "IDEA-003",
+    "total_score": 2.63,
+    "signals": {
+      "novelty": 0.48611468225399523,
+      "specificity": 0.3775406687981454,
+      "feasibility": 0.6265244012788873,
+      "market_pull": 0.8175744761936437,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.7,
+      "freshness": 0.4
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "b2b",
+      "workflow",
+      "compliance"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.48611468225399523,
+      "feasibility": 0.6265244012788873,
+      "trend": 1.5175744761936436,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 1,
+    "rank_prev": 1,
+    "rank_delta": 0,
+    "score_prev": 50.8,
+    "score_delta": 14.96
+  },
+  {
+    "idea_id": "IDEA-007",
+    "idea_id_raw": "IDEA-007",
+    "total_score": 2.34,
+    "signals": {
+      "novelty": 0.5147016433692061,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.6224593312018546,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.6,
+      "freshness": 0.4
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "workflow",
+      "integration",
+      "automation"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.5147016433692061,
+      "feasibility": 0.6035461787405098,
+      "trend": 1.2224593312018546,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 2,
+    "rank_prev": 3,
+    "rank_delta": 1,
+    "score_prev": 47.49,
+    "score_delta": 11.03
+  },
+  {
+    "idea_id": "IDEA-008",
+    "idea_id_raw": "IDEA-008",
+    "total_score": 2.33,
+    "signals": {
+      "novelty": 0.5055553269431596,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.6224593312018546,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.6,
+      "freshness": 0.4
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "security",
+      "compliance",
+      "devops"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.5055553269431596,
+      "feasibility": 0.6035461787405098,
+      "trend": 1.2224593312018546,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 3,
+    "rank_prev": 6,
+    "rank_delta": 3,
+    "score_prev": 46.28,
+    "score_delta": 12.01
+  },
+  {
+    "idea_id": "IDEA-006",
+    "idea_id_raw": "IDEA-006",
+    "total_score": 2.28,
+    "signals": {
+      "novelty": 0.5415704832167998,
+      "specificity": 0.358165954911269,
+      "feasibility": 0.6148995729467615,
+      "market_pull": 0.6224593312018546,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.5,
+      "freshness": 0.4
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "retention",
+      "analytics",
+      "b2b"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.5415704832167998,
+      "feasibility": 0.6148995729467615,
+      "trend": 1.1224593312018545,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 4,
+    "rank_prev": 2,
+    "rank_delta": -2,
+    "score_prev": 47.69,
+    "score_delta": 9.28
+  },
+  {
+    "idea_id": "IDEA-002",
+    "idea_id_raw": "IDEA-002",
+    "total_score": 2.24,
+    "signals": {
+      "novelty": 0.5383858565626407,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.5,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.6,
+      "freshness": 0.4
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "devops",
+      "sre",
+      "automation"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.5383858565626407,
+      "feasibility": 0.6035461787405098,
+      "trend": 1.1,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 5,
+    "rank_prev": 7,
+    "rank_delta": 2,
+    "score_prev": 45.49,
+    "score_delta": 10.56
+  },
+  {
+    "idea_id": "IDEA-005",
+    "idea_id_raw": "IDEA-005",
+    "total_score": 2.24,
+    "signals": {
+      "novelty": 0.5104151598873646,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.6224593312018546,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.5,
+      "freshness": 0.4
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "cloud",
+      "cost",
+      "automation"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.5104151598873646,
+      "feasibility": 0.6035461787405098,
+      "trend": 1.1224593312018545,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 6,
+    "rank_prev": 4,
+    "rank_delta": -2,
+    "score_prev": 47.11,
+    "score_delta": 8.8
+  },
+  {
+    "idea_id": "IDEA-010",
+    "idea_id_raw": "IDEA-010",
+    "total_score": 2.12,
+    "signals": {
+      "novelty": 0.5119025128376735,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.5,
+      "evidence": 0.2,
+      "clarity": 0.7,
+      "trend_boost": 0.5,
+      "freshness": 0.4
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "privacy",
+      "pii",
+      "compliance"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.5119025128376735,
+      "feasibility": 0.6035461787405098,
+      "trend": 1.0,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 7,
+    "rank_prev": 5,
+    "rank_delta": -2,
+    "score_prev": 46.69,
+    "score_delta": 6.2
+  },
+  {
+    "idea_id": "IDEA-004",
+    "idea_id_raw": "IDEA-004",
+    "total_score": 1.96,
+    "signals": {
+      "novelty": 0.5763218799074524,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.3775406687981454,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.4,
+      "freshness": 0.4
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "hr",
+      "recommendation",
+      "analytics"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.5763218799074524,
+      "feasibility": 0.6035461787405098,
+      "trend": 0.7775406687981454,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 8,
+    "rank_prev": 9,
+    "rank_delta": 1,
+    "score_prev": 42.82,
+    "score_delta": 6.12
+  },
+  {
+    "idea_id": "IDEA-001",
+    "idea_id_raw": "IDEA-001",
+    "total_score": 1.93,
+    "signals": {
+      "novelty": 0.5533673727996529,
+      "specificity": 0.33924363123418283,
+      "feasibility": 0.6035461787405098,
+      "market_pull": 0.3775406687981454,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.4,
+      "freshness": 0.4
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "ai",
+      "news",
+      "dashboard"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.5533673727996529,
+      "feasibility": 0.6035461787405098,
+      "trend": 0.7775406687981454,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 9,
+    "rank_prev": 8,
+    "rank_delta": -1,
+    "score_prev": 43.08,
+    "score_delta": 5.28
+  },
+  {
+    "idea_id": "IDEA-009",
+    "idea_id_raw": "IDEA-009",
+    "total_score": 1.91,
+    "signals": {
+      "novelty": 0.49074179903855786,
+      "specificity": 0.401312339887548,
+      "feasibility": 0.6407874039325288,
+      "market_pull": 0.3775406687981454,
+      "evidence": 0.05,
+      "clarity": 0.7,
+      "trend_boost": 0.4,
+      "freshness": 0.4
+    },
+    "signal_count": 8,
+    "evidence": [],
+    "market_signal": 0.0,
+    "tags": [
+      "ai",
+      "multi-agent",
+      "real-time"
+    ],
+    "risk": "unknown",
+    "impact": "unknown",
+    "confidence": "unknown",
+    "market": "unknown",
+    "feasibility": "unknown",
+    "score_breakdown": {
+      "novelty": 0.49074179903855786,
+      "feasibility": 0.6407874039325288,
+      "trend": 0.7775406687981454,
+      "risk": 0.0
+    },
+    "evidence_count": 0,
+    "rank": 10,
+    "rank_prev": 10,
+    "rank_delta": 0,
+    "score_prev": 42.67,
+    "score_delta": 5.06
+  }
+]
+>>>>>>> 1b26bfa (fix(scoring): enforce total_score=sum(score_breakdown))
