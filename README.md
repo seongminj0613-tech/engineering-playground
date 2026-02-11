@@ -1,9 +1,10 @@
 # SignalRank — AI 기반 아이디어 우선순위 분석 시스템
+실시간 데이터와 아이디어를 기반으로 실행 가능성과 시장성을 점수화하여 아이디어를 자동으로 랭킹화하고 변화 추이를 추적하는 운영형 데이터 파이프라인
 
-실시간 데이터와 아이디어를 기반으로  
-실행 가능성과 시장성을 점수화하여  
-아이디어를 자동으로 랭킹화하고 변화 추이를 추적하는  
-운영형 데이터 파이프라인 프로젝트
+운영형 자동데이터 파이프라인
+아이디어  →  점수화  →  랭킹  →  히스토리  → 배포
+자동으로 실행되는 DevOps 기반 분석 시스템
+
 
 👉 Live Dashboard  
 https://seongminj0613-tech.github.io/engineering-playground/
@@ -16,14 +17,12 @@ https://seongminj0613-tech.github.io/engineering-playground/
 ## 📌 프로젝트 개요
 
 브레인스토밍과 회의에서는 많은 아이디어가 나오지만  
-객관적인 기준 없이 사라지는 경우가 많다.
-
+객관적인 기준 없이 사라지는 경우가 많습니다.
 SignalRank는  
-뉴스·기술 트렌드·아이디어 데이터를 수집하고  
+뉴스·기술 트렌드·아이디어 데이터를 수집하여 
 정량적 기준으로 점수화하여  
-
-**실행 가능성 있는 아이디어를 자동으로 선별하고  
-변화 흐름까지 추적하는 시스템**을 목표로 한다.
+실행 가능성 있는 아이디어를 자동으로 선별하고  
+변화 흐름까지 추적하는 시스템을 목표로 개발.
 
 단순 시각화 프로젝트가 아니라  
 실제 운영 가능한 자동화 데이터 파이프라인 구축을 중심으로 설계하였습니다.
@@ -32,16 +31,19 @@ SignalRank는
 
 ## 🏗️ System Architecture
 
-Data Ingestion  
-→ Idea scoring pipeline  
-→ Ranking system  
-→ Daily snapshot 저장  
-→ Ranking 변화 추적  
-→ GitHub Pages 자동 배포  
+Ingestion Layer  
+→ Signal & Evidence Extraction  
+→ Scoring Engine (score_breakdown 기반)  
+→ Validation Layer  
+→ Ranking & Snapshot 생성  
+→ GitHub Actions Automation  
+→ GitHub Pages 배포
 
 GitHub Actions를 통해  
 데이터 수집부터 결과 배포까지  
-완전 자동 실행 구조로 구성됨
+자동으로 실행되는 구조로 구성됨
+
+각 단계는 독립 모듈로 구성되었으며 scoring 로직 변경이나 데이터 소스 확장 시 파이프라인 전체를 수정하지 않고 확장 가능하도록 설계하였습니다.
 
 ---
 
@@ -66,6 +68,13 @@ GitHub Actions를 통해
 - 데이터 → 점수화 → 랭킹 → 페이지 배포 자동화
 - 완전 무인 운영 구조
 
+### Scoring Model Design
+- score_breakdown 기반 설명 가능한 점수 구조
+- total_score = sum(score_breakdown) 검증 구조
+- evidence + signals 기반 scoring
+- deterministic scoring pipeline (재현성 보장)
+점수 계산 과정을 블랙박스가 아니라 검증 가능한 deterministic 구조로 설계
+운영 환경에서도 재현성과 신뢰성을 유지하도록 설계
 ---
 
 ## 🧠 Tech Stack
@@ -109,19 +118,21 @@ Ranking history tracking
 단순한 시각화나 크롤링 프로젝트가 아니라
 
 데이터 수집 → 점수화 → 랭킹 → 기록 → 자동배포까지 이어지는  
-**운영형 데이터 파이프라인 설계 경험**을 목표로 제작
+**운영형 데이터 파이프라인 설계**를 목표로 제작
 
 DevOps/Cloud 환경에서  
-자동 실행되는 분석 시스템 구축을 중점으로 발전시키고 있다.
+자동 실행되는 분석 시스템 구축을 중점으로 발전시키고 있습니다.
 
+특히 점수 산정 과정을 블랙박스가 아니라 설명 가능한 구조(score_breakdown)
+로 설계한 것이 핵심입니다.
 ---
 
 ## 🚀 Next Step (Planned)
 
-- Docker 기반 실행 환경 구성
-- AWS 배포 확장
-- Vector DB 기반 신호 분석
-- AI 기반 아이디어 평가 모델 고도화
+- Scoring 품질 고도화 (trend weight / rank delta)
+- Evidence 기반 신뢰도 점수 모델
+- Docker + AWS 운영 환경 확장
+- AI는 scoring 결정이 아닌 signal/evidence 보조로 활용 예정
 
 ## 👨‍💻 My Role
 

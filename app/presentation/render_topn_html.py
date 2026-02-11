@@ -18,6 +18,8 @@ ROOT = Path(__file__).resolve().parents[2]  # app/ 기준 2단계 위
 DATA_DIR = ROOT / "data"
 DOCS_DIR = ROOT / "docs"
 
+HISTORY_DATA_DIR = DOCS_DIR / "history" / "data"
+
 # ✅ 너 프로젝트에서 "최신 결과" 파일명에 맞춰서 하나만 쓰면 됨
 CANDIDATES = [
     DATA_DIR / "reports" / "idea_cards.json",
@@ -287,6 +289,57 @@ def compute_kpis(table_rows: list[dict]) -> dict:
         "score_avg": avg,
     }
 
+def fmt_rank_delta(x):
+    if x is None:
+        return "NEW"
+    try:
+        x = int(x)
+    except:
+        return "-"
+    if x > 0:
+        return f"▲{x}"
+    if x < 0:
+        return f"▼{abs(x)}"
+    return "-"
+
+def fmt_score_delta(x):
+    if x is None:
+        return "NEW"
+    try:
+        x = float(x)
+    except:
+        return "-"
+    if x > 0:
+        return f"+{x:.2f}"
+    if x < 0:
+        return f"{x:.2f}"
+    return "0.00"
+  
+def fmt_rank_delta(d):
+    if d is None:
+        return "NEW"
+    try:
+        d = int(d)
+    except Exception:
+        return "-"
+    if d > 0:
+        return f"▲{d}"
+    if d < 0:
+        return f"▼{abs(d)}"
+    return "-"
+
+def fmt_score_delta(d):
+    if d is None:
+        return "NEW"
+    try:
+        d = float(d)
+    except Exception:
+        return "-"
+    if d > 0:
+        return f"+{d:.2f}"
+    if d < 0:
+        return f"{d:.2f}"
+    return "0.00"  
 
 def build_html(table_rows: list[dict]) -> str:
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -736,6 +789,8 @@ def build_html(table_rows: list[dict]) -> str:
     @media (max-width: 900px) {{
       .detail-grid {{ grid-template-columns: 1fr; }}
     }}
+    .breakdown-row.total {{ font-weight: 700; border-top: 1px dashed #ddd; padding-top: 6px; margin-top: 6px; }}
+    .warn {{ margin-left: 6px; font-weight: 700; }}
   </style>
 </head>
 
@@ -919,9 +974,43 @@ def build_html(table_rows: list[dict]) -> str:
         const summary = esc(String(r.summary || "")).slice(0, 260);
         const tags = fmtTags(r.tags);
         const score = scoreOf(r);
+        const bdObj = (r.score_breakdown && typeof r.score_breakdown === "object")
+          ? r.score_breakdown
+          : ((r.scores && typeof r.scores === "object") ? r.scores : {{}});
+
+        const bdEntries = Object.entries(bdObj).filter(([k, v]) => typeof v === "number");
+        
+        let warn = "";
+        if (bdEntries && bdEntries.length) {{
+          const bdSum = bdEntries.reduce((acc, [,v]) => acc + v, 0);
+          if (Math.abs(bdSum - score) > (isUnit ? 0.01 : 0.1)) {{
+            warn = '<span class="warn">⚠︎</span>';
+          }}
+        }}
+        
         const pct = isUnit ? Math.max(0, Math.min(100, score * 100)) : Math.max(0, Math.min(100, score));
         const badge = badgeClass(score);
-        const delta = deltaSpan(r.rank_delta);
+        const rd = (r.rank_delta === undefined ? null : r.rank_delta);
+        const sd = (r.score_delta === undefined ? null : r.score_delta);
+
+        const rankDeltaClass = (rd === null) ? "new" : (rd > 0 ? "up" : (rd < 0 ? "down" : "same"));
+
+        const rankDeltaText =
+          (rd === null) ? "NEW" :
+          (rd > 0) ? `▲${{rd}}` :
+          (rd < 0) ? `▼${{Math.abs(rd)}}` :
+          "-";
+
+        const scoreDeltaText =
+          (sd === null) ? "NEW" :
+          (Number(sd) > 0) ? `+${{Number(sd).toFixed(2)}}` :
+          (Number(sd) < 0) ? `${{Number(sd).toFixed(2)}}` :
+          "0.00";
+        
+        const delta = `
+          <span class="delta ${{rankDeltaClass}}">${{rankDeltaText}}</span>
+          <span class="delta">${{scoreDeltaText}}</span>
+        `;
         const evCount = toNum(r.evidence_count, 0);
         let evHtml = "";
         if (Array.isArray(r.evidence) && r.evidence.length){{
@@ -933,20 +1022,29 @@ def build_html(table_rows: list[dict]) -> str:
            }}
            evHtml += "</div>";
         }}
-        const bd = (r.score_breakdown && typeof r.score_breakdown === "object") ? r.score_breakdown : {{}};
-        const bdKeys = Object.keys(bd);
-
+        const bd = (r.score_breakdown && typeof r.score_breakdown === "object") ? r.score_breakdown : ;{}}
+        const bdEntries = Object.entries(bd)
+          .map(([k,v]) => [String(k), toNum(v, 0)])
+          .sort((a,b) => b[1] - a[1]);
+ 
         let bdHtml = "";
-        if (bdKeys.length) {{
+        if (bdEntries.length) {{
+          const bdSum = bdEntries.reduce((acc, [,v]) => acc + v, 0);
+
           bdHtml += '<div class="breakdown">';
           bdHtml += '<div class="breakdown-title">score breakdown</div>';
-          for (const k of bdKeys) {{
-            const kk = esc(String(k));
-            const vv = toNum(bd[k], 0);
-            bdHtml += '<div class="breakdown-row"><span>' + kk + '</span><b>' + (isUnit ? vv.toFixed(3) : vv.toFixed(2)) + '</b></div>';
+
+          // ✅ Total = sum(breakdown) 보이게
+          bdHtml += '<div class="breakdown-row total"><span>Total</span><b>' +
+            (isUnit ? bdSum.toFixed(3) : bdSum.toFixed(2)) + '</b></div>';
+
+          for (const [k, vv] of bdEntries) {{
+             const kk = esc(k);
+             bdHtml += '<div class="breakdown-row"><span>' + kk + '</span><b>' +
+               (isUnit ? vv.toFixed(3) : vv.toFixed(2)) + '</b></div>';
           }}
           bdHtml += "</div>";
-        }}
+        }} 
        
         
 
@@ -957,11 +1055,11 @@ def build_html(table_rows: list[dict]) -> str:
                 <div class="rank">#${{toNum(r.rank, 0)}} ${{delta}}</div>
                 <div class="title">${{title}}</div>
                 <div class="meta">
-                  <span class="id">${{ideaId || "no-id"}}</span>
+                  <span class="id">${{ideaId | "no-id"}}</span>
                   <span>Evidence: <b style="color: rgba(255,255,255,0.88);">${{evCount}}</b></span>
                 </div>
                 <div class="summary">${{summary}}</div>
-                <div class="pillrow">${{tags || '<span class="pill muted">no tags</span>'}}</div>
+                <div class="pillrow">${{tags | '<span class="pill muted">no tags</span>'}}</div>
                 ${{bdHtml}}
                 ${{evHtml}}
               </div>
@@ -1032,6 +1130,50 @@ def save_daily_run_json(day: str, rows: list[dict]) -> Path:
     out = outdir / f"{day}.json"
     out.write_text(json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8")
     return out
+  
+def load_prev_score_map(today_slug: str) -> dict:
+    """
+    history/data/index.json 기준으로 '오늘 이전' 가장 최근 스냅샷을 찾아
+    idea_id -> total_score 맵을 만든다.
+    """
+    index_path = ROOT / "docs" / "history" / "data" / "index.json"   # 너 파일에 이미 있음 (9707.json 옆의 155바이트 그거)
+    if not index_path.exists():
+        return {}
+
+    try:
+        idx = json.loads(index_path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+    # index.json 포맷이 list든 dict든 방어
+    if isinstance(idx, dict):
+        dates = idx.get("dates") or idx.get("items") or idx.get("history") or []
+    else:
+        dates = idx
+
+    # 오늘 이전 날짜들만
+    dates = [d for d in dates if isinstance(d, str) and d < today_slug]
+    if not dates:
+        return {}
+
+    prev_day = sorted(dates)[-1]
+    prev_path = HISTORY_DATA_DIR / f"{prev_day}.json"
+    if not prev_path.exists():
+        return {}
+
+    try:
+        rows = json.loads(prev_path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+    out = {}
+    if isinstance(rows, list):
+        for r in rows:
+            idea_id = (r.get("idea_id") or "").strip()
+            if not idea_id:
+                continue
+            out[idea_id] = float(r.get("total_score") or 0.0)
+    return out
 
 
 def main(top_n: int = 15) -> None:
@@ -1047,6 +1189,22 @@ def main(top_n: int = 15) -> None:
 
     # ✅ rank delta 계산 (전날 스냅샷 기준) - snapshots.py가 list/dict 포맷 방지 로직 갖고 있어야 안정적
     prev_rank = load_prev_rank_map(today)
+    prev_score = load_prev_score_map(today)  # ✅ 추가 (아래 함수는 내가 같이 줄게)
+ 
+    for item in top:
+        idea_id = item.get("idea_id") or ""
+
+        # rank delta
+        prev_r = prev_rank.get(idea_id)
+        item["rank_prev"] = prev_r
+        item["rank_delta"] = None if prev_r is None else (prev_r - item["rank"])
+
+        # score delta
+        prev_s = prev_score.get(idea_id)
+        item["score_prev"] = prev_s
+        cur_s = float(item.get("total_score") or 0.0)
+        item["score_delta"] = None if prev_s is None else round(cur_s - float(prev_s), 4)
+  
     for item in top:
         idea_id = item.get("idea_id") or ""
         prev = prev_rank.get(idea_id)

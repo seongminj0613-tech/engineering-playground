@@ -19,20 +19,14 @@ from app.presentation.render_topn_html import main as render_topn_html_main
 ROOT = Path(__file__).resolve().parents[1]
 
 
-
 def norm_idea_id(x) -> str:
     """
-    IDEA-001, IDEA_0000001, idea 1, IDEA1 등을 모두 'IDEA-<정수>'로 통일
+    idea id를 '형태만' 통일: 공백 제거 + 대문자.
+    숫자 포맷(003 같은 leading zero)은 유지해서 snapshot 매칭 안정화.
     """
     if x is None:
         return ""
-    s = str(x).strip().upper()
-    # 숫자만 뽑기
-    m = re.search(r"(\d+)", s)
-    if not m:
-        return s
-    n = int(m.group(1))
-    return f"IDEA-{n}"
+    return str(x).strip().upper()
 
 def load_jsonl(path: Path):
     rows = []
@@ -481,21 +475,40 @@ def main():
     print("DEBUG signals sample keys:", list((scored_rows[0].get("signals") or {}).keys()) if scored_rows else None)
     
     ranked_top = rank_scores(scored_rows, top_k=50)
-    today_str = dt.datetime.now().strftime("%Y-%m-%d")
-    prev_str = (dt.datetime.now() - dt.timedelta(days=1)).strftime("%Y-%m-%d")
+    ranked_top = rank_scores(scored_rows, top_k=50)
 
-    prev_path = ROOT / "docs" / "history" / "data" / f"{prev_str}.json"
+    today_str = dt.datetime.now().strftime("%Y-%m-%d")
+
+    history_dir = ROOT / "docs" / "history" / "data"
+
+    # 오늘 이전 가장 최신 snapshot 찾기
+    cands = sorted(history_dir.glob("*.json"))
+    cands = [p for p in cands if p.name != "index.json" and p.stem < today_str]
+
     prev_rows = []
-    if prev_path.exists():
+    prev_path = cands[-1] if cands else None
+
+    print("DEBUG prev_path:", prev_path, "exists:", (prev_path.exists() if prev_path else False))
+
+    if prev_path and prev_path.exists():
         try:
-            prev_obj = json.loads(prev_path.read_text(encoding="utf-8"))
-            # 네 스냅샷 포맷이 list면 그대로, dict면 items/rows 같은 키에서 꺼내기
+            raw = prev_path.read_text(encoding="utf-8")
+            prev_obj = json.loads(raw)
+
             if isinstance(prev_obj, list):
                 prev_rows = prev_obj
             elif isinstance(prev_obj, dict):
                 prev_rows = prev_obj.get("rows") or prev_obj.get("ranked") or prev_obj.get("items") or []
-        except Exception:
+            else:
+                prev_rows = []
+
+        except Exception as e:
+            print("❌ DEBUG prev load failed:", repr(e))
             prev_rows = []
+    else:
+        prev_rows = []
+
+    print("DEBUG prev_rows_len:", len(prev_rows))
 
     ranked_top = apply_rank_and_delta(ranked_top, prev_rows)
 
@@ -523,12 +536,12 @@ def main():
         idea["total_score"] = r.get("total_score", idea.get("total_score"))
         idea["rank"] = r.get("rank")
         idea["rank_delta"] = r.get("rank_delta")
+        idea["score_delta"] = r.get("score_delta")
 
         # evidence_count도 render에서 쓰면 좋음 (없으면 0)
         ev = idea.get("external_evidence") or idea.get("evidence") or []
         idea["evidence_count"] = len(ev) if isinstance(ev, list) else 0
-    # === FORCE ATTACH EXTERNAL EVIDENCE (취업용 안정버전) ===
-    import json
+
 
     ext_map = {}
     try:
@@ -608,6 +621,65 @@ def main():
     render(result)
     
     return
-   
+def apply_rank_and_delta(ranked_rows: list[dict], prev_rows: list[dict]) -> list[dict]:
+    # 안전 total_score 추출 함수
+    def get_total(x: dict) -> float:
+        if x is None:
+            return 0.0
+        if x.get("total_score") is not None:
+            try:
+                return float(x.get("total_score") or 0.0)
+            except:
+                return 0.0
+        s = x.get("scores")
+        if isinstance(s, dict):
+            try:
+                return float(s.get("total") or 0.0)
+            except:
+                return 0.0
+        return 0.0
+
+    def get_rank(x: dict):
+        if x is None:
+            return None
+        v = x.get("rank")
+        return None if v is None else int(v)
+
+    prev_by_id = { norm_idea_id(r.get("idea_id")): r for r in (prev_rows or []) }
+    print("DEBUG prev_rows_len:", len(prev_rows))
+    print("DEBUG prev_by_id_len:", len(prev_by_id))
+    print("DEBUG prev_sample_keys:", (list(prev_rows[0].keys())[:10] if prev_rows else None))
+
+
+    for r in ranked_rows:
+        if r.get("rank") == 1:
+            print("DEBUG cur_id:", r.get("idea_id"), "norm:", norm_idea_id(r.get("idea_id")), "prev_hit:", norm_idea_id(r.get("idea_id")) in prev_by_id)
+        iid = norm_idea_id(r.get("idea_id"))
+        p = prev_by_id.get(iid)
+
+        prev_rank = get_rank(p)
+        cur_rank = get_rank(r)
+
+        # rank delta
+        if prev_rank is None or cur_rank is None:
+            r["rank_prev"] = None
+            r["rank_delta"] = None
+        else:
+            r["rank_prev"] = prev_rank
+            r["rank_delta"] = prev_rank - cur_rank
+
+        # score delta
+        if p is None:
+            r["score_prev"] = None
+            r["score_delta"] = None
+        else:
+            prev_score = get_total(p)
+            cur_score = get_total(r)
+            r["score_prev"] = prev_score
+            r["score_delta"] = round(cur_score - prev_score, 4)
+
+    return ranked_rows
+
 if __name__ == "__main__":
+    
     main()

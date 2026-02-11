@@ -152,10 +152,10 @@
     },
     "evidence_count": 0,
     "rank": 1,
-    "rank_prev": 0,
+    "rank_prev": 1,
     "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 65.76
+    "score_prev": 50.8,
+    "score_delta": 14.96
   },
   {
     "idea_id": "IDEA-007",
@@ -192,10 +192,10 @@
     },
     "evidence_count": 0,
     "rank": 2,
-    "rank_prev": 0,
-    "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 58.52
+    "rank_prev": 3,
+    "rank_delta": 1,
+    "score_prev": 47.49,
+    "score_delta": 11.03
   },
   {
     "idea_id": "IDEA-008",
@@ -232,10 +232,10 @@
     },
     "evidence_count": 0,
     "rank": 3,
-    "rank_prev": 0,
-    "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 58.29
+    "rank_prev": 6,
+    "rank_delta": 3,
+    "score_prev": 46.28,
+    "score_delta": 12.01
   },
   {
     "idea_id": "IDEA-006",
@@ -272,10 +272,10 @@
     },
     "evidence_count": 0,
     "rank": 4,
-    "rank_prev": 0,
-    "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 56.97
+    "rank_prev": 2,
+    "rank_delta": -2,
+    "score_prev": 47.69,
+    "score_delta": 9.28
   },
   {
     "idea_id": "IDEA-002",
@@ -312,10 +312,10 @@
     },
     "evidence_count": 0,
     "rank": 5,
-    "rank_prev": 0,
-    "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 56.05
+    "rank_prev": 7,
+    "rank_delta": 2,
+    "score_prev": 45.49,
+    "score_delta": 10.56
   },
   {
     "idea_id": "IDEA-005",
@@ -352,10 +352,10 @@
     },
     "evidence_count": 0,
     "rank": 6,
-    "rank_prev": 0,
-    "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 55.91
+    "rank_prev": 4,
+    "rank_delta": -2,
+    "score_prev": 47.11,
+    "score_delta": 8.8
   },
   {
     "idea_id": "IDEA-010",
@@ -392,10 +392,10 @@
     },
     "evidence_count": 0,
     "rank": 7,
-    "rank_prev": 0,
-    "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 52.89
+    "rank_prev": 5,
+    "rank_delta": -2,
+    "score_prev": 46.69,
+    "score_delta": 6.2
   },
   {
     "idea_id": "IDEA-004",
@@ -432,10 +432,10 @@
     },
     "evidence_count": 0,
     "rank": 8,
-    "rank_prev": 0,
-    "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 48.94
+    "rank_prev": 9,
+    "rank_delta": 1,
+    "score_prev": 42.82,
+    "score_delta": 6.12
   },
   {
     "idea_id": "IDEA-001",
@@ -472,10 +472,10 @@
     },
     "evidence_count": 0,
     "rank": 9,
-    "rank_prev": 0,
-    "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 48.36
+    "rank_prev": 8,
+    "rank_delta": -1,
+    "score_prev": 43.08,
+    "score_delta": 5.28
   },
   {
     "idea_id": "IDEA-009",
@@ -512,10 +512,10 @@
     },
     "evidence_count": 0,
     "rank": 10,
-    "rank_prev": 0,
+    "rank_prev": 10,
     "rank_delta": 0,
-    "score_prev": 0.0,
-    "score_delta": 47.73
+    "score_prev": 42.67,
+    "score_delta": 5.06
   }
 ]
 >>>>>>> 1b26bfa (fix(scoring): enforce total_score=sum(score_breakdown))
