@@ -1,0 +1,116 @@
+{
+  "date": "2026-02-11",
+  "topn": 25,
+  "items": [
+    {
+      "idea_id": "IDEA-003",
+      "rank": 1,
+      "title": "B2B Workflow Scoring",
+      "tags": [
+        "b2b",
+        "workflow",
+        "compliance"
+      ],
+      "total_score": 50.8
+    },
+    {
+      "idea_id": "IDEA-006",
+      "rank": 2,
+      "title": "Customer Churn Early Warning",
+      "tags": [
+        "retention",
+        "analytics",
+        "b2b"
+      ],
+      "total_score": 47.69
+    },
+    {
+      "idea_id": "IDEA-007",
+      "rank": 3,
+      "title": "Meeting Notes to Jira Tasks",
+      "tags": [
+        "workflow",
+        "integration",
+        "automation"
+      ],
+      "total_score": 47.49
+    },
+    {
+      "idea_id": "IDEA-005",
+      "rank": 4,
+      "title": "Cloud Cost Leak Detector",
+      "tags": [
+        "cloud",
+        "cost",
+        "automation"
+      ],
+      "total_score": 47.15
+    },
+    {
+      "idea_id": "IDEA-010",
+      "rank": 5,
+      "title": "Privacy-safe Data Collector",
+      "tags": [
+        "privacy",
+        "pii",
+        "compliance"
+      ],
+      "total_score": 46.72
+    },
+    {
+      "idea_id": "IDEA-008",
+      "rank": 6,
+      "title": "Security Policy Drift Monitor",
+      "tags": [
+        "security",
+        "compliance",
+        "devops"
+      ],
+      "total_score": 46.34
+    },
+    {
+      "idea_id": "IDEA-002",
+      "rank": 7,
+      "title": "Ops Incident Playbook Generator",
+      "tags": [
+        "devops",
+        "sre",
+        "automation"
+      ],
+      "total_score": 45.49
+    },
+    {
+      "idea_id": "IDEA-001",
+      "rank": 8,
+      "title": "Daily Trend Radar",
+      "tags": [
+        "ai",
+        "news",
+        "dashboard"
+      ],
+      "total_score": 43.14
+    },
+    {
+      "idea_id": "IDEA-004",
+      "rank": 9,
+      "title": "Resume-to-Job Fit Matcher",
+      "tags": [
+        "hr",
+        "recommendation",
+        "analytics"
+      ],
+      "total_score": 42.82
+    },
+    {
+      "idea_id": "IDEA-009",
+      "rank": 10,
+      "title": "Real-time Multi-agent Research",
+      "tags": [
+        "ai",
+        "multi-agent",
+        "real-time"
+      ],
+      "total_score": 42.78
+    }
+  ]
+}
