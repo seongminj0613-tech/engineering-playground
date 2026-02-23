@@ -13,7 +13,11 @@ class ScoreModelV01:
             return (s.get("type") or "unknown").lower()
 
         def s_weight(s: dict) -> float:
-            v = s.get("value", 0.0)
+            v = s.get("value", None)
+            if v is None:
+                v = s.get("score", None)
+            if v is None:
+                v = s.get("weight", 0.0)
             try:
                 return float(v)
             except Exception:
@@ -39,19 +43,37 @@ class ScoreModelV01:
         volume = min(0.2, 0.02 * signal_count)
         novelty = min(0.2, 0.05 * max(0, source_count - 1))
 
-        raw = pos + risk + volume + novelty
-        total = max(0.0, min(1.0, raw))
+        # 🔥 signals dict (type -> weight)
+        sig = {s_type(s): s_weight(s) for s in signals}
+
+        novelty_s = float(sig.get("novelty", 0.0))
+        feas = float(sig.get("feasibility", 0.0))
+        market = float(sig.get("market_pull", 0.0))
+        clarity = float(sig.get("clarity", 0.0))
+        evidence_cnt = float(sig.get("evidence_count", 0.0))
+
+        # 🔥 가중 평균 방식 (0~1 스케일 유지)
+        score = (
+            novelty_s * 0.20 +
+            feas      * 0.30 +
+            market    * 0.25 +
+            clarity   * 0.15 +
+            min(evidence_cnt, 5.0) * 0.02
+        )
+
+        total = max(0.0, min(1.0, score))
 
         return {
             "total": round(total, 4),
             "components": {
-                "positive": round(pos, 4),
-                "risk": round(risk, 4),
-                "volume": round(volume, 4),
-                "novelty": round(novelty, 4),
+                "novelty": round(novelty_s, 4),
+                "feasibility": round(feas, 4),
+                "market_pull": round(market, 4),
+                "clarity": round(clarity, 4),
+                "evidence_count": round(evidence_cnt, 4),
             },
             "stats": {
-                "signal_count": signal_count,
-                "source_count": source_count,
+                "signal_count": len(signals),
+                "source_count": len({s_source(s) for s in signals}),
             },
         }

@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "meeting_name": "teamA.md",
+    "topn": 10,
+    "mode": "balanced"
+  },
+  "parse": {
+    "ideas_count": 3,
+    "dropped_count": 2,
+    "dropped": [
+      {"raw": "아이디어: A", "reason": "title_too_short(min=2)"},
+      {"raw": "아이디어: 1", "reason": "title_too_short(min=2)"}
+    ]
+  },
+  "top": [
+    {"rank": 1, "title": "...", "total_score": 78.2, "signals": {...}, "explain": [...]}
+  ]
+}

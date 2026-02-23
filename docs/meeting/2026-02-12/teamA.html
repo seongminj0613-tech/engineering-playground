@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>teamA (2026-02-12)</title>
+<style>
+body { margin:0; font-family: ui-sans-serif; background:#0b0f17; color:#e8eefc; }
+.wrap { display:grid; grid-template-columns: 1.2fr 0.8fr; gap:14px; padding:16px; max-width: 1200px; margin: 0 auto; }
+.card { padding:14px; border-radius:16px; background: rgba(255,255,255,0.06); }
+.list { display:flex; flex-direction:column; gap:8px; }
+.item { cursor:pointer; padding:10px; border-radius:12px; background: rgba(255,255,255,0.04); }
+.rank { font-weight:900; margin-right:6px; }
+.score { opacity:0.85; font-size:12px; }
+.pill { padding:4px 8px; border-radius:999px; background: rgba(157,193,255,0.12); font-size:12px; margin-right:6px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<div class="card" id="detail"></div>
+
+<div class="card">
+<div style="font-weight:900; margin-bottom:10px;">상용가능성 TOP</div>
+<div class="list" id="list"></div>
+</div>
+</div>
+
+<script>
+const items = [{"idea_id": "MEET-teamA-001", "title": "회의 내용 자동 요약 + 아이디어 상용성 랭킹", "reason": "회의 끝나고 정리 시간이 너무 오래 걸림. 바로 Top10 나오면 좋음.", "raw": "아이디어: 회의 내용 자동 요약 + 아이디어 상용성 랭킹\n이유: 회의 끝나고 정리 시간이 너무 오래 걸림. 바로 Top10 나오면 좋음.", "signals": {"novelty": 0.6, "specificity": 0.3775406687981454, "feasibility": 0.6265244012788873, "market_pull": 0.3775406687981454, "evidence": 0.05, "clarity": 0.7, "trend_boost": 0.0, "freshness": 0.0, "evidence_count": 0}, "total_score": 0.18, "score_detail": {"total": 0.18, "components": {"positive": 0.0, "risk": 0.0, "volume": 0.18, "novelty": 0.0}, "stats": {"signal_count": 9, "source_count": 1}}, "evidence": [], "explain": "회의 내부 중요도 높음", "rank": 1}, {"idea_id": "MEET-teamA-002", "title": "블루투스 스피커/마이크 기반 실시간 랭킹 (상용화 단계)", "reason": "- 지금은 파일 업로드 기반 베타로 먼저", "raw": "- 블루투스 스피커/마이크 기반 실시간 랭킹 (상용화 단계)\n- 지금은 파일 업로드 기반 베타로 먼저", "signals": {"novelty": 0.6, "specificity": 0.33924363123418283, "feasibility": 0.6035461787405098, "market_pull": 0.3775406687981454, "evidence": 0.05, "clarity": 0.7, "trend_boost": 0.0, "freshness": 0.0, "evidence_count": 0}, "total_score": 0.18, "score_detail": {"total": 0.18, "components": {"positive": 0.0, "risk": 0.0, "volume": 0.18, "novelty": 0.0}, "stats": {"signal_count": 9, "source_count": 1}}, "evidence": [], "explain": "회의 내부 중요도 높음", "rank": 2}];
+
+function esc(s) {
+ return String(s ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+}
+
+function renderDetail(i) {
+ const ev = (i.evidence || []).map(e => {
+   const t = esc(e.title || "evidence");
+   const u = e.url ? `<a href="${esc(e.url)}" target="_blank">${t}</a>` : t;
+   const src = esc(e.source || "");
+   return `<div>• ${u} (${src})</div>`;
+ }).join("");
+
+ const sig = i.signals
+  ? Object.entries(i.signals).slice(0,6).map(([k,v]) =>
+    `<span class="pill">${esc(k)}: ${esc(v)}</span>`
+  ).join("")
+  : "";
+
+ document.getElementById("detail").innerHTML = `
+   <h2>#${i.rank} ${esc(i.title)}</h2>
+   <div>총점: <b>${esc(i.total_score)}</b></div>
+   <div>${esc(i.explain || "")}</div>
+   <div>${sig}</div>
+   <div>${esc(i.reason)}</div>
+   <hr>
+   <div>${ev || "증거 없음"}</div>
+ `;
+}
+
+function renderList() {
+ const el = document.getElementById("list");
+ el.innerHTML = items.map(i => `
+   <div class="item" onclick="renderDetail(items[${i.rank-1}])">
+     <div><span class="rank">#${i.rank}</span>${esc(i.title)}</div>
+     <div class="score">${esc(i.total_score)}</div>
+   </div>
+ `).join("");
+}
+
+renderList();
+if(items.length) renderDetail(items[0]);
+</script>
+
+</body>
+</html>

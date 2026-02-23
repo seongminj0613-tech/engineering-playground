@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Meeting Decision Engine</title>
+  <style>
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR"; background:#0b0f16; color:#e9eef8; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 22px; }
+    .bar { position: sticky; top:0; background: rgba(11,15,22,0.92); backdrop-filter: blur(8px); padding: 14px; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; }
+    .row { display:flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .drop { border: 1px dashed rgba(255,255,255,0.18); border-radius: 14px; padding: 10px 12px; flex: 1; min-width: 260px; }
+    .btn { padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.14); background:#111a2b; color:#e9eef8; cursor:pointer; }
+    .btn:disabled { opacity:0.5; cursor:not-allowed; }
+    input, select { padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.14); background:#0f1726; color:#e9eef8; }
+
+    .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+    .card { border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); border-radius: 16px; padding: 14px; }
+    .h1 { font-size: 22px; font-weight: 900; margin: 0 0 6px; }
+    .muted { color: rgba(233,238,248,0.7); }
+    .badge { display:inline-flex; align-items:center; gap:6px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.03); font-size: 12px; }
+    .list { margin: 8px 0 0; padding-left: 18px; }
+    .toplist { display:flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+    .pill { display:inline-block; padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.03); font-size: 12px; margin-right: 6px; }
+    .sep { height: 1px; background: rgba(255,255,255,0.08); margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="bar">
+      <div class="row">
+        <div id="drop" class="drop">
+          <div style="font-weight:800">회의 파일 업로드 (.md / .txt)</div>
+          <div class="muted" style="font-size:13px; margin-top:2px;">
+            드래그&드롭 또는 파일 선택
+          </div>
+          <input id="file" type="file" accept=".md,.txt" style="margin-top:10px;" />
+          <div id="fileName" class="muted" style="font-size:12px; margin-top:6px;"></div>
+        </div>
+
+        <div>
+          <div class="muted" style="font-size:12px;">TopN</div>
+          <input id="topn" type="number" min="1" max="50" value="10" style="width:90px;" />
+        </div>
+
+        <div>
+          <div class="muted" style="font-size:12px;">모드</div>
+          <select id="mode">            
+            <option value="balanced">balanced</option>
+            <option value="conservative">conservative</option>
+            <option value="aggressive">aggressive</option>
+          </select>
+        </div>
+
+        <div>
+          <div class="muted" style="font-size:12px;">Evidence</div>
+          <select id="evidence">
+            <option value="none" selected>none</option>
+            <option value="external">external</option>
+          </select>
+        </div>
+
+        <button id="run" class="btn">분석하기</button>
+      </div>
+    </div>
+
+    <div id="result" class="grid" style="display:none;">
+      <div class="card">
+        <div class="h1">회의 요약</div>
+        <div id="meetingMeta" class="muted"></div>
+        <ul id="meetingSummary" class="list"></ul>
+      </div>
+
+      <div class="card">
+        <div class="h1">선정 기준</div>
+        <div id="selectionMeta" class="muted"></div>
+        <div class="sep"></div>
+        <div class="muted" style="font-size:13px;">
+          핵심 목표: <b>상용 가능성(실현 가능성)</b> 중심으로 TopN을 정렬하고, 각 아이디어의 <b>근거/리스크/다음 액션</b>까지 보여줍니다.
+        </div>
+      </div>
+
+      <div class="card" style="grid-column: 1 / -1;">
+        <div class="h1">상용 가능성 Top</div>
+        <div id="topList" class="toplist"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+
+  const fileInput = $("file");
+  const fileName = $("fileName");
+  const runBtn = $("run");
+  const drop = $("drop");
+
+  function labelEmoji(label) {
+    if (label === "OK") return "✅";
+    if (label === "CONDITIONAL") return "⚠️";
+    return "❌";
+  }
+
+  function escapeHtml(s) {
+    return (s ?? "").toString()
+      .replaceAll("&","&amp;").replaceAll("<","&lt;")
+      .replaceAll(">","&gt;").replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  function setFileName() {
+    const f = fileInput.files?.[0];
+    fileName.textContent = f ? `선택됨: ${f.name}` : "";
+  }
+  fileInput.addEventListener("change", setFileName);
+
+  // Drag & Drop
+  drop.addEventListener("dragover", (e) => { e.preventDefault(); drop.style.borderColor="rgba(233,238,248,0.45)"; });
+  drop.addEventListener("dragleave", () => { drop.style.borderColor="rgba(255,255,255,0.18)"; });
+  drop.addEventListener("drop", (e) => {
+    e.preventDefault();
+    drop.style.borderColor="rgba(255,255,255,0.18)";
+    const f = e.dataTransfer.files?.[0];
+    if (f) {
+      fileInput.files = e.dataTransfer.files;
+      setFileName();
+    }
+  });
+
+  async function analyze() {
+    const f = fileInput.files?.[0];
+    if (!f) { alert("회의 파일(.md/.txt)을 선택해줘"); return; }
+
+    runBtn.disabled = true;
+    runBtn.textContent = "분석 중...";
+
+    try {
+      const topn = parseInt($("topn").value || "10", 10);
+      const mode = $("mode").value;
+      const evidence = $("evidence").value;
+
+      const fd = new FormData();
+      fd.append("file", f);
+
+      const res = await fetch(
+        `/api/analyze?topn=${topn}&mode=${encodeURIComponent(mode)}&evidence=${encodeURIComponent(evidence)}`,
+        { method: "POST", body: fd }
+      );
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.detail || `HTTP ${res.status}`);
+      }
+
+      const vm = await res.json();
+      render(vm);
+    } catch (e) {
+      alert("실패: " + (e.message || e));
+    } finally {
+      runBtn.disabled = false;
+      runBtn.textContent = "분석하기";
+    }
+  }
+
+  function render(vm) {
+    $("result").style.display = "grid";
+
+    // meeting meta
+    const m = vm.meeting || {};
+    $("meetingMeta").textContent = `${m.title || "meeting"} · ${m.date || ""} · ideas: ${m.idea_count ?? ""}`;
+
+    // meeting summary
+    const ul = $("meetingSummary");
+    ul.innerHTML = "";
+    (m.summary || []).forEach(line => {
+      const li = document.createElement("li");
+      li.textContent = line;
+      ul.appendChild(li);
+    });
+
+    // selection meta
+    const sel = vm.selection || {};
+    
+    $("selectionMeta").textContent =
+      `TopN=${sel.topn ?? ""} · mode=${sel.mode ?? ""} · evidence=${sel.evidence ?? ""}`;
+    
+      // top list
+    const list = $("topList");
+    list.innerHTML = "";
+
+    (vm.top || []).forEach(item => {
+      const div = document.createElement("div");
+      div.className = "card";
+
+      const emoji = labelEmoji(item.feasibility_label);
+      const signals = item.signals || {};
+
+      const chips = Object.entries(signals).slice(0, 6).map(([k,v]) =>
+        `<span class="pill">${escapeHtml(k)}: ${Number(v).toFixed(2)}</span>`
+      ).join("");
+
+      const ev = (item.evidence_bullets || []).map(x => `<li>${escapeHtml(x)}</li>`).join("");
+      const ns = (item.next_steps || []).map(x => `<li>${escapeHtml(x)}</li>`).join("");
+      const risks = (item.risks || []).map(r => `<li>${escapeHtml(r.type)} (${escapeHtml(r.level)}): ${escapeHtml(r.note)}</li>`).join("");
+
+      div.innerHTML = `
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:10px;">
+          <div style="font-weight:950; font-size:18px;">
+            #${item.rank} ${emoji} ${escapeHtml(item.title || "")}
+          </div>
+          <div class="badge">Score: <b>${Number(item.total_score_100 || 0).toFixed(2)}</b>/100</div>
+        </div>
+
+        <div class="muted" style="margin-top:6px; font-size:14px;">
+          ${escapeHtml(item.one_liner || "")}
+        </div>
+
+        <div class="sep"></div>
+
+        <div style="font-weight:850;">근거</div>
+        <ul class="list">${ev || "<li class='muted'>근거 없음</li>"}</ul>
+
+        <div style="font-weight:850; margin-top:10px;">다음 액션</div>
+        <ul class="list">${ns || "<li class='muted'>없음</li>"}</ul>
+
+        <div style="font-weight:850; margin-top:10px;">리스크</div>
+        <ul class="list">${risks || "<li class='muted'>없음</li>"}</ul>
+
+        <div class="sep"></div>
+        <div class="muted" style="font-size:13px;">Signals</div>
+        <div style="margin-top:6px;">${chips || "<span class='muted'>no signals</span>"}</div>
+
+        <div class="sep"></div>
+        <div class="muted" style="font-size:13px;">원문 요약</div>
+        <div style="margin-top:6px;">${escapeHtml(item.summary || "")}</div>
+      `;
+      list.appendChild(div);
+    });
+  }
+
+  runBtn.addEventListener("click", analyze);
+</script>
+</body>
+</html>
