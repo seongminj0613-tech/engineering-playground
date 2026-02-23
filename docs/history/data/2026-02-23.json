@@ -1,0 +1,116 @@
+{
+  "date": "2026-02-23",
+  "topn": 25,
+  "items": [
+    {
+      "idea_id": "IDEA-003",
+      "rank": 1,
+      "title": "B2B Workflow Scoring",
+      "tags": [
+        "b2b",
+        "workflow",
+        "compliance"
+      ],
+      "total_score": 2.630213559726526
+    },
+    {
+      "idea_id": "IDEA-007",
+      "rank": 2,
+      "title": "Meeting Notes to Jira Tasks",
+      "tags": [
+        "workflow",
+        "integration",
+        "automation"
+      ],
+      "total_score": 2.3407071533115706
+    },
+    {
+      "idea_id": "IDEA-008",
+      "rank": 3,
+      "title": "Security Policy Drift Monitor",
+      "tags": [
+        "security",
+        "compliance",
+        "devops"
+      ],
+      "total_score": 2.331560836885524
+    },
+    {
+      "idea_id": "IDEA-006",
+      "rank": 4,
+      "title": "Customer Churn Early Warning",
+      "tags": [
+        "retention",
+        "analytics",
+        "b2b"
+      ],
+      "total_score": 2.278929387365416
+    },
+    {
+      "idea_id": "IDEA-002",
+      "rank": 5,
+      "title": "Ops Incident Playbook Generator",
+      "tags": [
+        "devops",
+        "sre",
+        "automation"
+      ],
+      "total_score": 2.2419320353031504
+    },
+    {
+      "idea_id": "IDEA-005",
+      "rank": 6,
+      "title": "Cloud Cost Leak Detector",
+      "tags": [
+        "cloud",
+        "cost",
+        "automation"
+      ],
+      "total_score": 2.236420669829729
+    },
+    {
+      "idea_id": "IDEA-010",
+      "rank": 7,
+      "title": "Privacy-safe Data Collector",
+      "tags": [
+        "privacy",
+        "pii",
+        "compliance"
+      ],
+      "total_score": 2.1154486915781834
+    },
+    {
+      "idea_id": "IDEA-004",
+      "rank": 8,
+      "title": "Resume-to-Job Fit Matcher",
+      "tags": [
+        "hr",
+        "recommendation",
+        "analytics"
+      ],
+      "total_score": 1.9574087274461076
+    },
+    {
+      "idea_id": "IDEA-001",
+      "rank": 9,
+      "title": "Daily Trend Radar",
+      "tags": [
+        "ai",
+        "news",
+        "dashboard"
+      ],
+      "total_score": 1.9344542203383082
+    },
+    {
+      "idea_id": "IDEA-009",
+      "rank": 10,
+      "title": "Real-time Multi-agent Research",
+      "tags": [
+        "ai",
+        "multi-agent",
+        "real-time"
+      ],
+      "total_score": 1.909069871769232
+    }
+  ]
+}
