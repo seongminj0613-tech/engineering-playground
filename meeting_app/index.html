@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Meeting Decision Engine</title>
+  <style>
+    body { margin:0; font-family: ui-sans-serif; background:#0b0f17; color:#e8eefc; }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 20px; }
+    .card { padding:16px; border-radius:16px; background: rgba(255,255,255,0.06); }
+    input, select, button { font-size:14px; }
+    button { padding:10px 14px; border-radius:12px; border:0; background:#9dc1ff; cursor:pointer; }
+    .row { margin: 12px 0; }
+    small { opacity:.75; }
+    .status { margin-top:12px; opacity:.9; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h2>Meeting Decision Engine</h2>
+      <p><small>회의 파일(.md/.txt) 업로드 → 분석 → 결과 화면으로 이동</small></p>
+
+      <div class="row">
+        <label>회의 파일</label><br/>
+        <input id="file" type="file" accept=".md,.txt" />
+      </div>
+
+      <div class="row">
+        <label>Evidence 모드</label><br/>
+        <select id="mode">
+          <option value="external" selected>external (외부 근거 사용)</option>
+          <option value="none">none (회의 기반만)</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <button id="btn">분석하기</button>
+      </div>
+
+      <div class="status" id="status"></div>
+    </div>
+  </div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+
+$("btn").onclick = async () => {
+  const f = $("file").files[0];
+  if (!f) { $("status").textContent = "파일을 선택해줘."; return; }
+
+  $("status").textContent = "분석 중...";
+
+  const fd = new FormData();
+  fd.append("file", f);
+  fd.append("evidence_mode", $("mode").value);
+
+  try {
+    const res = await fetch("/api/analyze", { method: "POST", body: fd });
+    const data = await res.json();
+
+    if (!data.ok) {
+      $("status").textContent = "분석 실패: " + JSON.stringify(data);
+      return;
+    }
+
+    $("status").textContent = "완료! 결과 페이지로 이동...";
+    window.location.href = data.view_url; // ✅ 여기로 이동!
+  } catch (e) {
+    console.error(e);
+    $("status").textContent = "에러: " + e;
+  }
+};
+</script>
+</body>
+</html>
