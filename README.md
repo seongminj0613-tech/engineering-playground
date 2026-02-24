@@ -4,8 +4,10 @@ AI 기반 회의 아이디어 평가 & 의사결정 지원 시스템
 Github Pages에서는 정적 데모로 동작합니다
 실제 분석 기능은 로컬에서 FastAPI 서버 실행시 동작합니다
 
+👉 **Live Dashboard:**  
 👉 **Live Demo:**  
-`https://seongminj0613-tech.github.io/engineering-playground/meeting_app/index.html`
+[Meeting Decision Engine 바로가기]
+(https://seongminj0613-tech.github.io/engineering-playground/meeting_app/index.html)
 
 ---
 
@@ -17,8 +19,9 @@ Github Pages에서는 정적 데모로 동작합니다
 자동으로 실행되는 DevOps 기반 분석 시스템
 
 
-👉 Live Dashboard  
-https://seongminj0613-tech.github.io/engineering-playground/
+👉 **Live Dashboard:**  
+[SignalRank Dashboard]
+(https://seongminj0613-tech.github.io/engineering-playground/)
 - Workflow (GitHub Actions): `Actions` 탭에서 daily run 로그 확인 가능
 - History snapshots: `/docs/history/` 에 날짜별 기록 페이지 자동 생성
 - History data: `/docs/history/data/` 에 날짜별 JSON 스냅샷 저장
