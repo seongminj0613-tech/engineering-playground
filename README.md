@@ -4,7 +4,6 @@ AI 기반 회의 아이디어 평가 & 의사결정 지원 시스템
 Github Pages에서는 정적 데모로 동작합니다
 실제 분석 기능은 로컬에서 FastAPI 서버 실행시 동작합니다
 
-👉 **Live Dashboard:**  
 👉 **Live Demo:**  
 [Meeting Decision Engine 바로가기]
 (https://seongminj0613-tech.github.io/engineering-playground/meeting_app/index.html)
