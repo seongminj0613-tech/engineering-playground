@@ -45,8 +45,6 @@
 <script>
 const $ = (id) => document.getElementById(id);
 const IS_PAGES = location.hostname.includes("github.io");
-
-// Pages에서는 정적 샘플 JSON을 읽고, 로컬/서버에서는 FastAPI로 분석 요청
 const API_URL = IS_PAGES ? "./sample_result.json" : "/api/analyze";
 
 $("btn").onclick = async () => {
@@ -82,7 +80,7 @@ $("btn").onclick = async () => {
     }
 
     $("status").textContent = "완료! 결과 페이지로 이동...";
-    window.location.href = data.view_url;
+    window.location.href = IS_PAGES ? "./result_demo.html" : data.view_url;
   } catch (e) {
     console.error(e);
     $("status").textContent = "에러: " + e.message;
