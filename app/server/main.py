@@ -9,6 +9,12 @@ from app.server.viewmodel import build_viewmodel_from_meeting_text
 from app.ingestion.meeting_parse import parse_meeting_text_with_dropped
 
 import re
+from app.explain.explain_layer import (
+    build_evidence_trace,
+    build_risk_analysis,
+    build_next_actions,
+    build_confidence,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 WEB_DIR = ROOT / "web"
@@ -59,6 +65,36 @@ async def analyze(
         mode=mode,
         evidence_mode=evidence,
     )
+    rows_key = None
+    for k in ["items", "ranked", "rows", "top", "results"]:
+        if k in vm and isinstance(vm[k], list) and (len(vm[k]) == 0 or isinstance(vm[k][0], dict)):
+            rows_key = k
+            break
+
+    if rows_key:
+        rows = vm[rows_key]
+        for row in rows:
+            # evidence_trace: 회의 원문 기반
+            ev_trace = build_evidence_trace(meeting_text, row, max_items=3)
+            row["evidence_trace"] = ev_trace
+
+            # evidence_count 보정 (fallback 문장은 count로 안침)
+            ev_count = int(row.get("evidence_count", 0) or 0)
+            if ev_count == 0 and ev_trace and not ev_trace[0].startswith("회의 인용을 찾지 못함"):
+                ev_count = len(ev_trace)
+            row["evidence_count"] = ev_count
+
+            # confidence 자동 계산
+            row["confidence"] = build_confidence(row)
+
+            # explain 생성
+            row["explain"] = {
+                "evidence_trace": ev_trace,
+                "risk_analysis": build_risk_analysis(row),
+                "next_actions": build_next_actions(row),
+                "confidence": row["confidence"],
+            }
+            
     ideas, dropped = parse_meeting_text_with_dropped(meeting_text, min_len=3, min_title_len=2)
 
     vm["parse"] = {

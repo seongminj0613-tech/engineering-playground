@@ -20,3 +20,18 @@ data/reports/*
 !data/reports/
 !data/reports/**
 reports/run-*/
+
+# generated reports / runs
+reports/
+reports/**
+
+# meeting artifacts (may contain raw text)
+docs/meeting/
+docs/meeting/**
+
+# history daily snapshots (optional)
+docs/history/*.html
+docs/history/data/*.json
+
+# local / data artifacts
+data/reports/idea_cards.json

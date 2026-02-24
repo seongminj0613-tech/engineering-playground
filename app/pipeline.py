@@ -28,6 +28,270 @@ def norm_idea_id(x) -> str:
         return ""
     return str(x).strip().upper()
 
+def build_decision_summary(row: dict) -> str:
+    bd = row.get("score_breakdown") or {}
+    if not isinstance(bd, dict):
+        bd = {}
+
+    evc = int(row.get("evidence_count", 0) or 0)
+    feasibility = float(bd.get("feasibility", 0) or 0)
+    novelty = float(bd.get("novelty", 0) or 0)
+    trend = float(bd.get("trend", 0) or 0)  # 내부 신호(태그/트렌드/market_pull 합)
+    market_ext = float(row.get("market_signal", 0) or 0)  # 외부 근거 기반
+
+    reasons = []
+
+    # 내부 신호: trend
+    if trend >= 1.2:
+        reasons.append("내부 트렌드/수요 신호 높음")
+    elif trend >= 0.8:
+        reasons.append("내부 수요 신호 보통")
+
+    # 외부 근거: market_signal
+    if market_ext >= 0.3:
+        reasons.append("외부 근거로 시장성 확인")
+    elif market_ext <= 0.05:
+        reasons.append("외부 근거 부족")
+
+    if feasibility >= 0.65:
+        reasons.append("실행 가능성 높음")
+    if novelty >= 0.65:
+        reasons.append("차별성 높음")
+
+    if evc >= 3:
+        reasons.append(f"근거 {evc}건 확보")
+    elif evc == 0:
+        reasons.append("근거 미확보(리스크)")
+
+    if not reasons:
+        reasons.append("신호 균형")
+
+    return " / ".join(reasons)
+def build_risk_analysis(row: dict, max_items: int = 3) -> list[dict]:
+    risks: list[dict] = []
+
+    bd = row.get("score_breakdown") or {}
+    if not isinstance(bd, dict):
+        bd = {}
+
+    sig = row.get("signals") or {}
+    if not isinstance(sig, dict):
+        sig = {}
+
+    evidence_count = int(row.get("evidence_count", 0) or 0)
+    signal_count = int(row.get("signal_count", 0) or 0)
+
+    # feasibility
+    feasibility = bd.get("feasibility", sig.get("feasibility", 0))
+    try:
+        feasibility = float(feasibility or 0)
+    except:
+        feasibility = 0.0
+
+    # market signal (row 우선)
+    try:
+        market_signal = float(row.get("market_signal", 0) or 0)
+    except:
+        market_signal = 0.0
+
+    # 1) 근거 부족
+    if evidence_count <= 0:
+        risks.append({
+            "type": "evidence_missing",
+            "description": "근거(Evidence)가 거의 없어 점수/랭킹 신뢰도가 낮을 수 있음",
+            "impact": "high",
+            "mitigation": "회의 원문 인용 1~3개 + 외부 근거 1개 이상 추가"
+        })
+    elif evidence_count < 2:
+        risks.append({
+            "type": "evidence_weak",
+            "description": f"근거가 {evidence_count}건으로 부족하여 판단이 흔들릴 수 있음",
+            "impact": "medium",
+            "mitigation": "정량/지표/요구사항(숫자/기한/범위) 근거 보강"
+        })
+
+    # 2) 실행 가능성
+    if feasibility < 0.35:
+        risks.append({
+            "type": "feasibility_low",
+            "description": "실행 가능성이 낮아 일정 지연/실패 위험",
+            "impact": "high",
+            "mitigation": "PoC 범위 축소 + 핵심 기능 1개만 먼저 검증"
+        })
+    elif feasibility < 0.55:
+        risks.append({
+            "type": "feasibility_uncertain",
+            "description": "실행 가능성이 불확실하여 범위/리소스 확정 필요",
+            "impact": "medium",
+            "mitigation": "필요 데이터/권한/담당자(R&R) 확정 후 착수"
+        })
+
+    # 3) 시장 신호 약함
+    if market_signal <= 0.15:
+        risks.append({
+            "type": "market_signal_weak",
+            "description": "시장/수요 신호가 약해 우선순위가 과대평가될 수 있음",
+            "impact": "medium",
+            "mitigation": "외부 근거 확대 또는 내부 사용자 인터뷰로 수요 검증"
+        })
+
+    # 4) unknown 메타데이터 = 리스크
+    unknown_fields = []
+    for k in ["market", "impact", "risk", "confidence"]:
+        v = row.get(k)
+        if v is None or str(v).strip().lower() in ["unknown", "none", ""]:
+            unknown_fields.append(k)
+    if unknown_fields:
+        risks.append({
+            "type": "metadata_missing",
+            "description": f"메타데이터({', '.join(unknown_fields)}) 미기재로 판단 근거가 약해질 수 있음",
+            "impact": "low" if evidence_count >= 2 else "medium",
+            "mitigation": "market/impact/risk/confidence 최소 기준 채우기"
+        })
+
+    # 5) 신호 부족
+    if signal_count > 0 and signal_count < 4:
+        risks.append({
+            "type": "signal_sparse",
+            "description": f"추출 신호가 {signal_count}개로 적어 점수 안정성이 떨어질 수 있음",
+            "impact": "low",
+            "mitigation": "목표/제약/수치(ROI, %, 기간) 신호를 추가 추출"
+        })
+
+    # 중복 제거 + high 우선
+    seen = set()
+    dedup = []
+    for r in risks:
+        t = r.get("type")
+        if t in seen:
+            continue
+        seen.add(t)
+        dedup.append(r)
+
+    pr = {"high": 0, "medium": 1, "low": 2}
+    dedup.sort(key=lambda x: pr.get(x.get("impact", "medium"), 1))
+    return dedup[:max_items]
+
+def build_evidence_trace(row: dict, max_items: int = 3) -> list[str]:
+    traces = []
+
+    # 1. external evidence
+    ext = row.get("evidence") or []
+    if isinstance(ext, list):
+        for e in ext:
+            if isinstance(e, dict):
+                title = e.get("title") or e.get("snippet") or ""
+                if title:
+                    traces.append(f"외부: {title[:80]}")
+            elif isinstance(e, str):
+                traces.append(f"외부: {e[:80]}")
+
+    # 2. signals 기반 추론 근거
+    sig = row.get("signals") or {}
+    if sig.get("market_pull", 0) > 0.6:
+        traces.append("내부 분석: 시장 수요 신호 높음")
+    if sig.get("feasibility", 0) > 0.6:
+        traces.append("내부 분석: 실행 가능성 높음")
+    if sig.get("novelty", 0) > 0.6:
+        traces.append("내부 분석: 차별성 신호 감지")
+
+    # 3. 아무것도 없으면 fallback
+    if not traces:
+        traces.append("근거 데이터 부족 → 추가 수집 필요")
+
+    return traces[:max_items]
+
+def build_confidence(row: dict) -> str:
+    evidence_count = int(row.get("evidence_count", 0) or 0)
+    signal_count = int(row.get("signal_count", 0) or 0)
+    market_signal = float(row.get("market_signal", 0) or 0)
+
+    unknown_fields = 0
+    for k in ["market", "impact", "risk"]:
+        v = row.get(k)
+        if v is None or str(v).strip().lower() in ["unknown", "none", ""]:
+            unknown_fields += 1
+
+    # HIGH
+    if evidence_count >= 2 and signal_count >= 6 and market_signal > 0.2:
+        return "high"
+
+    # MEDIUM
+    if evidence_count >= 1 and signal_count >= 4:
+        return "medium"
+
+    # LOW
+    if evidence_count == 0 or unknown_fields >= 2:
+        return "low"
+
+    return "medium"
+
+def build_next_actions(row: dict, max_items: int = 3) -> list[dict]:
+    TITLE_MAP = {
+        "evidence_missing": "근거 보강",
+        "evidence_weak": "근거 보강",
+        "market_signal_weak": "시장성 검증",
+        "metadata_missing": "메타데이터 보완",
+        "feasibility_low": "범위/난이도 조정",
+        "feasibility_uncertain": "리소스/요건 확정",
+        "signal_sparse": "신호(Feature) 확장",
+    }
+    
+    actions: list[dict] = []
+
+    risks = (row.get("explain", {}) or {}).get("risk_analysis")
+    if not isinstance(risks, list) or not risks:
+        # explain 전에 호출될 수도 있으니 직접 생성
+        risks = build_risk_analysis(row)
+
+    # 1) 리스크 기반 액션 우선 (mitigation)
+    for rk in risks:
+        mit = (rk or {}).get("mitigation")
+        if not mit:
+            continue
+        rtype = rk.get("type", "risk")
+        impact = (rk.get("impact") or "medium").upper()
+        base_title = TITLE_MAP.get(rtype, "리스크 완화")
+
+        actions.append({
+           "type": f"mitigate:{rtype}",
+           "title": f"[{impact}] {base_title}",
+           "action": mit,
+           "owner": "TBD",
+           "eta": "TBD"
+        })
+
+    # 2) PoC 기본 액션(항상 하나 넣기)
+    title = row.get("title") or row.get("idea_id") or "this idea"
+    actions.append({
+        "type": "poc",
+        "title": "PoC 설계",
+        "action": f"'{title}'에 대해 1~2주 PoC 범위 정의 + 성공 기준(KPI) 1~2개 설정",
+        "owner": "TBD",
+        "eta": "1-2w"
+    })
+
+    # 3) 데이터/요건 확인 액션
+    actions.append({
+        "type": "requirements",
+        "title": "요건/데이터 확인",
+        "action": "필요 데이터/권한/연동 시스템 확인 + 담당자(R&R) 확정",
+        "owner": "TBD",
+        "eta": "3-5d"
+    })
+
+    # 중복 제거 + 상위 max_items만
+    seen = set()
+    dedup = []
+    for a in actions:
+        key = (a.get("type"), a.get("action"))
+        if key in seen:
+            continue
+        seen.add(key)
+        dedup.append(a)
+
+    return dedup[:max_items]
+
 def load_jsonl(path: Path):
     rows = []
     with open(path, "r", encoding="utf-8") as f:
@@ -48,13 +312,19 @@ def build_run_id():
     return dt.datetime.now().strftime("run-%Y%m%d-%H%M%S")
 
 def rank_scores(rows: list, top_k: int = 10) -> list:
-    # 점수 키는 contract로 'total_score'가 최종이지만
-    # 지금은 과도기라 score/total도 안전하게 커버
-    def get_total(r: dict) -> float:
-        return float(r.get("total_score", 0) or 0)
-    ranked = sorted(rows, key=get_total, reverse=True)
+    def get_sort_key(r: dict):
+        # 1) 정렬용 정밀 점수
+        ts_raw = float(r.get("total_score_raw", r.get("total_score", 0)) or 0)
+        # 2) 동점이면 근거 많은 게 위
+        evc = int(r.get("evidence_count", 0) or 0)
+        # 3) 동점이면 시장 신호(있으면) 위
+        ms = float(r.get("market_signal", 0) or 0)
+        # 4) 마지막은 idea_id로 고정 (결정성)
+        iid = str(r.get("idea_id") or "")
+        return (-ts_raw, -evc, -ms, iid)
 
-    # rank 부여(옵션이지만 추천)
+    ranked = sorted(rows, key=get_sort_key)
+
     for i, r in enumerate(ranked, start=1):
         r["rank"] = i
 
@@ -270,20 +540,21 @@ def score_ideas_v2_from_ideas_only(ideas: list) -> list:
         base = score_from_signals(signals)
         jitter = seeded_jitter(iid or str(it.get("title", "")), today, max_points=0.8)
         w = 0.8  # 가중치 (너무 크면 외부근거가 다 먹어버림)
-        total = max(0.0, min(100.0, base + jitter + (market_signal * w)))
-        # ✅ idea에도 박아두기 (render에서 참고 가능)
-        it["signals"] = signals
-        it["total_score"] = round(total, 2)
+        total_raw = max(0.0, min(100.0, base + jitter + (market_signal * w)))
+        total = round(total_raw, 2)
+
+        it["total_score"] = total
+        it["total_score_raw"] = float(total_raw)
 
         scored_rows.append({
             "idea_id": iid,
             "idea_id_raw": iid_raw,
-            "total_score": round(total, 2),
+            "total_score": total,              # 표시용
+            "total_score_raw": float(total_raw),# 정렬용(정밀)
             "signals": signals,
             "signal_count": len(signals),
-            # render에서 쓰는 필드들 보강(선택)
             "evidence": it.get("evidence") or [],
-            "market_signal": (it.get("score_breakdown") or {}).get("market_signal", 0.0),
+            "market_signal": market_signal,     # ✅ 여기 진짜 값 넣자(지금 0.0 고정되어 있었음)
             "tags": it.get("tags") or [],
             "risk": it.get("risk") or "unknown",
             "impact": it.get("impact") or "unknown",
@@ -292,7 +563,6 @@ def score_ideas_v2_from_ideas_only(ideas: list) -> list:
             "feasibility": it.get("feasibility") or "unknown",
             "title": (it.get("title") or it.get("name") or it.get("idea") or str(iid_raw) or iid),
             "summary": (it.get("summary") or build_summary_from_idea(it)),
-            "tags": it.get("tags") or [],            
         })
 
   
@@ -477,7 +747,20 @@ def main():
     print("DEBUG total_score sample:", scored_rows[0].get("total_score") if scored_rows else None)
     print("DEBUG signals sample keys:", list((scored_rows[0].get("signals") or {}).keys()) if scored_rows else None)
     
-    ranked_top = rank_scores(scored_rows, top_k=50)
+    for r in scored_rows:
+        # evidence: 회의/기타
+        ev1 = r.get("evidence") or []
+        if ev1 and not isinstance(ev1, list):
+            ev1 = [ev1]
+
+        # external evidence: 매칭된 외부 근거 (있을 수 있음)
+        ev2 = r.get("external_evidence") or []
+        if ev2 and not isinstance(ev2, list):
+            ev2 = [ev2]
+
+        # 합치되, 일단 count만 정확히
+        r["evidence_count"] = len(ev1) + len(ev2)
+
     ranked_top = rank_scores(scored_rows, top_k=50)
 
     today_str = dt.datetime.now().strftime("%Y-%m-%d")
@@ -628,9 +911,15 @@ def main():
     out_path.parent.mkdir(parents=True, exist_ok=True)
     
     for row in ranked_top:
-        bd = row.get("score_breakdown") or {}
-        if isinstance(bd, dict) and bd:
-            row["total_score"] = round(sum(float(v) for v in bd.values()), 2)
+        row["explain"] = {
+            "decision_summary": build_decision_summary(row),
+            "score_breakdown": row.get("score_breakdown", {}),
+            "evidence_trace": build_evidence_trace(row),
+            "risk_analysis": build_risk_analysis(row),
+            "next_actions": build_next_actions(row),
+            "confidence": build_confidence(row),
+        }
+    
     
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(ranked_top, f, ensure_ascii=False, indent=2)

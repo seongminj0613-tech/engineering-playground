@@ -74,6 +74,7 @@ def enrich_signals_from_text(idea: dict, signals_kv: dict) -> dict:
 
 def _ensure_dir(p: Path) -> None:
     p.mkdir(parents=True, exist_ok=True)
+    
 
 
 def _try_call(fn, *argsets):
@@ -178,7 +179,8 @@ def coerce_total_score(x):
         return 0.0
 
 def _render_meeting_html(out_path: Path, title: str, top_items: list[dict]) -> None:
-    items_json = json.dumps(top_items, ensure_ascii=False)
+    # ✅ JSON을 HTML 안에 안전하게 넣기 위해 </script> 방지
+    items_json = json.dumps(top_items, ensure_ascii=False).replace("</", "<\\/")
 
     html = f"""<!doctype html>
 <html lang="ko">
@@ -194,70 +196,209 @@ body {{ margin:0; font-family: ui-sans-serif; background:#0b0f17; color:#e8eefc;
 .item {{ cursor:pointer; padding:10px; border-radius:12px; background: rgba(255,255,255,0.04); }}
 .rank {{ font-weight:900; margin-right:6px; }}
 .score {{ opacity:0.85; font-size:12px; }}
-.pill {{ padding:4px 8px; border-radius:999px; background: rgba(157,193,255,0.12); font-size:12px; margin-right:6px; }}
+.pill {{ padding:4px 8px; border-radius:999px; background: rgba(157,193,255,0.12); font-size:12px; margin-right:6px; display:inline-block; margin-top:6px; }}
+hr {{ border:0; border-top:1px solid rgba(255,255,255,0.10); margin:12px 0; }}
 </style>
 </head>
 <body>
 
 <div class="wrap">
-<div class="card" id="detail"></div>
+  <div class="card" id="detail"></div>
 
-<div class="card">
-<div style="font-weight:900; margin-bottom:10px;">상용가능성 TOP</div>
-<div class="list" id="list"></div>
+  <div class="card">
+    <div style="font-weight:900; margin-bottom:10px;">상용가능성 TOP</div>
+    <div class="list" id="list"></div>
+  </div>
 </div>
-</div>
+
+<!-- ✅ 데이터를 JS코드가 아니라 JSON 스크립트로 안전하게 주입 -->
+<script id="__DATA__" type="application/json">{items_json}</script>
 
 <script>
-const items = {items_json};
-
 function esc(s) {{
- return String(s ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+  return String(s ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;");
 }}
 
+const items = (() => {{
+  try {{
+    const raw = document.getElementById("__DATA__")?.textContent || "[]";
+    return JSON.parse(raw);
+  }} catch (e) {{
+    console.error("DATA PARSE ERROR", e);
+    return [];
+  }}
+}})();
+
 function renderDetail(i) {{
- const ev = (i.evidence || []).map(e => {{
-   const t = esc(e.title || "evidence");
-   const u = e.url ? `<a href="${{esc(e.url)}}" target="_blank">${{t}}</a>` : t;
-   const src = esc(e.source || "");
-   return `<div>• ${{u}} (${{src}})</div>`;
- }}).join("");
+  const explainList = (i.explain_list || []).map(x =>
+    `<div>• ${{esc(String(x).replaceAll("\\n"," ").replaceAll("\\r"," "))}}</div>`
+  ).join("");
 
- const sig = i.signals
-  ? Object.entries(i.signals).slice(0,6).map(([k,v]) =>
-    `<span class="pill">${{esc(k)}}: ${{esc(v)}}</span>`
-  ).join("")
-  : "";
+  const conf = (i.confidence != null) ? Number(i.confidence) : null;
+  const confHtml = (conf != null)
+    ? `<div style="margin-top:6px;">신뢰도: <b>${{esc(conf)}}</b></div>`
+    : "";
 
- document.getElementById("detail").innerHTML = `
-   <h2>#${{i.rank}} ${{esc(i.title)}}</h2>
-   <div>총점: <b>${{esc(i.total_score)}}</b></div>
-   <div>${{esc(i.explain || "")}}</div>
-   <div>${{sig}}</div>
-   <div>${{esc(i.reason)}}</div>
-   <hr>
-   <div>${{ev || "증거 없음"}}</div>
- `;
+  const ev = (i.evidence_top || i.evidence || []).map(e => {{
+    const t = esc(e.title || "evidence");
+    const u = e.url ? `<a href="${{esc(e.url)}} target="_blank">${{t}}</a>` : t;
+    const src = esc(e.source || "");
+    const sn = e.snippet
+      ? `<div style="opacity:.8;font-size:12px;margin-left:10px;">${{esc(e.snippet)}}</div>`
+      : "";
+    return `<div>• ${{u}} (${{src}})${{sn}}</div>`;
+  }}).join("");
+
+  const sig = i.signals
+    ? Object.entries(i.signals).slice(0,6).map(([k,v]) =>
+      `<span class="pill">${{esc(k)}}: ${{esc(v)}}</span>`
+    ).join("")
+    : "";
+
+  document.getElementById("detail").innerHTML = `
+    <h2>#${{esc(i.rank)}} ${{esc(i.title)}}</h2>
+    <div>총점: <b>${{esc(i.total_score)}}</b></div>
+    ${{confHtml}}
+    <div style="margin-top:8px;">${{explainList || esc(i.explain || "")}}</div>
+    <div style="margin-top:10px;">${{sig}}</div>
+    <div style="margin-top:10px;">${{esc(i.reason || "")}}</div>
+    <hr>
+    <div>${{ev || "증거 없음"}}</div>
+  `;
 }}
 
 function renderList() {{
- const el = document.getElementById("list");
- el.innerHTML = items.map(i => `
-   <div class="item" onclick="renderDetail(items[${{i.rank-1}}])">
-     <div><span class="rank">#${{i.rank}}</span>${{esc(i.title)}}</div>
-     <div class="score">${{esc(i.total_score)}}</div>
-   </div>
- `).join("");
+  const el = document.getElementById("list");
+  if (!items.length) {{
+    el.innerHTML = '<div style="opacity:.7;">결과가 비어있습니다.</div>';
+    document.getElementById("detail").innerHTML = '<div style="opacity:.7;">결과가 비어있습니다.</div>';
+    return;
+  }}
+
+  el.innerHTML = items.map((it, idx) => `
+    <div class="item" onclick="renderDetail(items[${{idx}}])">
+      <div><span class="rank">#${{esc(it.rank)}}</span>${{esc(it.title)}}</div>
+      <div class="score">${{esc(it.total_score)}}</div>
+    </div>
+  `).join("");
+
+  renderDetail(items[0]);
 }}
 
 renderList();
-if(items.length) renderDetail(items[0]);
 </script>
 
 </body>
 </html>
 """
     out_path.write_text(html, encoding="utf-8")
+    
+def build_explain_list(signals_kv: dict) -> list[str]:
+    out = []
+
+    evc = signals_kv.get("evidence_count", 0)
+    if evc:
+        out.append(f"근거 {evc}건 기반 (외부/회의)")
+
+    f = signals_kv.get("feasibility")
+    if isinstance(f, (int, float)) and f >= 0.60:
+        out.append("구현 난이도 현실적")
+
+    mp = signals_kv.get("market_pull")
+    if isinstance(mp, (int, float)) and mp >= 0.45:
+        out.append("업무 효율/가치 신호 존재")
+
+    nov = signals_kv.get("novelty")
+    if isinstance(nov, (int, float)) and nov >= 0.55:
+        out.append("차별성/신규성 확보")
+
+    c = signals_kv.get("clarity")
+    if isinstance(c, (int, float)) and c >= 0.65:
+        out.append("요구사항이 비교적 명확")
+
+    tb = signals_kv.get("trend_boost")
+    if isinstance(tb, (int, float)) and tb >= 0.45:
+        out.append("트렌드 상승 감지")
+
+    if not out:
+        out.append("회의 내 중요도 기반")
+    return out
+
+def extract_internal_evidence(idea: dict, top_k: int = 3) -> list[dict]:
+    """
+    external evidence가 0일 때, 회의 원문(raw_meeting)에서 관련 문장을 근거로 뽑는다.
+    """
+    title = (idea.get("title") or "").strip().lower()
+    raw = (idea.get("raw_meeting") or "").strip()
+    if not raw:
+        return []
+
+    kws = [w for w in re.split(r"\W+", title) if len(w) >= 2]
+    kws = list(dict.fromkeys(kws))[:8]
+
+    sents = [s.strip() for s in re.split(r"[.\n!?]+", raw) if s.strip()]
+    scored = []
+    for s in sents:
+        low = s.lower()
+        hit = sum(1 for w in kws if w in low)
+        if hit > 0:
+            scored.append((hit, s))
+
+    scored.sort(key=lambda x: x[0], reverse=True)
+
+    out = []
+    for hit, s in scored[:top_k]:
+        out.append({
+            "source": "meeting",
+            "title": f"회의 근거 (hit={hit})",
+            "url": "",
+            "snippet": s[:240],
+            "published_at": "",
+        })
+    return out
+
+def build_evidence_top(evidence) -> list[dict]:
+    if not isinstance(evidence, list):
+        return []
+    ev = [e for e in evidence if isinstance(e, dict)]
+    # title/url/snippet 위주로 3~5개만
+    top = []
+    for e in ev[:5]:
+        top.append({
+            "title": e.get("title") or e.get("headline") or "evidence",
+            "url": e.get("url") or e.get("link") or "",
+            "source": e.get("source") or e.get("publisher") or "external",
+            "snippet": (e.get("snippet") or e.get("summary") or e.get("content") or "")[:240],
+            "published_at": e.get("published_at") or e.get("date") or "",
+        })
+    return top
+
+def _norm_score01(total_score: float) -> float:
+    s = float(total_score or 0)
+
+    # 이미 0~1 스케일이면 그대로
+    if 0.0 <= s <= 1.5:
+        return max(0.0, min(s, 1.0))
+
+    # 0~100 스케일이면 정규화
+    return max(0.0, min(s / 100.0, 1.0))
+
+def calc_confidence(total_score: float, signals_kv: dict) -> float:
+    evc = float(signals_kv.get("evidence_count", 0) or 0)
+    feasibility = float(signals_kv.get("feasibility", 0) or 0)
+    market_pull = float(signals_kv.get("market_pull", 0) or 0)
+    clarity = float(signals_kv.get("clarity", 0) or 0)
+
+    base = _norm_score01(total_score)  # ⭐ 핵심
+    stability = (feasibility + market_pull + clarity) / 3.0
+
+    ev_boost = min(evc * 0.08, 0.35)
+
+    conf = base * 0.40 + stability * 0.45 + ev_boost
+    return round(min(max(conf, 0.05), 0.99), 2)
 
 def build_reason_explain(title, signals_kv, evidence):
     lines = []
@@ -269,11 +410,12 @@ def build_reason_explain(title, signals_kv, evidence):
 
     # feasibility
     f = signals_kv.get("feasibility")
-    if isinstance(f, (int, float)) and f > 6:
+    if isinstance(f, (int, float)) and f >= 0.65:
         lines.append("기술 구현 난이도 현실적")
 
     # trend
-    if signals_kv.get("trend_boost"):
+    tb = signals_kv.get("trend_boost")
+    if isinstance(tb, (int, float)) and tb >= 0.5:
         lines.append("최근 트렌드 상승 감지")
 
     if not lines:
@@ -359,6 +501,11 @@ def main():
         except Exception:
             pass
         
+        if not isinstance(evidence, list):
+            evidence = []
+        if len(evidence) == 0:
+            evidence = extract_internal_evidence(idea, top_k=3)
+        
         external_evidence_items = evidence if isinstance(evidence, list) else []
 
         # market signal (지금은 옵션)
@@ -387,6 +534,10 @@ def main():
         # scoring
         total_raw = scorer.total_score(idea, signals_list)
         total_score = coerce_total_score(total_raw)
+        
+        explain_list = build_explain_list(signals_kv)
+        evidence_top = build_evidence_top(evidence)
+        confidence = calc_confidence(total_score, signals_kv)
 
         scored_items.append({
              "idea_id": idea["idea_id"],
@@ -397,7 +548,10 @@ def main():
              "total_score": round(total_score, 2),
              "score_detail": total_raw if isinstance(total_raw, dict) else None,
              "evidence": evidence,
+             "evidence_top": evidence_top,
              "explain": build_reason_explain(it.title, signals_kv, evidence),
+             "explain_list": explain_list,
+             "confidence": confidence,
         })
 
     # 4) sort + rank + topn
@@ -494,6 +648,11 @@ def run_meeting_analysis_from_text(
                 ((idea, external_docs), {"k": 5}),
             )
             # 네가 만든 extra evidence 보강 로직도 여기 붙여도 됨(그대로 복붙 OK)
+        
+        if not isinstance(evidence, list):
+            evidence = []
+        if len(evidence) == 0:
+            evidence = extract_internal_evidence(idea, top_k=3)
 
         if isinstance(evidence, list):
            evidence = [e for e in evidence if isinstance(e, dict)]
@@ -538,6 +697,9 @@ def run_meeting_analysis_from_text(
         # scoring
         total_raw = scorer.total_score(idea, signals_list)
         total_score = coerce_total_score(total_raw)
+        explain_list = build_explain_list(signals_kv)
+        evidence_top = build_evidence_top(evidence)
+        confidence = calc_confidence(total_score, signals_kv)
 
         scored_items.append({
             "idea_id": idea["idea_id"],
@@ -550,6 +712,9 @@ def run_meeting_analysis_from_text(
             "evidence": evidence,
             "explain": build_reason_explain(it.title, signals_kv, evidence),
             "external_evidence_items": external_evidence_items,
+            "evidence_top": evidence_top,
+            "explain_list": explain_list, 
+            "confidence": confidence,
         })
 
     # 4) sort + rank + topn
