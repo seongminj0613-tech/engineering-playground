@@ -1,4 +1,15 @@
-# SignalRank — AI 기반 아이디어 우선순위 분석 시스템
+# 🚀 Meeting Decision Engine (Main Project)
+
+AI 기반 회의 아이디어 평가 & 의사결정 지원 시스템
+Github Pages에서는 정적 데모로 동작합니다
+실제 분석 기능은 로컬에서 FastAPI 서버 실행시 동작합니다
+
+👉 **Live Demo:**  
+`https://seongminj0613-tech.github.io/engineering-playground/meeting_app/index.html`
+
+---
+
+## SignalRank — AI 기반 아이디어 우선순위 분석 시스템
 실시간 데이터와 아이디어를 기반으로 실행 가능성과 시장성을 점수화하여 아이디어를 자동으로 랭킹화하고 변화 추이를 추적하는 운영형 데이터 파이프라인
 
 운영형 자동데이터 파이프라인
