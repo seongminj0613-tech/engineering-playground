@@ -1,0 +1,28 @@
+{
+  "ok": true,
+  "top_ideas": [
+    {
+      "rank": 1,
+      "title": "회의 요약 자동화 + 의사결정 근거 생성",
+      "score": 91.2,
+      "confidence": 0.82,
+      "explain": {
+        "novelty": "회의 내용을 아이디어 카드로 구조화",
+        "feasibility": "FastAPI 업로드 + 파이프라인으로 즉시 적용 가능",
+        "evidence": "회의에서 반복 언급된 요구사항 기반"
+      }
+    },
+    {
+      "rank": 2,
+      "title": "회의 결과 히스토리 비교(Δrank/Δscore) 대시보드",
+      "score": 86.4,
+      "confidence": 0.74,
+      "explain": {
+        "novelty": "일자별 변화량을 자동 계산",
+        "feasibility": "JSON snapshot/렌더링 구조가 이미 있음",
+        "evidence": "daily rank 시스템 경험 기반 확장"
+      }
+    }
+  ],
+  "message": "GitHub Pages 정적 데모. 실제 분석은 로컬/서버 FastAPI에서 동작."
+}

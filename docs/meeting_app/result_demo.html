@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Meeting Decision Engine - Demo Result</title>
+  <style>
+    body{margin:0;font-family:ui-sans-serif;background:#0b0f17;color:#e8eefc}
+    .wrap{max-width:860px;margin:0 auto;padding:20px}
+    .card{padding:16px;border-radius:16px;background:rgba(255,255,255,.06)}
+    pre{white-space:pre-wrap;word-break:break-word;background:rgba(0,0,0,.25);padding:12px;border-radius:12px}
+    a{color:#9dc1ff}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h2>Demo Result</h2>
+      <p><small>이 페이지는 GitHub Pages용 정적 데모 결과야.</small></p>
+      <pre id="out">loading...</pre>
+      <p><a href="./">← 돌아가기</a></p>
+    </div>
+  </div>
+<script>
+fetch("./sample_result_full.json")
+  .then(r => r.json())
+  .then(j => { document.getElementById("out").textContent = JSON.stringify(j, null, 2); })
+  .catch(e => { document.getElementById("out").textContent = String(e); });
+</script>
+</body>
+</html>

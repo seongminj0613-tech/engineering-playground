@@ -44,31 +44,48 @@
 
 <script>
 const $ = (id) => document.getElementById(id);
+const IS_PAGES = location.hostname.includes("github.io");
+
+// Pages에서는 정적 샘플 JSON을 읽고, 로컬/서버에서는 FastAPI로 분석 요청
+const API_URL = IS_PAGES ? "./sample_result.json" : "/api/analyze";
 
 $("btn").onclick = async () => {
   const f = $("file").files[0];
-  if (!f) { $("status").textContent = "파일을 선택해줘."; return; }
 
-  $("status").textContent = "분석 중...";
-
-  const fd = new FormData();
-  fd.append("file", f);
-  fd.append("evidence_mode", $("mode").value);
+  if (!f && !IS_PAGES) { $("status").textContent = "파일을 선택해줘."; return; }
+  $("status").textContent = IS_PAGES ? "데모 로딩 중..." : "분석 중...";
 
   try {
-    const res = await fetch("/api/analyze", { method: "POST", body: fd });
+    let res;
+
+    if (IS_PAGES) {
+      res = await fetch(API_URL, { method: "GET" });
+    } else {
+      const fd = new FormData();
+      fd.append("file", f);
+      fd.append("evidence_mode", $("mode").value);
+      res = await fetch(API_URL, { method: "POST", body: fd });
+    }
+
+    // Pages에서 404 HTML이 오면 여기서 걸리도록 방어
+    const ct = (res.headers.get("content-type") || "").toLowerCase();
+    if (!ct.includes("application/json")) {
+      const text = await res.text();
+      throw new Error(`JSON 응답이 아님 (status=${res.status}). 응답 일부: ` + text.slice(0, 120));
+    }
+
     const data = await res.json();
 
     if (!data.ok) {
-      $("status").textContent = "분석 실패: " + JSON.stringify(data);
+      $("status").textContent = "실패: " + JSON.stringify(data);
       return;
     }
 
     $("status").textContent = "완료! 결과 페이지로 이동...";
-    window.location.href = data.view_url; // ✅ 여기로 이동!
+    window.location.href = data.view_url;
   } catch (e) {
     console.error(e);
-    $("status").textContent = "에러: " + e;
+    $("status").textContent = "에러: " + e.message;
   }
 };
 </script>

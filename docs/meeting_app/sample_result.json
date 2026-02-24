@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "top_ideas": [
+    {
+      "rank": 1,
+      "title": "Meeting Decision Engine 데모 아이디어",
+      "score": 91.2,
+      "confidence": 0.82,
+      "explain": {
+        "novelty": "새로운 접근",
+        "feasibility": "현 리소스로 가능",
+        "evidence": "회의에서 2회 이상 언급"
+      }
+    }
+  ],
+  "message": "GitHub Pages는 정적 데모입니다. 실제 분석은 FastAPI 서버에서 실행하세요."
+}
